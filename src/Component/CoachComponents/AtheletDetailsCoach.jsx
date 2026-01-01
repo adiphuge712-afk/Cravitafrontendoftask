@@ -27,7 +27,7 @@ const AtheletDetailsCoach = ({user}) => {
    <>
    <NavbarCoach/>
     <table className='table table-borderd border '>
-               <thead className='table-dark'>
+               <thead className='table-primary'>
                  <tr className='border'>
                     <th>Sr.no</th>
                     <th>Athelet Id</th>
@@ -38,7 +38,7 @@ const AtheletDetailsCoach = ({user}) => {
                     {/* <th>Schedule Plan</th> */}
                     </tr>
                </thead>
-               <tbody>
+               <tbody className='table-secondary'>
                   {coachdat.map((d,index)=>(
                     <tr key={d.athid}>
                       <td>{index+1}</td>

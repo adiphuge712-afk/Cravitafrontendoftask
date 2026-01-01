@@ -53,8 +53,9 @@ const CoachDetails = ({user}) => {
     return (
         <>
             <Navbaradmin />
-            <table className='table table-borderd border '>
-                <tr className='border'>
+            <table className='table table-bordered border '>
+                <thead className='table-primary'>
+                <tr>
                     <th>CoachId</th>
                     <th>Name</th>
                     <th>Email</th>
@@ -65,6 +66,8 @@ const CoachDetails = ({user}) => {
                     {/* <th>Athlate id</th> */}
                     <th className='text-center'>Modifiy</th>
                 </tr>
+                </thead>
+                <tbody className='table-secondary'>
                 {coachdat.map((d, index) => (
                     <tr className='border' key={d.coachid}>
                         <td>{index + 1}</td>
@@ -76,11 +79,12 @@ const CoachDetails = ({user}) => {
                         <td>{d.adid.adminid}&nbsp;&nbsp;{d.adid.name}</td>
                        
                         <td>
-                            <button className='btn btn-danger mx-2' onClick={() => deletestudent(d.coachid)}>Delete</button>
-                            <button className='btn btn-info mx-2' onClick={() => profileedit(d)}>Profile edit</button>
+                            <button className='btn btn-danger mx-2 w-auto' onClick={() => deletestudent(d.coachid)}>Delete</button>
+                            <button className='btn btn-info mx-2 w-auto' onClick={() => profileedit(d)}>Profile edit</button>
                         </td>
                     </tr>
                 ))}
+                </tbody>
             </table>
             {
                 edit && (

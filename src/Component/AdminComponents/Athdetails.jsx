@@ -62,7 +62,7 @@ const Athdetails = ({ user }) => {
       <Navbaradmin />
 
       <table className='table table-borderd border '>
-        <thead>
+        <thead className='table-danger'>
           <tr className='border'>
             <th>AtheletId</th>
             <th>AtheletName</th>
@@ -73,7 +73,7 @@ const Athdetails = ({ user }) => {
             <th>Add Coach</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className='table-primary'>
 
           {athdata.map((d, index) => (
             <tr key={d.athid}>

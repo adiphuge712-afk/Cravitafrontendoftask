@@ -70,7 +70,7 @@ const AtheletsAndWorkdril = ({ user }) => {
     }, []);
     return (<>
         <NavbarCoach />
-        <table className='table table-bordered border '>
+        <table className='table table-bordered border bg-dark '>
             <thead className='table-info border sticky-athlete'>
                 <tr className='border'>
                     <th>Sr.no</th>
@@ -82,7 +82,7 @@ const AtheletsAndWorkdril = ({ user }) => {
                     {/* <th>Schedule Plan</th> */}
                 </tr>
             </thead>
-            <tbody>
+            <tbody className='bg-dark'>
                 {coachdat.map((d, index) => (
                     <React.Fragment key={d.athid}>
 
@@ -110,13 +110,14 @@ const AtheletsAndWorkdril = ({ user }) => {
                                             <th className='d-flex  justify-content-center '>Add performance</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody className='table-secondary bg-dark'>
                                         {workdril.map((w, index) => (
                                             <tr key={w.workid}>
                                                 <td>{index + 1}</td>
+                                                <td>{w.workname}</td>
                                                 <td>{w.duration}</td>
                                                 <td>{w.intencity}</td>
-                                                <td>{w.workname}</td>
+                                                
                                                 <td>{w.plan.planname}</td>
                                                 <td className='d-flex  justify-content-center '>
                                                     <button className=' btn btn-primary w-100' onClick={() => perpormance(d.athid, w.workid)}>Add</button>
@@ -147,12 +148,26 @@ const AtheletsAndWorkdril = ({ user }) => {
                                 <button className='btn btn-danger position-absolute top-0 end-0 m-2' onClick={() => {
                                     setperformance(null);
                                 }} style={{ zIndex: 7750 }}>Close</button>
-                                <input type="text" value={performance.performancematrix} onChange={(e) => setperformance({ ...performance, performancematrix: e.target.value })} name='performancematrix' className="form-control mt-2 p-2" placeholder='Enter the performanse matrix Average Low High' required />
-                                {/* <input type="date" value={performance.date} onChange={(e) => setperformance({ ...performance, date: e.target.value })} name='date' id='date' className="form-control mt-2 p-2" placeholder='Enter the date' required /> */}
-                                <input type="text" value={performance.fatiquelevel} onChange={(e) => setperformance({ ...performance, fatiquelevel: e.target.value })} name="fatiquelevel" id='fatiquelevel' className="form-control mt-2 p-2" placeholder='Enter the fatiquelevel Tired fresh Average' required />
 
+                                <select type="text" value={performance.performancematrix} onChange={(e) => setperformance({ ...performance, performancematrix: e.target.value })} name='performancematrix' className="form-control mt-2 p-2" required>
+                                    <option value="">Select Performance</option>
+                                    <option value="Low">Low</option>
+                                    <option value="Good">Good</option>
+                                    <option value="Average">Average</option>
+                                    <option value="High">High</option>
+                                    <option value="Excellent">Excellent</option>
+                                </select>
+
+                                <select type="text" value={performance.fatiquelevel} onChange={(e) => setperformance({ ...performance, fatiquelevel: e.target.value })} name="fatiquelevel" id='fatiquelevel' className="form-control mt-2 p-2" required>
+                                    <option value="">Select Fatiquelevel</option>
+                                    <option value="Fresh">Fresh</option>
+                                    <option value="Good">Good</option>
+                                    <option value="Average">Average</option>
+                                    <option value="High">High</option>
+                                    <option value="Excellent">Excellent</option>
+                                </select>
                                 <div className="d-flex justify-content-center my-2">
-                                    <button type="submit" className='btn btn-primary'>Update</button>
+                                    <button type="submit" className='btn btn-success w-100'>Update</button>
                                 </div>
                             </form>
                         </div>

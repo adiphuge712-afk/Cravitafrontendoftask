@@ -82,8 +82,8 @@ setWorkdata({
     <>
     <NavbarCoach/>
      {/* <h1 className='text-center'>Welcome {user.name}</h1> */}
-    <table className='table table-borderd border '>
-               <thead>
+    <table className='table table-bordered border '>
+               <thead className='table-danger'>
                  <tr className='border'>
                     <th>Sr.no</th>
                     <th>Planname</th>
@@ -94,7 +94,7 @@ setWorkdata({
                     <th>Workdril</th>
                 </tr>
                </thead>
-               <tbody>
+               <tbody className='table-primary'>
                 {coachdat.map((d,index)=>(
                     <tr key={d.planid}>
                         <td>{index+1}</td>
@@ -107,7 +107,7 @@ setWorkdata({
                              <button className='btn btn-info mx-2' onClick={() => profileedit(d)}>Plan edit</button> 
                         </td>
                        <td>
-                        <button className='btn btn-success'onClick={()=>Workdriladd(d.planid)} >Workdril</button>
+                        <button className='btn btn-success w-100'onClick={()=>Workdriladd(d.planid)} >Workdril</button>
                        </td>
                     </tr>
                 ))}

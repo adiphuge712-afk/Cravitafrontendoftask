@@ -28,7 +28,7 @@ show()
   return (
     <>
         <NavbarCoach/>
-        <div className='vh-100 bg-primary'>CoachDashboard</div>
+        <div className='vh-100 bg-secondary'>CoachDashboard</div>
     
     </>
   )

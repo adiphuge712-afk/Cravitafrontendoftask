@@ -25,7 +25,7 @@ const FeedbackHistory = ({user}) => {
     <Navbaradmin/>
     
     <table className='table table-borderd border '>
-               <thead>
+               <thead className='table-info'>
                  <tr className='border'>
                     <th>FeedBackId</th>
                     <th>Comment</th>
@@ -36,7 +36,7 @@ const FeedbackHistory = ({user}) => {
                     <th>Athelet Name</th>
                     </tr>
                </thead>
-               <tbody>
+               <tbody className='table-secondary'>
                 {coachdat.map((d,index)=>(
                   <tr key={d.feedid}>
                     <td>{index+1}</td>
