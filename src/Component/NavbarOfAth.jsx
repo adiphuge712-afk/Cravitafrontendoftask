@@ -20,6 +20,9 @@ const NavbarOfAth = () => {
         <Link className="nav-link text-white" to="/Schedule">Schedule</Link>
       </li>
       <li className="nav-item">
+        <Link className="nav-link text-white" to="/complian">Complain</Link>
+      </li>
+      <li className="nav-item">
         <Link className="nav-link text-white" to="/login">Logout</Link>
       </li>
 

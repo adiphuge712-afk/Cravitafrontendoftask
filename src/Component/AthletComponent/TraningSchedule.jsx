@@ -5,7 +5,18 @@ const TraningSchedule = () => {
   return (
    <>
    <NavbarOfAth/>
-   <h2>Traning schedules</h2>
+    <table className='table table-borderd border '>
+               <thead>
+                 <tr className='border'>
+                    <th>PlanId</th>
+                    <th>Planname</th>
+                    <th>Plan Name</th>
+                    <th>StartDate</th>
+                    <th>EndDate</th>
+                    <th className='text-center'>Modifiy</th>
+                </tr>
+               </thead>
+     </table>
    </>
   )
 }

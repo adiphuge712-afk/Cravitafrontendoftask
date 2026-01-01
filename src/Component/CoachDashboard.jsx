@@ -2,6 +2,7 @@ import React from 'react'
 import {useNavigate} from 'react-router-dom'
 import { useEffect,useState } from 'react';
 import axios from 'axios';
+import NavbarCoach from './CoachComponents/NavbarCoach';
 const CoachDashboard = () => {
  const [data,setShow]=useState(null);
     const navigate=useNavigate();
@@ -26,9 +27,9 @@ show()
 
   return (
     <>
-    {data&&(
-        <div className='vh-100 bg-primary mt-5'>CoachDashboard</div>
-    )}
+        <NavbarCoach/>
+        <div className='vh-100 bg-primary'>CoachDashboard</div>
+    
     </>
   )
 }
