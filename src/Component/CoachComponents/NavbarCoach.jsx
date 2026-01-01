@@ -23,6 +23,9 @@ const NavbarCoach = () => {
         <Link className="nav-link text-white" to="/Schedulecoach">Schedule</Link>
       </li>
       <li className="nav-item active">
+        <Link className="nav-link text-white" to="/AtheletsAndWorkdirl">AtheletsAndWorkdirl</Link>
+      </li>
+      <li className="nav-item active">
         <Link className="nav-link text-white" to="/Performancelog">PerformanceLog</Link>
       </li>
        <li className="nav-item">

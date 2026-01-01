@@ -21,6 +21,7 @@ import Traningschedulescoach from './Component/CoachComponents/Traningschedulesc
 import Scheduleplan from './Component/CoachComponents/Scheduleplan'
 import FeedBackHistoryCoach from './Component/CoachComponents/FeedBackHistoryCoach'
 import Perfromancelog from './Component/CoachComponents/Perfromancelog'
+import AtheletsAndWorkdril from './Component/CoachComponents/AtheletsAndWorkdril'
 function App() {
  const [user,setcontext]=useState(null);
 
@@ -48,6 +49,7 @@ function App() {
          <Route path='/Schedulecoach' element={<Scheduleplan user={user}/>}/>
          <Route path='/feedbackhistorycoach' element={<FeedBackHistoryCoach user={user} />}/>
          <Route path='/Performancelog'element={<Perfromancelog user={user}/>}/>
+         <Route path='/AtheletsAndWorkdirl' element={<AtheletsAndWorkdril user={user}/>}/>
       </Routes>
     
      </UserContext.Provider>
