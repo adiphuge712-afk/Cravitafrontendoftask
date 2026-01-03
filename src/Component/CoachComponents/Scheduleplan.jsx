@@ -37,7 +37,7 @@ const Scheduleplan = ({user}) => {
     <NavbarCoach/>
     {/* <h1 className='text-center'>Welcome {user.name}</h1> */}
          <div className='d-flex justify-content-center align-items-center vh-100 bg-secondary'>
-     <div className="container">
+     <div className="container-fluid">
          <div className='row'>
    <div className='col-sm-4'/>
    <div className='col-sm-4 border p-3 shadow bg-light rounded'>

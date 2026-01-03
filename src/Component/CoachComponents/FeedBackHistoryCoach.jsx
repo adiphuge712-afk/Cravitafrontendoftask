@@ -2,7 +2,7 @@ import React from 'react'
 import NavbarCoach from './NavbarCoach'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import './FeedbackHistoryCoach.css';
 
 const FeedBackHistoryCoach = ({ user }) => {
     const [coachdat, setCoachData] = useState([]);
@@ -50,9 +50,9 @@ const FeedBackHistoryCoach = ({ user }) => {
         <>
             <NavbarCoach />
 
-            <table className='table table-bordered border '>
-                <thead className='table-primary'>
-                    <tr className='border'>
+            <table className='table table-bordered  text-center '>
+                <thead className='table-primary  border-dark'>
+                    <tr className='border-start '>
                         <th>FeedBackId</th>
                         <th>Comment</th>
                         <th>DificultLevel</th>
@@ -63,7 +63,7 @@ const FeedBackHistoryCoach = ({ user }) => {
                         <th>Plan Name</th>
                     </tr>
                 </thead>
-                <tbody className='table-secondary'>
+                <tbody className='table-secondary  border border-dark'>
                     {/* {coachdat.map((d,index)=>(
                   <tr key={d.feedid}>
                     <td>{index+1}</td>
@@ -78,9 +78,9 @@ const FeedBackHistoryCoach = ({ user }) => {
                         <React.Fragment key={c.athid.athid}>
 
                             {/* Athlete Row */}
-                            <tr className="table-secondary">
+                            <tr className="table-secondary border-start border-dark">
                                 <td>{index + 1}</td>
-                                <td>{c.comment}</td>
+                                <td className='text-start'>{c.comment}</td>
                                 <td>{c.difficultlevel}</td>
                                 <td>{c.athid.athid}</td>
                                 <td>{c.athid.name}</td>

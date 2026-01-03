@@ -5,7 +5,7 @@ import axios from 'axios';
 import NavbarOfAth from './NavbarOfAth';
 import Navbaradmin from "./AdminComponents/Navbaradmin";
 ;
-const AdminDashboard = () => {
+const AdminDashboard = ({user}) => {
 //      const [data,setShow]=useState(null);
 //     const navigate=useNavigate();
     
@@ -31,7 +31,10 @@ const AdminDashboard = () => {
   return (
     <>
    <Navbaradmin/>
-   <div className='vh-100 bg-info'>hiii</div>
+  
+   <div className='vh-100 bg-info'>
+     {/* <h2>Welcome {user.name}</h2> */}
+    </div>
     </>
   )
 }

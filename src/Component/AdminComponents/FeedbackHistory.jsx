@@ -24,28 +24,32 @@ const FeedbackHistory = ({user}) => {
     <>
     <Navbaradmin/>
     
-    <table className='table table-borderd border '>
-               <thead className='table-info'>
-                 <tr className='border'>
+    <table className='table  table-bordered border '>
+               <thead className=' table-danger'>
+                 <tr className='text-center  border'>
                     <th>FeedBackId</th>
-                    <th>Comment</th>
+                    <th className='text-start' >Comment</th>
                     <th>DificultLevel</th>
                     <th>CoachId</th>
                     <th>Coach Name</th>
+                    <th>Coach Email</th>
                     <th>AtheletId</th>
                     <th>Athelet Name</th>
+                    <th>Athelet Email</th>
                     </tr>
                </thead>
                <tbody className='table-secondary'>
                 {coachdat.map((d,index)=>(
-                  <tr key={d.feedid}>
-                    <td>{index+1}</td>
-                    <td>{d.comment}</td>
+                  <tr key={d.feedid} className='text-center'>
+                    <td  >{index+1}</td>
+                    <td className='text-start'>{d.comment}</td>
                     <td>{d.difficultlevel}</td>
-                     <td>{d.athid.coachid.coachid}</td>
-                     <td>{d.athid.coachid.name}</td>
-                    <td>{d.athid.athid}</td>
+                     <td >{d.athid.coachid.coachid} </td>
+                     <td>{d.athid.coachid.name} sir</td>
+                     <td>{d.athid.coachid.email}</td>
+                    <td  >{d.athid.athid}</td>
                     <td>{d.athid.name}</td>
+                     <td>{d.athid.email}</td>
                   </tr>
                 ))}
                </tbody>

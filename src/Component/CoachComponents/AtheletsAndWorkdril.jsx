@@ -21,7 +21,7 @@ const AtheletsAndWorkdril = ({ user }) => {
     }
     const fatchworkdirl = async () => {
         try {
-            const work = await axios.get(`http://localhost:8056/viewDataWorkdril`);
+            const work = await axios.get(`http://localhost:8056/viewDataWorkdrilByCoachid/${user.coachid}`);
             setViewWorkdril(work.data);
 
 
@@ -70,24 +70,24 @@ const AtheletsAndWorkdril = ({ user }) => {
     }, []);
     return (<>
         <NavbarCoach />
-        <table className='table table-bordered border bg-dark '>
-            <thead className='table-info border sticky-athlete'>
-                <tr className='border'>
-                    <th>Sr.no</th>
-                    <th>Athelet Id</th>
-                    <th>Athelet Name</th>
-                    <th>Age</th>
-                    <th>Email</th>
-                    <th>Sport Type</th>
+        <table className='table table-bordered  text-center bg-dark '>
+            <thead className='table-info border-dark bg-dark sticky-athlete'>
+                <tr className=' border-start border-dark'>
+                    <th className=' border-start border-dark'>Sr.no</th>
+                    <th className=' border-start border-dark'>Athelet Id</th>
+                    <th className=' border-start border-dark'>Athelet Name</th>
+                    <th className=' border-start border-dark'>Age</th>
+                    <th className=' border-start border-dark'>Email</th>
+                    <th className=' border-start border-dark'>Sport Type</th>
                     {/* <th>Schedule Plan</th> */}
                 </tr>
             </thead>
-            <tbody className='bg-dark'>
+            <tbody className='border border-dark'>
                 {coachdat.map((d, index) => (
                     <React.Fragment key={d.athid}>
 
                         {/* Athlete Row */}
-                        <tr className="table-primary sticky-athlete-underhead-upertablework ">
+                        <tr className="table-primary border border-dark  sticky-athlete-underhead-upertablework ">
                             <td>{index + 1}</td>
                             <td>{d.athid}</td>
                             <td>{d.name}</td>
@@ -98,10 +98,10 @@ const AtheletsAndWorkdril = ({ user }) => {
 
                         {/* Workdril Row UNDER athlete */}
                         <tr>
-                            <td colSpan="6">
-                                <table className="table table-bordered">
-                                    <thead className='table-danger sticky-athlete-underhead '>
-                                        <tr>
+                            <td colSpan="6" className='border border-dark'>
+                                <table className="table table-bordered border-2 border-dark text-center">
+                                    <thead className='table-danger border boder-dark sticky-athlete-underhead '>
+                                        <tr className='border border-start border-dark'>
                                             <th>WorkId</th>
                                             <th>WorkName</th>
                                             <th>Duration</th>
@@ -110,12 +110,12 @@ const AtheletsAndWorkdril = ({ user }) => {
                                             <th className='d-flex  justify-content-center '>Add performance</th>
                                         </tr>
                                     </thead>
-                                    <tbody className='table-secondary bg-dark'>
+                                    <tbody className='table-secondary bg-dark '>
                                         {workdril.map((w, index) => (
-                                            <tr key={w.workid}>
+                                            <tr key={w.workid} className='border border-dark'>
                                                 <td>{index + 1}</td>
                                                 <td>{w.workname}</td>
-                                                <td>{w.duration}</td>
+                                                <td>{w.duration}/Min</td>
                                                 <td>{w.intencity}</td>
                                                 
                                                 <td>{w.plan.planname}</td>

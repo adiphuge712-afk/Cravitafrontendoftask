@@ -1,0 +1,12 @@
+.dashboardheight{
+    display: flex;
+    height: 90vh;
+    width: 100%;
+}
+.navstiky{
+    position: sticky;
+    top: 0%;
+    
+
+
+}

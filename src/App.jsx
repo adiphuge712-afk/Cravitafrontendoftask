@@ -33,7 +33,7 @@ function App() {
          <Route path="/" element={<Home />} />
         <Route path='/register' element={<Register/>}></Route>
       <Route path='/login' element={<Login user={user}/>}></Route>
-      <Route path='/AtheletDashboard' element={<AtheletDashboard/>}/>
+      <Route path='/AtheletDashboard' element={<AtheletDashboard user={user}/>}/>
        <Route path='/AdminDashboard' element={<AdminDashboard user={user}/>}/>
         
        <Route path='/logout' element={<Logout/>}/>
@@ -41,9 +41,9 @@ function App() {
        <Route path='/atheletdetails' element={<Athdetails user={user}/>}></Route>
       <Route path='/Coachinfo' element={<CoachDetails user={user}/>}/>
        <Route path='/feedbackhistory' element={<FeedbackHistory user={user}/>}/> 
-       <Route path='/Schedule' element={<TraningSchedule/>}/>
+       <Route path='/Schedule' element={<TraningSchedule user={user}/>}/>
        <Route path='/atheletscoach' element={<AtheletDetailsCoach user={user}/>}/>
-        <Route path='/CoachDashboard' element={<CoachDashboard/>}/>
+        <Route path='/CoachDashboard' element={<CoachDashboard user={user}/>}/>
          <Route path='/complian' element={<ComplainCoach user={user}/>}/>
          <Route path='/Traningplans' element={<Traningschedulescoach  user={user}/>}/>
          <Route path='/Schedulecoach' element={<Scheduleplan user={user}/>}/>

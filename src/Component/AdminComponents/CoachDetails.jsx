@@ -53,8 +53,8 @@ const CoachDetails = ({user}) => {
     return (
         <>
             <Navbaradmin />
-            <table className='table table-bordered border '>
-                <thead className='table-primary'>
+            <table className='table table-bordered border text-center '>
+                <thead className='table-danger'>
                 <tr>
                     <th>CoachId</th>
                     <th>Name</th>
@@ -67,7 +67,7 @@ const CoachDetails = ({user}) => {
                     <th className='text-center'>Modifiy</th>
                 </tr>
                 </thead>
-                <tbody className='table-secondary'>
+                <tbody className='table-info'>
                 {coachdat.map((d, index) => (
                     <tr className='border' key={d.coachid}>
                         <td>{index + 1}</td>

@@ -40,7 +40,7 @@ const Register = () => {
          <div className='row'>
    <div className='col-sm-4'/>
    <div className='col-sm-4 border p-3 shadow bg-light rounded'>
-    <form onSubmit={formsubmit}>
+    <form >
         <h2 className='text-center text-primary'>Registration form</h2>
        <input type="text" name="name" placeholder='Enter name' className='form-control my-2' value={reg.name} onChange={(e)=>setRegister({...reg,name:e.target.value})}required />
        <input type="email" name="email" placeholder='Enter email ***@gmail.com' className='form-control my-2' value={reg.email} onChange={(e)=>setRegister({...reg,email:e.target.value})} required />

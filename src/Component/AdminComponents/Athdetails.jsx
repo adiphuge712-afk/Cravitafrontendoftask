@@ -61,7 +61,7 @@ const Athdetails = ({ user }) => {
     <>
       <Navbaradmin />
 
-      <table className='table table-borderd border '>
+      <table className='table table-borderd border text-center '>
         <thead className='table-danger'>
           <tr className='border'>
             <th>AtheletId</th>

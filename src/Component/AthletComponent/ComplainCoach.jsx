@@ -12,7 +12,7 @@ const[complain,setComplain]=useState({
     e.preventDefault();
         try {
             const data = await axios.post(`http://localhost:8056/viewDataFeedback/${user.athid}`,complain);
-          alert('complain assiged');
+          alert('Feedback send');
             
         } catch (err) {
             console.log(err);
@@ -25,14 +25,15 @@ const[complain,setComplain]=useState({
     <>
     <NavbarOfAth/>
       <div className='d-flex justify-content-center align-items-center vh-100 bg-white'>
-     <div className="container">
+     <div className="container-fluid">
          <div className='row'>
    <div className='col-sm-4'/>
    <div className='col-sm-4 border p-3 shadow bg-light rounded'>
     <form onSubmit={fectdata}>
         <h2 className='text-center text-primary'>Feedback form</h2>
         {/* <input type="text" name='athid' value={complain.athid.athid} className='form-control my-2'/> */}
-       <input type="text" name="comment" placeholder='Enter Comment' value={complain.comment} onChange={(e)=>setComplain({...complain,comment:e.target.value})} className='form-control my-2'required />
+       {/* <input type="text" name="comment" placeholder='Enter Comment' value={complain.comment} onChange={(e)=>setComplain({...complain,comment:e.target.value})} className='form-control my-2'required /> */}
+       <textarea type="text" name="comment" placeholder='Enter Comment' value={complain.comment} onChange={(e)=>setComplain({...complain,comment:e.target.value})} className='form-control my-2'required />
       <select name="difficultlevel" className='form-control my-2'  value={complain.difficultlevel} onChange={(e)=>setComplain({...complain,difficultlevel:e.target.value})}  required>
        <option value="">Select difficultlevel </option>
         <option value="Easy">Easy</option>
