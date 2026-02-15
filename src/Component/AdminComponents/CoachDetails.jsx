@@ -53,7 +53,7 @@ const CoachDetails = ({user}) => {
     return (
         <>
             <Navbaradmin />
-            <table className='table table-bordered border text-center '>
+            <table className='table table-bordered border-dark text-center '>
                 <thead className='table-danger'>
                 <tr>
                     <th>CoachId</th>
