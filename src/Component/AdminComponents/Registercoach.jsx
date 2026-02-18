@@ -3,7 +3,7 @@ import Navbaradmin from './Navbaradmin'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const Registercoach = ({user}) => {
+const Registercoach = ({ user }) => {
     const [formdata, setData] = useState({
         name: "",
         email: "",
@@ -11,17 +11,17 @@ const Registercoach = ({user}) => {
         password: "",
         experience: "",
         specialization: "",
-        adminid:""
+        adminid: ""
     });
-    const nav=useNavigate();
+    const nav = useNavigate();
     const formsubmit = async (e) => {
         e.preventDefault();
         // console.log(formdata);
         try {
-           const res= await axios.post(`http://localhost:8056/registercoach/${user.adminid}`, formdata);
-            if(res){
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/registercoach/${user.adminid}`, formdata);
+            if (res) {
                 alert('Register Complete');
-            nav('/Coachinfo');
+                nav('/Coachinfo');
 
             }
         } catch (er) {
@@ -39,7 +39,7 @@ const Registercoach = ({user}) => {
                     <div className="col-sm-6 border bg-light shadow p-3 rounded ">
                         <form onSubmit={formsubmit}>
                             <h3 className='text-center'>Register Coach</h3>
-                          
+
                             <label htmlFor="name">CoachName:</label>
                             <input type="text" value={formdata.name} onChange={(e) => setData({ ...formdata, name: e.target.value })} name='name' id='name' className="form-control mt-2 p-2" placeholder='Enter the Name' required />
                             <label htmlFor="email">Email:</label>

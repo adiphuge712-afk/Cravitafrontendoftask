@@ -9,7 +9,7 @@ import CoachDashboard from './CoachDashboard';
 import FeedbackHistory from './AdminComponents/FeedbackHistory';
 
 const Login = ({user}) => {
-
+    
 // console.log(user);
 const{setcontext}=useContext(UserContext);
     const navigate = useNavigate();
@@ -22,7 +22,8 @@ const{setcontext}=useContext(UserContext);
         e.preventDefault();
 
         try {
-            const res = await axios.post('http://localhost:8056/login', logdata);
+          
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/login`, logdata);
                setcontext(res.data);//sharethe data globle
             console.log(res.data);
             alert("Login success");

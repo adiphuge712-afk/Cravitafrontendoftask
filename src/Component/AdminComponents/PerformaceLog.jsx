@@ -2,9 +2,9 @@ import React from 'react'
 import Navbaradmin from './Navbaradmin'
 const PerformaceLog = () => {
   return (<>
-     <Navbaradmin/>
+    <Navbaradmin />
     <div>PerformaceLog</div>
-    </>
+  </>
   )
 }
 

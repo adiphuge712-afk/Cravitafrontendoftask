@@ -10,7 +10,7 @@ const CoachDashboard = () => {
    const show=async()=>
    {
      try {
-        const t=await axios.get("http://localhost:8056/checksession",data);
+        const t=await axios.get(`${import.meta.env.VITE_API_URL}/checksession`,data);
         if(t.data!=null){
             setShow(true);
         }else{

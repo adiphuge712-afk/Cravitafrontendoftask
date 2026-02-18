@@ -1,14 +1,14 @@
 import React from 'react'
 import NavbarCoach from './NavbarCoach'
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-const Perfromancelog = ({user}) => {
-    
-  const [coachdat, setCoachData] = useState([]);
+const Perfromancelog = ({ user }) => {
+
+    const [coachdat, setCoachData] = useState([]);
     // const [edit, sededit] = useState(null);
     const fectdata = async () => {
         try {
-            const data = await axios.get(`http://localhost:8056/viewDataPerformancelog/${user.coachid}`);
+            const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataPerformancelog/${user.coachid}`);
             // alert('datafatch');
             setCoachData(data.data);
         } catch (err) {
@@ -17,32 +17,32 @@ const Perfromancelog = ({user}) => {
 
         }
     }
-    
+
     useEffect(() => {
         fectdata();
     }, []);
 
-  return (
-   <>
-   <NavbarCoach/>
-    <table className='table table-bordered border '>
-               <thead className='table-danger'>
-                 <tr className='border'>
-                    <th>Log Id</th>
-                    <th>Date</th>
-                    <th>Fatiquelevel</th>
-                    <th>Performancematrix</th>
-                    <th>Coach Name</th>
-                    <th>AtheletId</th>
-                    <th>Athelet Name</th>
-                    <th>Athelet Email</th>
-                    <th>Workname</th>
+    return (
+        <>
+            <NavbarCoach />
+            <table className='table table-bordered border '>
+                <thead className='table-danger'>
+                    <tr className='border'>
+                        <th>Log Id</th>
+                        <th>Date</th>
+                        <th>Fatiquelevel</th>
+                        <th>Performancematrix</th>
+                        <th>Coach Name</th>
+                        <th>AtheletId</th>
+                        <th>Athelet Name</th>
+                        <th>Athelet Email</th>
+                        <th>Workname</th>
                     </tr>
                 </thead>
                 <tbody className='table-info'>
-                    {coachdat.map((d,index)=>(
+                    {coachdat.map((d, index) => (
                         <tr key={d.logid}>
-                            <td>{index+1}</td>
+                            <td>{index + 1}</td>
                             <td>{d.date}</td>
                             <td>{d.fatiquelevel}</td>
                             <td>{d.performancematrix}</td>
@@ -54,9 +54,9 @@ const Perfromancelog = ({user}) => {
                         </tr>
                     ))}
                 </tbody>
-    </table>
-   </>
-  )
+            </table>
+        </>
+    )
 }
 
 export default Perfromancelog

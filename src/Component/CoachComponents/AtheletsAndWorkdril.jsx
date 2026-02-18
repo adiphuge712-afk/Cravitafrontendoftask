@@ -10,7 +10,7 @@ const AtheletsAndWorkdril = ({ user }) => {
     const [workdril, setViewWorkdril] = useState([]);
     const fectdata = async () => {
         try {
-            const data = await axios.get(`http://localhost:8056/viewDataAthletCoach/${user.coachid}`);
+            const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataAthletCoach/${user.coachid}`);
             // alert('datafatch');
             setCoachData(data.data);
         } catch (err) {
@@ -21,7 +21,7 @@ const AtheletsAndWorkdril = ({ user }) => {
     }
     const fatchworkdirl = async () => {
         try {
-            const work = await axios.get(`http://localhost:8056/viewDataWorkdrilByCoachid/${user.coachid}`);
+            const work = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataWorkdrilByCoachid/${user.coachid}`);
             setViewWorkdril(work.data);
 
 
@@ -43,9 +43,9 @@ const AtheletsAndWorkdril = ({ user }) => {
     const formsubmitperformanse = async (e) => {
         e.preventDefault();
         try {
-            // const data=await axios.post(`http://localhost:8056/addDataPerformancelog/${performance.athid}/${performance.workid}`,performance);
+            // const data=await axios.post(`${import.meta.env.VITE_API_URL}/addDataPerformancelog/${performance.athid}/${performance.workid}`,performance);
             axios.post(
-                `http://localhost:8056/addDataPerformancelog/${performance.athid}/${performance.workid}`,
+                `${import.meta.env.VITE_API_URL}/addDataPerformancelog/${performance.athid}/${performance.workid}`,
                 {
                     performancematrix: performance.performancematrix,
                     fatiquelevel: performance.fatiquelevel
@@ -117,7 +117,7 @@ const AtheletsAndWorkdril = ({ user }) => {
                                                 <td>{w.workname}</td>
                                                 <td>{w.duration}/Min</td>
                                                 <td>{w.intencity}</td>
-                                                
+
                                                 <td>{w.plan.planname}</td>
                                                 <td className='d-flex  justify-content-center '>
                                                     <button className=' btn btn-primary w-100' onClick={() => perpormance(d.athid, w.workid)}>Add</button>

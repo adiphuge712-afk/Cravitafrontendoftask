@@ -13,7 +13,7 @@ const AtheletDashboard = ({user}) => {
 //    const show=async()=>
 //    {
 //      try {
-//         const t=await axios.get("http://localhost:8056/checksession",{});
+//         const t=await axios.get(`${import.meta.env.VITE_API_URL}/checksession`,{});
 //         // alert(t.data);
 //         // if(t.data===true){
 //         //     setShow(true);

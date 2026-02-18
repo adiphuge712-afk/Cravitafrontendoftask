@@ -10,7 +10,7 @@ const FeedBackHistoryCoach = ({ user }) => {
     // const [edit, sededit] = useState(null);
     const fectdata = async () => {
         try {
-            const data = await axios.get(`http://localhost:8056/viewDataFeedback/${user.coachid}`);
+            const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataFeedback/${user.coachid}`);
             // alert('datafatch');
             setCoachData(data.data);
         } catch (err) {
@@ -21,7 +21,7 @@ const FeedBackHistoryCoach = ({ user }) => {
     }
     const fetchperformance = async () => {
         try {
-            const data = await axios.get(`http://localhost:8056/viewDataPerformancelog/${user.coachid}`);
+            const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataPerformancelog/${user.coachid}`);
             // alert('datafatch');
             setPerformance(data.data);
         } catch (err) {

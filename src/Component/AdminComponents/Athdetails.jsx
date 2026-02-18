@@ -6,7 +6,7 @@ const Athdetails = ({ user }) => {
   const [coachdata, setCoach] = useState(null);
   const caoch = async () => {
     try {
-      const datas = await axios.get('http://localhost:8056/viewDataCoach');
+      const datas = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataCoach`);
       // alert('datafatch');
       setCoach(datas.data);
       console.log(datas.data);
@@ -32,7 +32,7 @@ const Athdetails = ({ user }) => {
   const [athdata, setAthdata] = useState([]);
   const fatchdata = async () => {
     try {
-      const res = await axios.get('http://localhost:8056/viewDataAthlet');
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataAthlet`);
       setAthdata(res.data);
     } catch (error) {
       console.log(error);
@@ -42,7 +42,7 @@ const Athdetails = ({ user }) => {
   const formsubit = async (e) => {
     e.preventDefault();
     try {
-      const sub = await axios.post("http://localhost:8056/AssigendCoach", assigend);
+      const sub = await axios.post(`${import.meta.env.VITE_API_URL}/AssigendCoach`, assigend);
       fatchdata();
       alert(sub.data);
       setAssigend(null);
@@ -61,7 +61,7 @@ const Athdetails = ({ user }) => {
     <>
       <Navbaradmin />
 
-      <table className='table table-borderd border text-center '>
+      <table className='table table-borderd border  '>
         <thead className='table-danger'>
           <tr className='border'>
             <th>AtheletId</th>
@@ -73,7 +73,7 @@ const Athdetails = ({ user }) => {
             <th>Add Coach</th>
           </tr>
         </thead>
-        <tbody className='table-primary'>
+        <tbody className='table-primary border-start'>
 
           {athdata.map((d, index) => (
             <tr key={d.athid}>
@@ -117,7 +117,8 @@ const Athdetails = ({ user }) => {
                     {coachdata.map((c) => (
                       <option key={c.coachid} value={c.coachid}>
                         {c.coachid}&nbsp;&nbsp;
-                        {c.name}
+                        <b>{c.name}</b>&nbsp;&nbsp;specialization:-&nbsp;&nbsp;
+                        {c.specialization}
                       </option>
                     ))}
 
