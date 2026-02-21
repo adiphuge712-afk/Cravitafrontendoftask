@@ -1,5 +1,5 @@
 import React from 'react'
-import './AtheletsAndWorkDrilsstyle.css';
+import './AtheletsAndWorkdrilsstyle.css';
 import NavbarCoach from './NavbarCoach'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
