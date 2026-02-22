@@ -30,7 +30,9 @@ const Navbaradmin = () => {
 
             </li>
             <li className="nav-item">
-              <Link className="nav-link text-white" to="/">Logout</Link>
+              <Link className="nav-link text-white" onClick={()=>{localStorage.removeItem("token");
+                window.location.href="/login";
+              }}>Logout</Link>
             </li>
           </ul>
         </div>

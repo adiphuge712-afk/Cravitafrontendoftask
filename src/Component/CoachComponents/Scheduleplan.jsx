@@ -4,6 +4,10 @@ import axios from 'axios';
 import { useState, } from 'react';
 import { useNavigate } from 'react-router-dom';
 const Scheduleplan = ({ user }) => {
+    const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/login";
+  }
     const [reg, setRegister] = useState({
         planname: "",
         plantype: "",
@@ -15,7 +19,7 @@ const Scheduleplan = ({ user }) => {
         e.preventDefault();
 
         try {
-            await axios.post(`${import.meta.env.VITE_API_URL}/addPlan/${user.coachid}`, reg);
+            await axios.post(`${import.meta.env.VITE_API_URL}/addPlan/${user.coach.coachid}`, reg);
             alert("Plan Add");
             setRegister({
                 planname: "",

@@ -4,6 +4,10 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const Registercoach = ({ user }) => {
+    const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/login";
+  }
     const [formdata, setData] = useState({
         name: "",
         email: "",
@@ -18,7 +22,7 @@ const Registercoach = ({ user }) => {
         e.preventDefault();
         // console.log(formdata);
         try {
-            const res = await axios.post(`${import.meta.env.VITE_API_URL}/registercoach/${user.adminid}`, formdata);
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/registercoach/${user.admin.adminid}`, formdata);
             if (res) {
                 alert('Register Complete');
                 nav('/Coachinfo');

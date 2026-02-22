@@ -29,6 +29,10 @@ const AtheletDashboard = ({user}) => {
 //    useEffect(()=>{
 // show()
 //    },[])
+const token=localStorage.getItem("token");
+if(!token){
+  window.location.href="/login";
+}
   return (
   <>
   <div className='navstiky'>
@@ -36,7 +40,7 @@ const AtheletDashboard = ({user}) => {
   </div>
    
    <div className='dashboardheight bg-secondary  text-white '>
-    <h2 className='text-primary'>Welcome <span className='text-info'>{user.name}</span></h2>
+    <h2 className='text-primary'>Welcome <span className='text-info'>{user.athelet.name}</span></h2>
     
      </div>
 

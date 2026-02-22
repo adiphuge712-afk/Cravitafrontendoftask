@@ -5,12 +5,16 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const AtheletsAndWorkdril = ({ user }) => {
+    const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/login";
+  }
     const [performance, setperformance] = useState(null);
     const [coachdat, setCoachData] = useState([]);
     const [workdril, setViewWorkdril] = useState([]);
     const fectdata = async () => {
         try {
-            const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataAthletCoach/${user.coachid}`);
+            const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataAthletCoach/${user.coach.coachid}`);
             // alert('datafatch');
             setCoachData(data.data);
         } catch (err) {
@@ -21,7 +25,7 @@ const AtheletsAndWorkdril = ({ user }) => {
     }
     const fatchworkdirl = async () => {
         try {
-            const work = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataWorkdrilByCoachid/${user.coachid}`);
+            const work = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataWorkdrilByCoachid/${user.coach.coachid}`);
             setViewWorkdril(work.data);
 
 

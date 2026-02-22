@@ -5,12 +5,16 @@ import axios from 'axios';
 import './FeedbackHistoryCoach.css';
 
 const FeedBackHistoryCoach = ({ user }) => {
+    const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/login";
+  }
     const [coachdat, setCoachData] = useState([]);
     const [performanceid, setPerformance] = useState([]);
     // const [edit, sededit] = useState(null);
     const fectdata = async () => {
         try {
-            const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataFeedback/${user.coachid}`);
+            const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataFeedback/${user.coach.coachid}`);
             // alert('datafatch');
             setCoachData(data.data);
         } catch (err) {
@@ -21,7 +25,7 @@ const FeedBackHistoryCoach = ({ user }) => {
     }
     const fetchperformance = async () => {
         try {
-            const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataPerformancelog/${user.coachid}`);
+            const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataPerformancelog/${user.coach.coachid}`);
             // alert('datafatch');
             setPerformance(data.data);
         } catch (err) {
@@ -35,7 +39,7 @@ const FeedBackHistoryCoach = ({ user }) => {
         ...item,
         performances: performanceid.filter(p =>
             p.athid.athid === item.athid.athid &&
-            p.workid.plan.coachid.coachid === user.coachid
+            p.workid.plan.coachid.coachid === user.coach.coachid
         )
     }));
     console.log("the mergedat is " + mergedCoachData);

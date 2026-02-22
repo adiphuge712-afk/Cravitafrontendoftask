@@ -32,9 +32,11 @@ const NavbarCoach = () => {
               <Link className="nav-link text-white" to="/feedbackhistorycoach">Feedback_History</Link>
 
             </li>
-            <li className="nav-item">
-              <Link className="nav-link text-white" to="/">Logout</Link>
-            </li>
+             <li className="nav-item">
+                         <Link className="nav-link text-white" onClick={()=>{localStorage.removeItem("token");
+                           window.location.href="/login";
+                         }}>Logout</Link>
+                       </li>
 
           </ul>
         </div>

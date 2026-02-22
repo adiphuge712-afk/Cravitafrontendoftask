@@ -3,6 +3,10 @@ import NavbarOfAth from '../NavbarOfAth'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 const TraningSchedule = ({ user }) => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/login";
+  }
 
   const [athdata, setAthdata] = useState({
     athid: { athid: user.athid },
@@ -20,9 +24,10 @@ const TraningSchedule = ({ user }) => {
   // }
   const fatchwork = async () => {
     try {
-      if (user.coachid != null) {
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataWorkdrilByCoachid/${user.coachid.coachid}`);
+      if (user.athelet.coachid != null) {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataWorkdrilByCoachid/${user.athelet.coachid.coachid}`);
         setworkdta(res.data);
+        console.log(res.data);
       }
       else {
 
@@ -109,7 +114,7 @@ const TraningSchedule = ({ user }) => {
         </tbody>
       </table>
       {
-        user.coachid == null && (
+        user.athelet.coachid == null && (
           <div className='align-content-center position-fixed top-20 start-0 w-100 h-100 bg-dark  bg-opacity-75' style={{ zIndex: 1040 }}>
 
             <div className="row mb-4">

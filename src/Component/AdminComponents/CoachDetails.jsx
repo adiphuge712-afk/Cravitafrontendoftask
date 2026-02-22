@@ -3,6 +3,10 @@ import Navbaradmin from './Navbaradmin'
 import axios from 'axios';
 
 const CoachDetails = ({ user }) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        window.location.href = "/login";
+    }
     const [coachdat, setCoachData] = useState([]);
     const [edit, sededit] = useState(null);
     const fectdata = async () => {

@@ -25,7 +25,10 @@ const{setcontext}=useContext(UserContext);
           
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/login`, logdata);
                setcontext(res.data);//sharethe data globle
-            console.log(res.data);
+            console.log("full responsed is :",res.data);
+            const token =res.data.token;
+            localStorage.setItem("token",token);
+            // alert('token is :',localStorage.getItem("token"));
             alert("Login success");
             setDate({
                 name: "",

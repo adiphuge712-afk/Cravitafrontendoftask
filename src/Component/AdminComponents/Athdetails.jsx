@@ -3,6 +3,10 @@ import Navbaradmin from './Navbaradmin'
 import axios from 'axios';
 
 const Athdetails = ({ user }) => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/login";
+  }
   const [coachdata, setCoach] = useState(null);
   const caoch = async () => {
     try {

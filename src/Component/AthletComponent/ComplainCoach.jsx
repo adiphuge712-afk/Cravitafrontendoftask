@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react'
 import NavbarOfAth from '../NavbarOfAth'
 import axios from 'axios';
 const ComplainCoach = ({ user }) => {
-
+  const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/login";
+  }
   const [complain, setComplain] = useState({
 
     comment: "",
@@ -11,7 +14,7 @@ const ComplainCoach = ({ user }) => {
   const fectdata = async (e) => {
     e.preventDefault();
     try {
-      const data = await axios.post(`${import.meta.env.VITE_API_URL}/viewDataFeedback/${user.athid}`, complain);
+      const data = await axios.post(`${import.meta.env.VITE_API_URL}/viewDataFeedback/${user.athelet.athid}`, complain);
       alert('Feedback send');
 
     } catch (err) {

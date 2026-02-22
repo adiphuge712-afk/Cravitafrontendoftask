@@ -3,12 +3,16 @@ import NavbarCoach from './NavbarCoach'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 const AtheletDetailsCoach = ({ user }) => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/login";
+  }
 
   const [coachdat, setCoachData] = useState([]);
   // const [edit, sededit] = useState(null);
   const fectdata = async () => {
     try {
-      const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataAthletCoach/${user.coachid}`);
+      const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataAthletCoach/${user.coach.coachid}`);
       // alert('datafatch');
       setCoachData(data.data);
     } catch (err) {

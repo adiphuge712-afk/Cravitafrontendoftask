@@ -3,12 +3,16 @@ import NavbarCoach from './NavbarCoach'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 const Traningschedulescoach = ({ user }) => {
+    const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/login";
+  }
     const [coachdat, setCoachData] = useState([]);
     const [edit, sededit] = useState(null);
     const [workdata, setWorkdata] = useState(null);
     const fectdata = async () => {
         try {
-            const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataTraningplan/${user.coachid}`);
+            const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataTraningplan/${user.coach.coachid}`);
             // alert('datafatch');
             setCoachData(data.data);
         } catch (err) {
@@ -21,7 +25,7 @@ const Traningschedulescoach = ({ user }) => {
         // alert("id is "+id);
         if (window.confirm('Are your Sure???')) {
             try {
-                const del = await axios.delete(`${import.meta.env.VITE_API_URL}/viewDataTraningplan/${id}`);
+                const del = await axios.delete(`${import.meta.env.VITE_API_URL}/viewDataTraningplan/${id}`,{ withCredentials: true });
                 if (del.data) {
                     // alert('deleted data');
                     fectdata();

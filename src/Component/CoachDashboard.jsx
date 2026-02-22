@@ -4,6 +4,10 @@ import { useEffect,useState } from 'react';
 import axios from 'axios';
 import NavbarCoach from './CoachComponents/NavbarCoach';
 const CoachDashboard = () => {
+    const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/login";
+  }
  const [data,setShow]=useState(null);
     const navigate=useNavigate();
 
