@@ -22,9 +22,9 @@ const NavbarOfAth = () => {
               <li className="nav-item">
                 <Link className="nav-link text-white" to="/complian">Feedback</Link>
               </li>
-              <li className="nav-item">
-                {/* <Link className="nav-link text-white" onClick={()=>localStorage.removeItem("token"),window.location.href="/login"}>Logout</Link> */}
-                <Link
+              {/* <li className="nav-item"> */}
+              {/* <Link className="nav-link text-white" onClick={()=>localStorage.removeItem("token"),window.location.href="/login"}>Logout</Link> */}
+              {/* <Link
                   className="nav-link text-white"
                   onClick={() => {
                     localStorage.removeItem("token");
@@ -33,9 +33,11 @@ const NavbarOfAth = () => {
                 >
                   Logout
                 </Link>
+              </li> */}
+
+              <li className="nav-item">
+                <Link className="nav-link text-white" to="/logout">Logout</Link>
               </li>
-
-
 
             </ul>
           </div>

@@ -29,10 +29,14 @@ const Navbaradmin = () => {
               <Link className="nav-link text-white" to="/feedbackhistory">Feedback_History</Link>
 
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link className="nav-link text-white" onClick={()=>{localStorage.removeItem("token");
                 window.location.href="/login";
               }}>Logout</Link>
+            </li> */}
+              <li className="nav-item">
+              <Link className="nav-link text-white" to="/logout">Logout</Link>
+
             </li>
           </ul>
         </div>
