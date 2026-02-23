@@ -4,6 +4,7 @@ import academyimg2 from "../assets/img2.jpg";
 import academyimg3 from "../assets/img3.jpg";
 
 const Home = () => {
+  
   return (
     <>
       {/* <div className='vh-100  bg-info '>Home</div>

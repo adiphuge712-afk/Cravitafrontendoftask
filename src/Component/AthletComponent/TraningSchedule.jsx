@@ -2,30 +2,29 @@ import React from 'react'
 import NavbarOfAth from '../NavbarOfAth'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 const TraningSchedule = ({ user }) => {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    window.location.href = "/login";
-  }
+  const [userdata,setuserdata]=useState(null);
+  useEffect(()=>{
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decoded = jwtDecode(token);
+      console.log("Decoded data is : ",decoded.user);
+       setuserdata(decoded.user|| decoded);
+    }else{
+       window.location.href = "/login";
+    }
+   },[]);
 
   const [athdata, setAthdata] = useState({
-    athid: { athid: user.athid },
+    
     request: ""
   });
   const [workdata, setworkdta] = useState([]);
-  // const fatchdata = async () => {
-  //   try {
-  //     const res = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataAthlet/${user.athid}`);
-  //     setAthdata(res.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //     alert('fail to fetch data');
-  //   }
-  // }
   const fatchwork = async () => {
     try {
-      if (user.athelet.coachid != null) {
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataWorkdrilByCoachid/${user.athelet.coachid.coachid}`);
+      if (userdata.coachid != null) {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataWorkdrilByCoachid/${userdata.coachid.coachid}`);
         setworkdta(res.data);
         console.log(res.data);
       }
@@ -35,25 +34,24 @@ const TraningSchedule = ({ user }) => {
       }
     } catch (error) {
       console.log(error);
-      alert('fail to fetch data');
+      if (!userdata) return <div>Loading...</div>;
     }
   }
 
   useEffect(() => {
-
-    // fatchdata();
+    
     fatchwork();
-  }, []);
+  }, [userdata]);
 
 
   const formsubmit = async (e) => {
-    e.preventDefault();
-
+    e?.preventDefault();
+if (!userdata) return;
     console.log("Sending athdata:", athdata);
 
     try {
       await axios.post(
-        `${import.meta.env.VITE_API_URL}/addrequest/${user.athid}`,
+        `${import.meta.env.VITE_API_URL}/addrequest/${userdata.athid}`,
         athdata,
         {
           headers: {
@@ -65,7 +63,7 @@ const TraningSchedule = ({ user }) => {
       alert("Request sent successfully");
 
       setAthdata({
-        athid: { athid: user.athid },
+        
         request: ""
       });
 
@@ -74,7 +72,7 @@ const TraningSchedule = ({ user }) => {
       alert("Failed to add request");
     }
   }
-
+if (!userdata) return <div>Loading...</div>;
   return (
     <>
       <NavbarOfAth />
@@ -114,7 +112,7 @@ const TraningSchedule = ({ user }) => {
         </tbody>
       </table>
       {
-        user.athelet.coachid == null && (
+        userdata.coachid == null && (
           <div className='align-content-center position-fixed top-20 start-0 w-100 h-100 bg-dark  bg-opacity-75' style={{ zIndex: 1040 }}>
 
             <div className="row mb-4">

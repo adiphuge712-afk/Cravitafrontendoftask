@@ -2,46 +2,9 @@
 //  import {useNavigate} from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 //  import NavbarOfAth from './NavbarOfAth';
 import Navbaradmin from "./AdminComponents/Navbaradmin";
-// ;
-//  const AdminDashboard = ({user}) => {
-//  //      const [data,setShow]=useState(null);
-//  //     const navigate=useNavigate();
-
-// // // //    const show=async()=>
-// // // //    {
-// // // //      try {
-// // // //         const t=await axios.get(`${import.meta.env.VITE_API_URL}/checksessionadmin`,{});
-// // // //         setShow(true);
-// // // //     } catch (error) {
-// // // //         console.log(error);
-// // // //         navigate('/login');
-// // // //     }
-// // // //    }
-// // //    useEffect(async()=>{
-// // //  try {
-// // //         const t=await axios.get("http://localhost:8056/checksessionadmin",{});
-// // //         setShow(true);
-// // //     } catch (error) {
-// // //         console.log(error);
-// // //         navigate('/login');
-// // //     }
-// // //    },[])
-//   return (
-//     <>
-//    <Navbaradmin/>
-
-//     <div className='vh-100 bg-info'>
-//     {/* <h2>Welcome {user.name}</h2> */}
-//       </div>
-//     </>
-//    )
-// }
-
-//  export default AdminDashboard
-
-
 import React from "react";
 import {
   FaUsers,
@@ -68,39 +31,18 @@ const data = [
   { month: "May", performance: 80 },
   { month: "Jun", performance: 70 },
 ];
-
-// const athletes = [
-//   {
-//     name: "Alex Johnson",
-//     attendance: 85,
-//     status: "Active",
-//     img: "https://randomuser.me/api/portraits/men/1.jpg",
-//   },
-//   {
-//     name: "Emma Davis",
-//     attendance: 70,
-//     status: "Training",
-//     img: "https://randomuser.me/api/portraits/women/2.jpg",
-//   },
-//   {
-//     name: "Michael Lee",
-//     attendance: 95,
-//     status: "Injured",
-//     img: "https://randomuser.me/api/portraits/men/3.jpg",
-//   },
-//   {
-//     name: "Sophia Martinez",
-//     attendance: 60,
-//     status: "Inactive",
-//     img: "https://randomuser.me/api/portraits/women/4.jpg",
-//   },
-// ];
-
 const AdminDashboard = () => {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    window.location.href = "/login";
-  }
+ const [userdata,setuserdata]=useState(null);
+  useEffect(()=>{
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decoded = jwtDecode(token);
+      console.log("Decoded data is : ",decoded.user);
+       setuserdata(decoded.user|| decoded);
+    }else{
+       window.location.href = "/login";
+    }
+   },[]);
   const [athletes, setAthdata] = useState([]);
   const fatchdata = async () => {
     try {
@@ -129,6 +71,7 @@ const AdminDashboard = () => {
     fetachcoach();
     fatchdata();
   }, []);
+  if (!userdata) return <div>Loading...</div>;
   return (
     <>
       <Navbaradmin />

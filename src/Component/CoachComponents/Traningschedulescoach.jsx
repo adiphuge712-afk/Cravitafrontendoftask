@@ -2,22 +2,30 @@ import React from 'react'
 import NavbarCoach from './NavbarCoach'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 const Traningschedulescoach = ({ user }) => {
-    const token = localStorage.getItem("token");
-  if (!token) {
-    window.location.href = "/login";
-  }
+const [userdata, setuserdata] = useState(null);
+      useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+          const decoded = jwtDecode(token);
+          // console.log("Decoded data is : ",decoded.user);
+          setuserdata(decoded.user || decoded);
+        } else {
+          window.location.href = "/login";
+        }
+      }, []);
     const [coachdat, setCoachData] = useState([]);
     const [edit, sededit] = useState(null);
     const [workdata, setWorkdata] = useState(null);
     const fectdata = async () => {
         try {
-            const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataTraningplan/${user.coach.coachid}`);
+            const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataTraningplan/${userdata.coachid}`);
             // alert('datafatch');
             setCoachData(data.data);
         } catch (err) {
             console.log(err);
-            alert('fail');
+            alert('fail to fatech or loding');
 
         }
     }
@@ -79,9 +87,11 @@ const Traningschedulescoach = ({ user }) => {
     }
 
     useEffect(() => {
-        fectdata();
-    }, []);
-
+        if(userdata){
+            fectdata();
+        }
+    }, [userdata]);
+if (!userdata) return <div>Loading...</div>;
     return (
         <>
             <NavbarCoach />

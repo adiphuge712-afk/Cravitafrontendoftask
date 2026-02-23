@@ -2,7 +2,19 @@ import React from 'react'
 import Navbaradmin from './Navbaradmin'
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { jwtDecode } from 'jwt-decode';
 const FeedbackHistory = ({ user }) => {
+   const [userdata, setuserdata] = useState(null);
+    useEffect(() => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        const decoded = jwtDecode(token);
+        // console.log("Decoded data is : ",decoded.user);
+        setuserdata(decoded.user || decoded);
+      } else {
+        window.location.href = "/login";
+      }
+    }, []);
   const token = localStorage.getItem("token");
   if (!token) {
     window.location.href = "/login";
@@ -23,7 +35,7 @@ const FeedbackHistory = ({ user }) => {
   useEffect(() => {
     fectdata();
   }, []);
-
+if (!userdata) return <div>Loading...</div>;
   return (
     <>
       <Navbaradmin />

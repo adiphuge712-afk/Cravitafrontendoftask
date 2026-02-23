@@ -3,18 +3,26 @@ import './AtheletsAndWorkdrilsstyle.css';
 import NavbarCoach from './NavbarCoach'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 
 const AtheletsAndWorkdril = ({ user }) => {
-    const token = localStorage.getItem("token");
-  if (!token) {
-    window.location.href = "/login";
-  }
+   const [userdata, setuserdata] = useState(null);
+         useEffect(() => {
+           const token = localStorage.getItem("token");
+           if (token) {
+             const decoded = jwtDecode(token);
+             // console.log("Decoded data is : ",decoded.user);
+             setuserdata(decoded.user || decoded);
+           } else {
+             window.location.href = "/login";
+           }
+         }, []);
     const [performance, setperformance] = useState(null);
     const [coachdat, setCoachData] = useState([]);
     const [workdril, setViewWorkdril] = useState([]);
     const fectdata = async () => {
         try {
-            const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataAthletCoach/${user.coach.coachid}`);
+            const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataAthletCoach/${userdata.coachid}`);
             // alert('datafatch');
             setCoachData(data.data);
         } catch (err) {
@@ -25,7 +33,7 @@ const AtheletsAndWorkdril = ({ user }) => {
     }
     const fatchworkdirl = async () => {
         try {
-            const work = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataWorkdrilByCoachid/${user.coach.coachid}`);
+            const work = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataWorkdrilByCoachid/${userdata.coachid}`);
             setViewWorkdril(work.data);
 
 
@@ -69,9 +77,12 @@ const AtheletsAndWorkdril = ({ user }) => {
         }
     }
     useEffect(() => {
-        fectdata();
+        if(userdata){
+            fectdata();
         fatchworkdirl();
-    }, []);
+        }
+    }, [userdata]);
+    if (!userdata) return <div>Loading...</div>;
     return (<>
         <NavbarCoach />
         <table className='table table-bordered  text-center bg-dark '>

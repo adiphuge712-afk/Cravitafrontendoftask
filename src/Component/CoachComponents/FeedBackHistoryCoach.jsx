@@ -2,19 +2,27 @@ import React from 'react'
 import NavbarCoach from './NavbarCoach'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 import './FeedbackHistoryCoach.css';
 
 const FeedBackHistoryCoach = ({ user }) => {
-    const token = localStorage.getItem("token");
-  if (!token) {
-    window.location.href = "/login";
-  }
+    const [userdata, setuserdata] = useState(null);
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            const decoded = jwtDecode(token);
+            console.log("Decoded data is : ",decoded.user);
+            setuserdata(decoded.user || decoded);
+        } else {
+            window.location.href = "/login";
+        }
+    }, []);
     const [coachdat, setCoachData] = useState([]);
     const [performanceid, setPerformance] = useState([]);
     // const [edit, sededit] = useState(null);
     const fectdata = async () => {
         try {
-            const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataFeedback/${user.coach.coachid}`);
+            const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataFeedback/${userdata.coachid}`);
             // alert('datafatch');
             setCoachData(data.data);
         } catch (err) {
@@ -25,7 +33,7 @@ const FeedBackHistoryCoach = ({ user }) => {
     }
     const fetchperformance = async () => {
         try {
-            const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataPerformancelog/${user.coach.coachid}`);
+            const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataPerformancelog/${userdata.coachid}`);
             // alert('datafatch');
             setPerformance(data.data);
         } catch (err) {
@@ -39,17 +47,19 @@ const FeedBackHistoryCoach = ({ user }) => {
         ...item,
         performances: performanceid.filter(p =>
             p.athid.athid === item.athid.athid &&
-            p.workid.plan.coachid.coachid === user.coach.coachid
+            p.workid.plan.coachid.coachid === userdata.coachid
         )
     }));
     console.log("the mergedat is " + mergedCoachData);
 
     useEffect(() => {
+        if (userdata) {
 
-        fectdata();
-        fetchperformance();
-    }, []);
-
+            fectdata();
+            fetchperformance();
+        }
+    }, [userdata]);
+    if (!userdata) return <div>Loading...</div>;
     return (
         <>
             <NavbarCoach />
@@ -79,7 +89,7 @@ const FeedBackHistoryCoach = ({ user }) => {
                 ))} */}
 
                     {mergedCoachData.map((c, index) => (
-                        <React.Fragment key={c.athid.athid}>
+                        <React.Fragment key={c.feedid}>
 
                             {/* Athlete Row */}
                             <tr className="table-secondary border-start border-dark">

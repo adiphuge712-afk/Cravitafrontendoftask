@@ -1,13 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect} from 'react'
 import Navbaradmin from './Navbaradmin'
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 
 const Registercoach = ({ user }) => {
-    const token = localStorage.getItem("token");
-  if (!token) {
-    window.location.href = "/login";
-  }
+   const [userdata,setuserdata]=useState(null);
+    useEffect(()=>{
+      const token = localStorage.getItem("token");
+      if (token) {
+        const decoded = jwtDecode(token);
+        console.log("Decoded data is : ",decoded.user);
+         setuserdata(decoded.user|| decoded);
+      }else{
+         window.location.href = "/login";
+      }
+     },[]);
     const [formdata, setData] = useState({
         name: "",
         email: "",
@@ -19,10 +27,10 @@ const Registercoach = ({ user }) => {
     });
     const nav = useNavigate();
     const formsubmit = async (e) => {
-        e.preventDefault();
+        e?.preventDefault();
         // console.log(formdata);
         try {
-            const res = await axios.post(`${import.meta.env.VITE_API_URL}/registercoach/${user.admin.adminid}`, formdata);
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/registercoach/${userdata.adminid}`, formdata);
             if (res) {
                 alert('Register Complete');
                 nav('/Coachinfo');
@@ -34,6 +42,7 @@ const Registercoach = ({ user }) => {
 
         }
     }
+    if (!userdata) return <div>Loading...</div>;
     return (
         <> <Navbaradmin />
             <div className="container-fluid  ">

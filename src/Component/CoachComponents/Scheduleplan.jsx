@@ -1,13 +1,21 @@
 import React from 'react'
 import NavbarCoach from './NavbarCoach'
 import axios from 'axios';
-import { useState, } from 'react';
+import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 const Scheduleplan = ({ user }) => {
-    const token = localStorage.getItem("token");
-  if (!token) {
-    window.location.href = "/login";
-  }
+   const [userdata, setuserdata] = useState(null);
+         useEffect(() => {
+           const token = localStorage.getItem("token");
+           if (token) {
+             const decoded = jwtDecode(token);
+             // console.log("Decoded data is : ",decoded.user);
+             setuserdata(decoded.user || decoded);
+           } else {
+             window.location.href = "/login";
+           }
+         }, []);
     const [reg, setRegister] = useState({
         planname: "",
         plantype: "",
@@ -19,7 +27,7 @@ const Scheduleplan = ({ user }) => {
         e.preventDefault();
 
         try {
-            await axios.post(`${import.meta.env.VITE_API_URL}/addPlan/${user.coach.coachid}`, reg);
+            await axios.post(`${import.meta.env.VITE_API_URL}/addPlan/${userdata.coachid}`, reg);
             alert("Plan Add");
             setRegister({
                 planname: "",
@@ -35,7 +43,7 @@ const Scheduleplan = ({ user }) => {
         }
     }
 
-
+if (!userdata) return <div>Loading...</div>;
     return (
         <>
             <NavbarCoach />

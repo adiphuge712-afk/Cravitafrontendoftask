@@ -1,20 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import NavbarOfAth from '../NavbarOfAth'
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 const ComplainCoach = ({ user }) => {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    window.location.href = "/login";
-  }
+  const [userdata,setuserdata]=useState(null);
+    useEffect(()=>{
+      const token = localStorage.getItem("token");
+      if (token) {
+        const decoded = jwtDecode(token);
+        console.log("Decoded data is : ",decoded.user);
+         setuserdata(decoded.user|| decoded);
+      }else{
+         window.location.href = "/login";
+      }
+     },[]);
+
   const [complain, setComplain] = useState({
 
     comment: "",
     difficultlevel: ""
   });
   const fectdata = async (e) => {
-    e.preventDefault();
+    e?.preventDefault();
     try {
-      const data = await axios.post(`${import.meta.env.VITE_API_URL}/viewDataFeedback/${user.athelet.athid}`, complain);
+      const data = await axios.post(`${import.meta.env.VITE_API_URL}/viewDataFeedback/${userdata.athid}`, complain);
       alert('Feedback send');
 
     } catch (err) {
@@ -24,6 +33,7 @@ const ComplainCoach = ({ user }) => {
     }
   }
 
+     if (!userdata) return <div>Loading...</div>;
   return (
     <>
       <NavbarOfAth />

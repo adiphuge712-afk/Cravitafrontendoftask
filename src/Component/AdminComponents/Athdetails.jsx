@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import Navbaradmin from './Navbaradmin'
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 
 const Athdetails = ({ user }) => {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    window.location.href = "/login";
-  }
+  const [userdata, setuserdata] = useState(null);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decoded = jwtDecode(token);
+      // console.log("Decoded data is : ",decoded.user);
+      setuserdata(decoded.user || decoded);
+    } else {
+      window.location.href = "/login";
+    }
+  }, []);
   const [coachdata, setCoach] = useState(null);
   const caoch = async () => {
     try {
@@ -61,6 +69,7 @@ const Athdetails = ({ user }) => {
     caoch();
     fatchdata();
   }, []);
+  if (!userdata) return <div>Loading...</div>;
   return (
     <>
       <Navbaradmin />
@@ -121,7 +130,7 @@ const Athdetails = ({ user }) => {
                     {coachdata.map((c) => (
                       <option key={c.coachid} value={c.coachid}>
                         {c.coachid}&nbsp;&nbsp;
-                        <b>{c.name}</b>&nbsp;&nbsp;specialization:-&nbsp;&nbsp;
+                        {c.name}&nbsp;&nbsp;specialization:-&nbsp;&nbsp;
                         {c.specialization}
                       </option>
                     ))}
