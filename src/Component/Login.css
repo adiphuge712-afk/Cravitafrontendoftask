@@ -1,6 +1,6 @@
 /* Remove default browser spacing */
 * {
-  margin: 0;
+  margin: 0 !important;
   padding: 0;
   box-sizing: border-box;
 }
@@ -87,7 +87,7 @@ body {
   font-weight: 600;
   font-size: 15px;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 10px !important;
 }
 
 .login-btn:hover {
