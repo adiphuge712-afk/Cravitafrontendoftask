@@ -1,47 +1,71 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-
+import '../AdminComponents/Navbaradmin.css';
 const Navbaradmin = () => {
 
   return (
-    <>
+   <>
+  <nav className="admin-navbar navbar navbar-expand-lg">
 
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark ">
-        <Link className="navbar-brand text-white " to="#">Admin</Link>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon text-white"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav text-white">
-            <li className="nav-item active">
-              <Link className="nav-link text-white" to="/AdminDashboard">Home</Link>
-            </li>
-            <li className="nav-item ">
-              <Link className="nav-link text-white" to="/addcoach">Coach_Register</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link text-white" to="/atheletdetails">Athelet_Info</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link text-white" to="/Coachinfo">Coach_info</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link text-white" to="/feedbackhistory">Feedback_History</Link>
+    <div className="container-fluid">
 
-            </li>
-            {/* <li className="nav-item">
-              <Link className="nav-link text-white" onClick={()=>{localStorage.removeItem("token");
-                window.location.href="/login";
-              }}>Logout</Link>
-            </li> */}
-              <li className="nav-item">
-              <Link className="nav-link text-white" to="/logout">Logout</Link>
+      <Link className="navbar-brand admin-brand" to="/AdminDashboard">
+        Admin Panel
+      </Link>
 
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </>
+      <button
+        className="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#adminNavbar"
+      >
+        <span className="navbar-toggler-icon"></span>
+      </button>
+
+      <div className="collapse navbar-collapse" id="adminNavbar">
+        <ul className="navbar-nav ms-auto">
+
+          <li className="nav-item">
+            <Link className="nav-link" to="/AdminDashboard">
+              Dashboard
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link className="nav-link" to="/addcoach">
+              Register Coach
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link className="nav-link" to="/atheletdetails">
+              Athlete Info
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link className="nav-link" to="/Coachinfo">
+              Coach Info
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link className="nav-link" to="/feedbackhistory">
+              Feedback
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link className="nav-link logout-btn" to="/logout">
+              Logout
+            </Link>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+</>
   )
 }
 

@@ -3,6 +3,7 @@ import NavbarOfAth from '../NavbarOfAth'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
+import '../AthletComponent/TraningSchedule.css';
 const TraningSchedule = ({ user }) => {
   const [userdata,setuserdata]=useState(null);
   useEffect(()=>{
@@ -74,64 +75,63 @@ if (!userdata) return;
   }
 if (!userdata) return <div>Loading...</div>;
   return (
-    <>
-      <NavbarOfAth />
-      <table className='table table-bordered border border-dark '>
-        <thead className='table-primary'>
-          <tr className='border-start'>
+   <>
+  <NavbarOfAth />
 
-            <th>Work id</th>
-            <th>Coach Name</th>
-            <th>Work Experience</th>
-            <th>Planname</th>
+  <div className="training-container">
+    <h2 className="page-title">Training Schedule</h2>
 
-            <th>Workname</th>
+    <div className="table-wrapper">
+      <table className="custom-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Coach</th>
+            <th>Experience</th>
+            <th>Plan</th>
+            <th>Workout</th>
             <th>Duration</th>
-            <th>StartDate</th>
-            <th>EndDate</th>
-
+            <th>Start</th>
+            <th>End</th>
           </tr>
         </thead>
-        <tbody className='table-secondary '>
-          {
-            workdata.map((d, index) => (
-              <tr key={d.workid} className='border-start'>
-
-                <td>{index + 1}</td>
-                <td>{d.plan.coachid.name} sir</td>
-                <td>{d.plan.coachid.experience} years</td>
-                <td>{d.plan.planname}</td>
-                <td>{d.workname}</td>
-                <td>{d.duration} Min</td>
-                <td>{d.plan.startdate}</td>
-                <td>{d.plan.enddate}</td>
-
-              </tr>
-            ))
-          }
+        <tbody>
+          {workdata.map((d, index) => (
+            <tr key={d.workid}>
+              <td>{index + 1}</td>
+              <td>{d.plan.coachid.name}</td>
+              <td>{d.plan.coachid.experience} yrs</td>
+              <td>{d.plan.planname}</td>
+              <td>{d.workname}</td>
+              <td>{d.duration} min</td>
+              <td>{d.plan.startdate}</td>
+              <td>{d.plan.enddate}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
-      {
-        userdata.coachid == null && (
-          <div className='align-content-center position-fixed top-20 start-0 w-100 h-100 bg-dark  bg-opacity-75' style={{ zIndex: 1040 }}>
+    </div>
+  </div>
 
-            <div className="row mb-4">
-              <div className="col-sm-4"></div>
-              <div className="col-sm-4 border shadow bg-light rounded p-3">
-                <form onSubmit={formsubmit} >
-                  <h3 className='text-center'>Request for coach</h3>
-                  {/* <input type="text" value={athdata.athid} name="athid" className='form-control mb-2' placeholder='athid' /> */}
-                  <textarea type="text" name='request' value={athdata.request} onChange={(e) => setAthdata({ ...athdata, request: e.target.value })} className='form-control my-2' placeholder='Add the Feedd back to direct admin for coach request ' />
-                  <button type="submit" className='btn btn-primary w-100'>Update</button>
-
-                </form>
-              </div>
-              <div className="col-sm-4"></div>
-            </div>
-          </div>
-        )
-      }
-    </>
+  {userdata.coachid == null && (
+    <div className="modal-overlay">
+      <div className="modal-box">
+        <h3>Request Coach</h3>
+        <form onSubmit={formsubmit}>
+          <textarea
+            name="request"
+            value={athdata.request}
+            onChange={(e) =>
+              setAthdata({ ...athdata, request: e.target.value })
+            }
+            placeholder="Write your request to admin..."
+          />
+          <button type="submit">Send Request</button>
+        </form>
+      </div>
+    </div>
+  )}
+</>
   )
 }
 

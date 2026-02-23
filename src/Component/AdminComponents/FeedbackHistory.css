@@ -1,0 +1,94 @@
+/* ================= PAGE ================= */
+.admin-page {
+  padding: 30px;
+  background: #f4f6f9;
+  min-height: 100vh;
+}
+
+/* ================= CARD ================= */
+.table-card {
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+  overflow-x: auto;
+}
+
+.table-title {
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+/* ================= TABLE ================= */
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px; /* Important for horizontal scroll */
+}
+
+.custom-table thead {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+.custom-table tbody tr:hover {
+  background: #f2f4ff;
+  transition: 0.2s;
+}
+
+/* ================= COMMENT COLUMN ================= */
+.comment-cell {
+  text-align: left;
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ================= DIFFICULTY BADGES ================= */
+.difficulty-badge {
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.difficulty-badge.Easy {
+  background: #28a745;
+  color: white;
+}
+
+.difficulty-badge.Medium {
+  background: #ffc107;
+  color: black;
+}
+
+.difficulty-badge.Hard {
+  background: #dc3545;
+  color: white;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .admin-page {
+    padding: 15px;
+  }
+
+  .table-card {
+    padding: 15px;
+  }
+
+  .custom-table th,
+  .custom-table td {
+    font-size: 12px;
+    padding: 8px;
+  }
+}

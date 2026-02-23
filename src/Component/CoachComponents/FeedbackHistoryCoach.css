@@ -1,3 +1,98 @@
-.borderdefault{
-    border: 2px solid black;
+/* Page Layout */
+.feedback-page {
+  padding: 30px;
+  min-height: 100vh;
+  background: linear-gradient(to right, #eef2f3, #dfe9f3);
+}
+
+.feedback-title {
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+/* Table Wrapper */
+.feedback-table-wrapper {
+  overflow-x: auto;
+}
+
+/* Table */
+.feedback-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.feedback-table th,
+.feedback-table td {
+  padding: 12px;
+  text-align: center;
+}
+
+.feedback-table thead {
+  background: #1565c0;
+  color: white;
+}
+
+.feedback-table tbody tr {
+  transition: 0.3s;
+}
+
+.feedback-table tbody tr:hover {
+  background-color: #f4f8ff;
+}
+
+/* Comment Column */
+.comment-cell {
+  text-align: left;
+  font-style: italic;
+  color: #333;
+}
+
+/* Sport Badge */
+.sport-badge {
+  background: #1e88e5;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+/* Difficulty Badges */
+.difficulty-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  color: white;
+}
+
+/* Difficulty Colors */
+.low { background: #f44336; }
+.average { background: #ff9800; }
+.good { background: #4caf50; }
+.high { background: #2196f3; }
+.excellent { background: #9c27b0; }
+
+/* Empty State */
+.no-data {
+  padding: 20px;
+  font-weight: 500;
+  color: #777;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .feedback-table th,
+  .feedback-table td {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .feedback-title {
+    font-size: 18px;
+  }
 }

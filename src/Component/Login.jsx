@@ -7,84 +7,112 @@ import AdminDashboard from './AdminDashboard';
 import AtheletDashboard from './AtheletDashboard';
 import CoachDashboard from './CoachDashboard';
 import FeedbackHistory from './AdminComponents/FeedbackHistory';
+import './Login.css';
 
-const Login = ({user}) => {
-    
-// console.log(user);
-const{setcontext}=useContext(UserContext);
-    const navigate = useNavigate();
-    const [logdata, setDate] = useState({
+const Login = ({ user }) => {
+
+  // console.log(user);
+  const { setcontext } = useContext(UserContext);
+  const navigate = useNavigate();
+  const [logdata, setDate] = useState({
+    email: "",
+    password: "",
+    role: ""
+  });
+  const formsubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/login`, logdata);
+      setcontext(res.data);//sharethe data globle
+      console.log("full responsed is :", res.data);
+      const token = res.data.token;
+      localStorage.setItem("token", token);
+      // alert('token is :',localStorage.getItem("token"));
+      alert("Login success");
+      setDate({
+        name: "",
         email: "",
         password: "",
         role: ""
-    });
-    const formsubmit = async (e) => {
-        e.preventDefault();
+      });
 
-        try {
-          
-            const res = await axios.post(`${import.meta.env.VITE_API_URL}/login`, logdata);
-               setcontext(res.data);//sharethe data globle
-            console.log("full responsed is :",res.data);
-            const token =res.data.token;
-            localStorage.setItem("token",token);
-            // alert('token is :',localStorage.getItem("token"));
-            alert("Login success");
-            setDate({
-                name: "",
-                email: "",
-                password: "",
-                role: ""
-            });
+      if (logdata.role == "Athelet") {
+        navigate('/AtheletDashboard');
+      } else if (logdata.role == "Admin") {
+        navigate('/AdminDashboard');
+      } else if (logdata.role == "Coach") {
+        navigate('/CoachDashboard');
+      } else {
+        navigate('/login');
+      }
 
-            if (logdata.role == "Athelet") {
-                navigate('/AtheletDashboard');
-            } else if (logdata.role == "Admin") {
-                navigate('/AdminDashboard');
-            } else if (logdata.role == "Coach") {
-                navigate('/CoachDashboard');
-            } else {
-                navigate('/login');
-            }
-
-        } catch (error) {
-            console.log(error);
-            alert('fail');
-            navigate('/login');
-        }
+    } catch (error) {
+      console.log(error);
+      alert('fail');
+      navigate('/login');
     }
+  }
 
 
-    return (
-        <>
+  return (
+    <>
+      <div className="login-page">
+        <div className="login-card">
+          <h2 className="login-title">Login</h2>
 
-            <div className=' d-flex justify-content-center align-items-center vh-100'>
-                <div className="container">
-                    <div className='row'>
-                        <div className="col-sm-4"></div>
-                        <div className="col-sm-4 rounded bg-light shadow p-3 border">
-                            <h3 className='text-primary text-center'>Login Form</h3>
-                            <form onSubmit={formsubmit}>
-                                <label htmlFor="email" className="form-label">Email:</label>
-                                <input type="text" id='email' name="email" placeholder='enter email' required className='form-control mb-1' value={logdata.email} onChange={(e) => setDate({ ...logdata, email: e.target.value })} />
-                                <label htmlFor="pass" className="form-label">Password:</label>
-                                <input type="password" id='pass' name="password" placeholder='enter password' required className='form-control mb-1' onChange={(e) => setDate({ ...logdata, password: e.target.value })} value={logdata.password} />
-                                <label htmlFor="role" className="form-label">Role:</label>
-                                <select id='role' name="role" className="form-control mb-1" value={logdata.role} onChange={(e) => setDate({ ...logdata, role: e.target.value })} required>
-                                    <option value="">Select the role</option>
-                                    <option value="Admin">Admin</option>
-                                    <option value="Coach">Coach</option>
-                                    <option value="Athelet">Athelet</option>
-                                </select>
-                                <button className="btn btn-success w-100">Sign</button>
-                            </form>
-                        </div>
-                        <div className="col-sm-4"></div>
-                    </div>
-                </div>
+          <form onSubmit={formsubmit}>
+            <div className="login-group">
+              <label>Email</label>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={logdata.email}
+                onChange={(e) =>
+                  setDate({ ...logdata, email: e.target.value })
+                }
+                required
+              />
             </div>
-        </>
-    )
+
+            <div className="login-group">
+              <label>Password</label>
+              <input
+                type="password"
+                placeholder="Enter your password"
+                value={logdata.password}
+                onChange={(e) =>
+                  setDate({ ...logdata, password: e.target.value })
+                }
+                required
+              />
+            </div>
+
+            <div className="login-group">
+              <label>Role</label>
+              <select
+                value={logdata.role}
+                onChange={(e) =>
+                  setDate({ ...logdata, role: e.target.value })
+                }
+                required
+              >
+                <option value="">Select Role</option>
+                <option value="Admin">Admin</option>
+                <option value="Coach">Coach</option>
+                <option value="Athelet">Athlete</option>
+              </select>
+            </div>
+
+            <button type="submit" className="login-btn">
+              Sign In
+            </button>
+          </form>
+        </div>
+      </div>
+    </>
+  )
 }
 
 export default Login

@@ -1,0 +1,95 @@
+/* Page Layout */
+.log-page {
+  padding: 30px;
+  min-height: 100vh;
+  background: linear-gradient(to right, #f8f9fa, #e3f2fd);
+}
+
+.log-title {
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+/* Table Wrapper */
+.log-table-wrapper {
+  overflow-x: auto;
+}
+
+/* Table */
+.log-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.log-table th,
+.log-table td {
+  padding: 12px;
+  text-align: center;
+}
+
+.log-table thead {
+  background: #d32f2f;
+  color: white;
+}
+
+.log-table tbody tr {
+  transition: 0.3s;
+}
+
+.log-table tbody tr:hover {
+  background-color: #f4f8ff;
+}
+
+/* Fatigue Badges */
+.fatigue-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  color: white;
+}
+
+.fatigue-badge.fresh { background: #4caf50; }
+.fatigue-badge.good { background: #2196f3; }
+.fatigue-badge.average { background: #ff9800; }
+.fatigue-badge.high { background: #f44336; }
+.fatigue-badge.extreme { background: #9c27b0; }
+
+/* Performance Badges */
+.performance-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  color: white;
+}
+
+.performance-badge.low { background: #f44336; }
+.performance-badge.average { background: #ff9800; }
+.performance-badge.good { background: #4caf50; }
+.performance-badge.high { background: #2196f3; }
+.performance-badge.excellent { background: #9c27b0; }
+
+/* Empty State */
+.no-data {
+  padding: 20px;
+  font-weight: 500;
+  color: #777;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .log-table th,
+  .log-table td {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .log-title {
+    font-size: 18px;
+  }
+}

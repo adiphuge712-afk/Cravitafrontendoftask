@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
+import '../CoachComponents/Scheduleplan.css';
 const Scheduleplan = ({ user }) => {
    const [userdata, setuserdata] = useState(null);
          useEffect(() => {
@@ -45,33 +46,73 @@ const Scheduleplan = ({ user }) => {
 
 if (!userdata) return <div>Loading...</div>;
     return (
-        <>
-            <NavbarCoach />
-            {/* <h1 className='text-center'>Welcome {user.name}</h1> */}
-            <div className='d-flex justify-content-center align-items-center vh-100 bg-secondary'>
-                <div className="container-fluid">
-                    <div className='row'>
-                        <div className='col-sm-4' />
-                        <div className='col-sm-4 border p-3 shadow bg-light rounded'>
-                            <form onSubmit={formsubmit}>
-                                <h2 className='text-center text-primary'>SchdulePlan form</h2>
-                                <label htmlFor="planname" className='form-label'>Plan Name:</label>
-                                <input type="text" id="planame" name="planname" placeholder='Enter planname' className='form-control my-2' value={reg.planname} onChange={(e) => setRegister({ ...reg, planname: e.target.value })} required />
-                                <label htmlFor="plantype" className='form-label'>Plan Type:</label>
-                                <input type="text" id="plantype" name="plantype" placeholder='Enter type' className='form-control my-2' value={reg.plantype} onChange={(e) => setRegister({ ...reg, plantype: e.target.value })} required />
-                                <label className='form-label' htmlFor="startdate">Startdate:</label>
-                                <input type="date" id="startdate" name="startdate" placeholder='Enter satrtdate' className='form-control my-2' value={reg.startdate} onChange={(e) => setRegister({ ...reg, startdate: e.target.value })} required />
-                                <label className='form-label' htmlFor="enddate">EndDate:</label>
-                                <input type="date" id='enddate' name="enddate" className="form-control my-2" placeholder='Enter your enddate' value={reg.enddate} onChange={(e) => setRegister({ ...reg, enddate: e.target.value })} required />
+      <>
+  <NavbarCoach />
 
-                                <button className='btn btn-success w-100' type='submit'>Submit</button>
-                            </form>
-                        </div>
-                        <div className='col-sm-4' />
-                    </div>
-                </div>
-            </div>
-        </>
+  <div className="schedule-page">
+    <div className="schedule-card">
+      <h2 className="schedule-title">Schedule Training Plan</h2>
+
+      <form onSubmit={formsubmit}>
+
+        <div className="form-group">
+          <label>Plan Name</label>
+          <input
+            type="text"
+            placeholder="Enter Plan Name"
+            value={reg.planname}
+            onChange={(e) =>
+              setRegister({ ...reg, planname: e.target.value })
+            }
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Plan Type</label>
+          <input
+            type="text"
+            placeholder="Enter Plan Type"
+            value={reg.plantype}
+            onChange={(e) =>
+              setRegister({ ...reg, plantype: e.target.value })
+            }
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Start Date</label>
+          <input
+            type="date"
+            value={reg.startdate}
+            onChange={(e) =>
+              setRegister({ ...reg, startdate: e.target.value })
+            }
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>End Date</label>
+          <input
+            type="date"
+            value={reg.enddate}
+            onChange={(e) =>
+              setRegister({ ...reg, enddate: e.target.value })
+            }
+            required
+          />
+        </div>
+
+        <button type="submit" className="schedule-btn">
+          Create Plan
+        </button>
+
+      </form>
+    </div>
+  </div>
+</>
     )
 }
 

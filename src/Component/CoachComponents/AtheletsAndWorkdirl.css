@@ -1,0 +1,186 @@
+/* Page Layout */
+.coach-page {
+  padding: 30px;
+  background: linear-gradient(to right, #eef2f3, #d9e4f5);
+  min-height: 100vh;
+}
+
+.page-title {
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+/* Main Table */
+.main-table-wrapper {
+  overflow-x: auto;
+}
+
+.main-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.main-table th,
+.main-table td {
+  padding: 12px;
+  text-align: center;
+}
+
+.main-table thead {
+  background: #1e88e5;
+  color: white;
+}
+
+.athlete-row {
+  background: #e3f2fd;
+  font-weight: 500;
+}
+
+.sport-badge {
+  background: #1e88e5;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+/* Nested Table */
+.nested-wrapper {
+  padding: 10px;
+  background: #f8f9fa;
+}
+
+.nested-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.nested-table th,
+.nested-table td {
+  padding: 10px;
+  text-align: center;
+}
+
+.nested-table thead {
+  background: #ff7043;
+  color: white;
+}
+
+.intensity-badge {
+  background: #ff7043;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+/* Buttons */
+.action-btn {
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.action-btn:hover {
+  background: #388e3c;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modal-box {
+  background: white;
+  padding: 25px;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 12px;
+  position: relative;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-box select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 10px;
+  background: #1e88e5;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background: #1565c0;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: red;
+  color: white;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+
+.btn-cancel {
+  background: #757575;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+}
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-table th,
+  .main-table td,
+  .nested-table th,
+  .nested-table td {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .page-title {
+    font-size: 18px;
+  }
+}

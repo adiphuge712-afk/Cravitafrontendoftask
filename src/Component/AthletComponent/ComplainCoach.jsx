@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import NavbarOfAth from '../NavbarOfAth'
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
+import '../AthletComponent/ComplainCoach.css';
 const ComplainCoach = ({ user }) => {
   const [userdata,setuserdata]=useState(null);
     useEffect(()=>{
@@ -35,34 +36,51 @@ const ComplainCoach = ({ user }) => {
 
      if (!userdata) return <div>Loading...</div>;
   return (
-    <>
-      <NavbarOfAth />
-      <div className='d-flex justify-content-center align-items-center vh-100 bg-white'>
-        <div className="container-fluid">
-          <div className='row'>
-            <div className='col-sm-4' />
-            <div className='col-sm-4 border p-3 shadow bg-light rounded'>
-              <form onSubmit={fectdata}>
-                <h2 className='text-center text-primary'>Feedback form</h2>
-                {/* <input type="text" name='athid' value={complain.athid.athid} className='form-control my-2'/> */}
-                {/* <input type="text" name="comment" placeholder='Enter Comment' value={complain.comment} onChange={(e)=>setComplain({...complain,comment:e.target.value})} className='form-control my-2'required /> */}
-                <textarea type="text" name="comment" placeholder='Enter Comment' value={complain.comment} onChange={(e) => setComplain({ ...complain, comment: e.target.value })} className='form-control my-2' required />
-                <select name="difficultlevel" className='form-control my-2' value={complain.difficultlevel} onChange={(e) => setComplain({ ...complain, difficultlevel: e.target.value })} required>
-                  <option value="">Select difficultlevel </option>
-                  <option value="Easy">Easy</option>
-                  <option value="Medium">Medium</option>
-                  <option value="Hard">Hard</option>
-                </select>
-
-
-                <button className='btn btn-success w-100' type='submit'>Submit</button>
-              </form>
-            </div>
-            <div className='col-sm-4' />
-          </div>
+   <>
+  <NavbarOfAth />
+  <div className="feedback-wrapper d-flex justify-content-center align-items-center min-vh-100 bg-light">
+    <div className="feedback-card shadow rounded p-4">
+      <h2 className="text-center text-primary mb-4">Feedback Form</h2>
+      <form onSubmit={fectdata}>
+        {/* Comment textarea */}
+        <div className="mb-3">
+          <label htmlFor="comment" className="form-label">Your Comment</label>
+          <textarea
+            id="comment"
+            name="comment"
+            placeholder="Enter your comment..."
+            value={complain.comment}
+            onChange={(e) => setComplain({ ...complain, comment: e.target.value })}
+            className="form-control"
+            rows={4}
+            required
+          />
         </div>
-      </div>
-    </>
+
+        {/* Difficulty level select */}
+        <div className="mb-4">
+          <label htmlFor="difficultlevel" className="form-label">Difficulty Level</label>
+          <select
+            id="difficultlevel"
+            name="difficultlevel"
+            className="form-select"
+            value={complain.difficultlevel}
+            onChange={(e) => setComplain({ ...complain, difficultlevel: e.target.value })}
+            required
+          >
+            <option value="">Select Difficulty Level</option>
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+          </select>
+        </div>
+
+        {/* Submit button */}
+        <button type="submit" className="btn btn-primary w-100 btn-submit">Submit Feedback</button>
+      </form>
+    </div>
+  </div>
+</>
   )
 }
 

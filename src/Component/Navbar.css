@@ -1,0 +1,87 @@
+/* NAVBAR - Glass Blur (NOT FIXED) */
+.modern-navbar {
+  position: relative;   /* changed from fixed */
+  width: 100%;
+  height: 75px;
+
+  display: flex;
+  align-items: center;
+
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+/* REMOVE THIS COMPLETELY */
+/* .page-wrapper {
+  padding-top: 75px;
+} */
+
+/* BRAND */
+.brand-logo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: white !important;
+}
+
+.brand-logo span {
+  color: #00d4ff;
+}
+
+/* NAV LINKS */
+.modern-link {
+  color: white !important;
+  margin-left: 25px;
+  position: relative;
+  transition: 0.3s ease;
+}
+
+.modern-link:hover {
+  color: #00d4ff !important;
+}
+
+/* Animated underline */
+.modern-link::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  left: 0;
+  bottom: -5px;
+  background: #00d4ff;
+  transition: 0.3s ease;
+}
+
+.modern-link:hover::after {
+  width: 100%;
+}
+
+/* Login Button */
+.login-btn {
+  background: linear-gradient(45deg, #00c6ff, #0072ff);
+  color: white !important;
+  padding: 6px 18px !important;
+  border-radius: 25px;
+  margin-left: 25px;
+  transition: 0.3s ease;
+}
+
+.login-btn:hover {
+  transform: scale(1.08);
+}
+
+/* Mobile */
+@media (max-width: 991px) {
+  .modern-link {
+    margin: 10px 0;
+  }
+
+  .login-btn {
+    margin-top: 10px;
+  }
+}

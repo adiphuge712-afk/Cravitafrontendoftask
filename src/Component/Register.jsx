@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import './Register.css';
 const Register = () => {
     const [reg, setRegister] = useState({
         name: "",
@@ -34,38 +35,93 @@ const Register = () => {
 
 
     return (
-        <>
-            <div className='d-flex justify-content-center align-items-center vh-100 bg-white'>
-                <div className="container">
-                    <div className='row'>
-                        <div className='col-sm-4' />
-                        <div className='col-sm-4 border p-3 shadow bg-light rounded'>
-                            <form onSubmit={formsubmit}>
-                                <h2 className='text-center text-primary'>Registration form</h2>
-                                <input type="text" name="name" placeholder='Enter name' className='form-control my-2' value={reg.name} onChange={(e) => setRegister({ ...reg, name: e.target.value })} required />
-                                <input type="email" name="email" placeholder='Enter email ***@gmail.com' className='form-control my-2' value={reg.email} onChange={(e) => setRegister({ ...reg, email: e.target.value })} required />
-                                <input type="password" name="password" placeholder='Enter Password' className='form-control my-2' value={reg.password} onChange={(e) => setRegister({ ...reg, password: e.target.value })} required />
-                                <input type="text" name="age" className="form-control my-2" placeholder='Enter your Age' value={reg.age} onChange={(e) => setRegister({ ...reg, age: e.target.value })} required />
-                                <select name="sporttype" className='form-control my-2' value={reg.sporttype} onChange={(e) => setRegister({ ...reg, sporttype: e.target.value })} required>
-                                    <option value="">Select the sport type</option>
-                                    <option value="Cricket">Cricket</option>
-                                    <option value="Khokho">Kho-Kho</option>
-                                    <option value="Caroom">Caroom</option>
-                                    <option value="Chesh">Chesh</option>
-                                    <option value="Mallakham">Mallakham</option>
-                                    <option value="Hollyboll">Hollyboll</option>
-                                    <option value="Footboll">Footboll</option>
-                                </select>
+       <>
+  <div className="register-page">
+    <div className="register-card">
+      <h2 className="register-title">Create Account</h2>
 
+      <form onSubmit={formsubmit}>
 
-                                <button className='btn btn-success w-100' type='submit'>Submit</button>
-                            </form>
-                        </div>
-                        <div className='col-sm-4' />
-                    </div>
-                </div>
-            </div>
-        </>
+        <div className="register-group">
+          <label>Full Name</label>
+          <input
+            type="text"
+            placeholder="Enter your name"
+            value={reg.name}
+            onChange={(e) =>
+              setRegister({ ...reg, name: e.target.value })
+            }
+            required
+          />
+        </div>
+
+        <div className="register-group">
+          <label>Email</label>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={reg.email}
+            onChange={(e) =>
+              setRegister({ ...reg, email: e.target.value })
+            }
+            required
+          />
+        </div>
+
+        <div className="register-group">
+          <label>Password</label>
+          <input
+            type="password"
+            placeholder="Enter password"
+            value={reg.password}
+            onChange={(e) =>
+              setRegister({ ...reg, password: e.target.value })
+            }
+            required
+          />
+        </div>
+
+        <div className="register-group">
+          <label>Age</label>
+          <input
+            type="number"
+            placeholder="Enter your age"
+            value={reg.age}
+            onChange={(e) =>
+              setRegister({ ...reg, age: e.target.value })
+            }
+            required
+          />
+        </div>
+
+        <div className="register-group">
+          <label>Sport Type</label>
+          <select
+            value={reg.sporttype}
+            onChange={(e) =>
+              setRegister({ ...reg, sporttype: e.target.value })
+            }
+            required
+          >
+            <option value="">Select Sport</option>
+            <option value="Cricket">Cricket</option>
+            <option value="Kho-Kho">Kho-Kho</option>
+            <option value="Carrom">Carrom</option>
+            <option value="Chess">Chess</option>
+            <option value="Mallakhamb">Mallakhamb</option>
+            <option value="Volleyball">Volleyball</option>
+            <option value="Football">Football</option>
+          </select>
+        </div>
+
+        <button type="submit" className="register-btn">
+          Register
+        </button>
+
+      </form>
+    </div>
+  </div>
+</>
     )
 }
 

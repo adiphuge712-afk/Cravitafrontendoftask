@@ -62,66 +62,78 @@ const FeedBackHistoryCoach = ({ user }) => {
     if (!userdata) return <div>Loading...</div>;
     return (
         <>
-            <NavbarCoach />
+  <NavbarCoach />
 
-            <table className='table table-bordered  text-center '>
-                <thead className='table-primary  border-dark'>
-                    <tr className='border-start '>
-                        <th>FeedBackId</th>
-                        <th>Comment</th>
-                        <th>DificultLevel</th>
-                        <th>AtheletId</th>
-                        <th>Athelet Name</th>
-                        <th>Sportname</th>
-                        <th>Work Name</th>
-                        <th>Plan Name</th>
-                    </tr>
-                </thead>
-                <tbody className='table-secondary  border border-dark'>
-                    {/* {coachdat.map((d,index)=>(
-                  <tr key={d.feedid}>
-                    <td>{index+1}</td>
-                    <td>{d.comment}</td>
-                    <td>{d.difficultlevel}</td>
-                    <td>{d.athid.athid}</td>
-                    <td>{d.athid.name}</td>
-                  </tr>
-                ))} */}
+  <div className="feedback-page">
+    <h2 className="feedback-title">Athlete Feedback Overview</h2>
 
-                    {mergedCoachData.map((c, index) => (
-                        <React.Fragment key={c.feedid}>
+    <div className="feedback-table-wrapper">
+      <table className="feedback-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Comment</th>
+            <th>Difficulty</th>
+            <th>Athlete ID</th>
+            <th>Name</th>
+            <th>Sport</th>
+            <th>Work</th>
+            <th>Plan</th>
+          </tr>
+        </thead>
 
-                            {/* Athlete Row */}
-                            <tr className="table-secondary border-start border-dark">
-                                <td>{index + 1}</td>
-                                <td className='text-start'>{c.comment}</td>
-                                <td>{c.difficultlevel}</td>
-                                <td>{c.athid.athid}</td>
-                                <td>{c.athid.name}</td>
-                                <td>{c.athid.sporttype}</td>
+        <tbody>
+          {mergedCoachData.length > 0 ? (
+            mergedCoachData.map((c, index) => (
+              <tr key={c.feedid}>
+                <td>{index + 1}</td>
 
+                <td className="comment-cell">
+                  {c.comment}
+                </td>
 
-                                <td>
-                                    {c.performances.length > 0
-                                        ? c.performances.map(p => p.workid.workname).join(", ")
-                                        : "No Work"}
-                                </td>
+                <td>
+                  <span className={`difficulty-badge ${c.difficultlevel.toLowerCase()}`}>
+                    {c.difficultlevel}
+                  </span>
+                </td>
 
-                                <td>
-                                    {c.performances.length > 0
-                                        ? [...new Set(c.performances.map(p => p.workid.plan.planname))].join(", ")
-                                        : "No Plan"}
-                                </td>
-                            </tr>
+                <td>{c.athid.athid}</td>
+                <td>{c.athid.name}</td>
 
+                <td>
+                  <span className="sport-badge">
+                    {c.athid.sporttype}
+                  </span>
+                </td>
 
+                <td>
+                  {c.performances.length > 0
+                    ? c.performances.map(p => p.workid.workname).join(", ")
+                    : "No Work"}
+                </td>
 
-                        </React.Fragment>
-                    ))}
-
-                </tbody>
-            </table>
-        </>
+                <td>
+                  {c.performances.length > 0
+                    ? [...new Set(
+                        c.performances.map(p => p.workid.plan.planname)
+                      )].join(", ")
+                    : "No Plan"}
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="8" className="no-data">
+                No Feedback Available
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</>
     )
 }
 

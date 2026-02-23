@@ -1,0 +1,77 @@
+/* Page Container */
+.coach-container {
+  padding: 30px;
+  min-height: 100vh;
+  background: linear-gradient(to right, #f8f9fa, #e3f2fd);
+}
+
+/* Title */
+.coach-title {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: #2c3e50;
+}
+
+/* Table Wrapper */
+.table-wrapper {
+  overflow-x: auto;
+}
+
+/* Table Design */
+.coach-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.coach-table thead {
+  background: #1e88e5;
+  color: white;
+}
+
+.coach-table th,
+.coach-table td {
+  padding: 14px 16px;
+  text-align: center;
+}
+
+.coach-table tbody tr {
+  transition: 0.3s;
+}
+
+.coach-table tbody tr:hover {
+  background-color: #f1f7ff;
+}
+
+/* Sport Badge */
+.sport-badge {
+  background: #1e88e5;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+/* No Data */
+.no-data {
+  padding: 20px;
+  font-weight: 500;
+  color: #888;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .coach-table th,
+  .coach-table td {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .coach-title {
+    font-size: 20px;
+  }
+}

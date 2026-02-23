@@ -4,19 +4,19 @@ import NavbarCoach from './NavbarCoach'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
-
+import '../CoachComponents/AtheletsAndWorkdirl.css';
 const AtheletsAndWorkdril = ({ user }) => {
-   const [userdata, setuserdata] = useState(null);
-         useEffect(() => {
-           const token = localStorage.getItem("token");
-           if (token) {
-             const decoded = jwtDecode(token);
-             // console.log("Decoded data is : ",decoded.user);
-             setuserdata(decoded.user || decoded);
-           } else {
-             window.location.href = "/login";
-           }
-         }, []);
+    const [userdata, setuserdata] = useState(null);
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            const decoded = jwtDecode(token);
+            // console.log("Decoded data is : ",decoded.user);
+            setuserdata(decoded.user || decoded);
+        } else {
+            window.location.href = "/login";
+        }
+    }, []);
     const [performance, setperformance] = useState(null);
     const [coachdat, setCoachData] = useState([]);
     const [workdril, setViewWorkdril] = useState([]);
@@ -77,120 +77,156 @@ const AtheletsAndWorkdril = ({ user }) => {
         }
     }
     useEffect(() => {
-        if(userdata){
+        if (userdata) {
             fectdata();
-        fatchworkdirl();
+            fatchworkdirl();
         }
     }, [userdata]);
     if (!userdata) return <div>Loading...</div>;
     return (<>
         <NavbarCoach />
-        <table className='table table-bordered  text-center bg-dark '>
-            <thead className='table-info border-dark bg-dark sticky-athlete'>
-                <tr className=' border-start border-dark'>
-                    <th className=' border-start border-dark'>Sr.no</th>
-                    <th className=' border-start border-dark'>Athelet Id</th>
-                    <th className=' border-start border-dark'>Athelet Name</th>
-                    <th className=' border-start border-dark'>Age</th>
-                    <th className=' border-start border-dark'>Email</th>
-                    <th className=' border-start border-dark'>Sport Type</th>
-                    {/* <th>Schedule Plan</th> */}
-                </tr>
-            </thead>
-            <tbody className='border border-dark'>
-                {coachdat.map((d, index) => (
-                    <React.Fragment key={d.athid}>
 
-                        {/* Athlete Row */}
-                        <tr className="table-primary border border-dark  sticky-athlete-underhead-upertablework ">
-                            <td>{index + 1}</td>
-                            <td>{d.athid}</td>
-                            <td>{d.name}</td>
-                            <td>{d.age}</td>
-                            <td>{d.email}</td>
-                            <td>{d.sporttype}</td>
-                        </tr>
+        <div className="coach-page">
+            <h2 className="page-title">Athlete Work Management</h2>
 
-                        {/* Workdril Row UNDER athlete */}
+            <div className="main-table-wrapper">
+                <table className="main-table">
+                    <thead>
                         <tr>
-                            <td colSpan="6" className='border border-dark'>
-                                <table className="table table-bordered border-2 border-dark text-center">
-                                    <thead className='table-danger border boder-dark sticky-athlete-underhead '>
-                                        <tr className='border border-start border-dark'>
-                                            <th>WorkId</th>
-                                            <th>WorkName</th>
-                                            <th>Duration</th>
-                                            <th>Intensity</th>
-                                            <th>Plan Name</th>
-                                            <th className='d-flex  justify-content-center '>Add performance</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className='table-secondary bg-dark '>
-                                        {workdril.map((w, index) => (
-                                            <tr key={w.workid} className='border border-dark'>
-                                                <td>{index + 1}</td>
-                                                <td>{w.workname}</td>
-                                                <td>{w.duration}/Min</td>
-                                                <td>{w.intencity}</td>
-
-                                                <td>{w.plan.planname}</td>
-                                                <td className='d-flex  justify-content-center '>
-                                                    <button className=' btn btn-primary w-100' onClick={() => perpormance(d.athid, w.workid)}>Add</button>
-                                                </td>
-                                            </tr>
-
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </td>
+                            <th>#</th>
+                            <th>Athlete ID</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Email</th>
+                            <th>Sport</th>
                         </tr>
+                    </thead>
 
-                    </React.Fragment>
-                ))}
-            </tbody>
+                    <tbody>
+                        {coachdat.map((d, index) => (
+                            <React.Fragment key={d.athid}>
 
-        </table>
-        {
-            performance && (
-                <div className='align-content-center position-fixed top-0 start-0 w-100 h-100 bg-dark  bg-opacity-75' style={{ zIndex: 1040 }}>
+                                {/* Athlete Row */}
+                                <tr className="athlete-row">
+                                    <td>{index + 1}</td>
+                                    <td>{d.athid}</td>
+                                    <td>{d.name}</td>
+                                    <td>{d.age}</td>
+                                    <td>{d.email}</td>
+                                    <td>
+                                        <span className="sport-badge">{d.sporttype}</span>
+                                    </td>
+                                </tr>
 
-                    <div className="row mb-4">
-                        <div className="col-sm-4"></div>
-                        <div className="col-sm-4 border shadow bg-light rounded p-3">
-                            <form onSubmit={formsubmitperformanse}>
+                                {/* Workdrill Section */}
+                                <tr>
+                                    <td colSpan="6">
+                                        <div className="nested-wrapper">
+                                            <table className="nested-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Workout</th>
+                                                        <th>Duration</th>
+                                                        <th>Intensity</th>
+                                                        <th>Plan</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
 
-                                <h3 className='text-center'>Performance Add</h3>
-                                <button className='btn btn-danger position-absolute top-0 end-0 m-2' onClick={() => {
-                                    setperformance(null);
-                                }} style={{ zIndex: 7750 }}>Close</button>
+                                                <tbody>
+                                                    {workdril.map((w, i) => (
+                                                        <tr key={w.workid}>
+                                                            <td>{i + 1}</td>
+                                                            <td>{w.workname}</td>
+                                                            <td>{w.duration} Min</td>
+                                                            <td>
+                                                                <span className="intensity-badge">
+                                                                    {w.intencity}
+                                                                </span>
+                                                            </td>
+                                                            <td>{w.plan.planname}</td>
+                                                            <td>
+                                                                <button
+                                                                    className="action-btn"
+                                                                    onClick={() =>
+                                                                        perpormance(d.athid, w.workid)
+                                                                    }
+                                                                >
+                                                                    Add Performance
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </React.Fragment>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-                                <select type="text" value={performance.performancematrix} onChange={(e) => setperformance({ ...performance, performancematrix: e.target.value })} name='performancematrix' className="form-control mt-2 p-2" required>
-                                    <option value="">Select Performance</option>
-                                    <option value="Low">Low</option>
-                                    <option value="Good">Good</option>
-                                    <option value="Average">Average</option>
-                                    <option value="High">High</option>
-                                    <option value="Excellent">Excellent</option>
-                                </select>
+        {/* Performance Modal */}
+        {performance && (
+            <div className="modal-overlay">
+                <div className="modal-box">
+                    <button
+                        className=".btn-cancel"
+                        onClick={() => setperformance(null)}
+                    >
+                        ✕
+                    </button>
 
-                                <select type="text" value={performance.fatiquelevel} onChange={(e) => setperformance({ ...performance, fatiquelevel: e.target.value })} name="fatiquelevel" id='fatiquelevel' className="form-control mt-2 p-2" required>
-                                    <option value="">Select Fatiquelevel</option>
-                                    <option value="Fresh">Fresh</option>
-                                    <option value="Good">Good</option>
-                                    <option value="Average">Average</option>
-                                    <option value="High">High</option>
-                                    <option value="Excellent">Excellent</option>
-                                </select>
-                                <div className="d-flex justify-content-center my-2">
-                                    <button type="submit" className='btn btn-success w-100'>Update</button>
-                                </div>
-                            </form>
-                        </div>
-                        <div className="col-sm-4"></div>
-                    </div>
+                    <h3>Add Performance</h3>
+
+                    <form onSubmit={formsubmitperformanse}>
+                        <select
+                            value={performance.performancematrix}
+                            onChange={(e) =>
+                                setperformance({
+                                    ...performance,
+                                    performancematrix: e.target.value,
+                                })
+                            }
+                            required
+                        >
+                            <option value="">Select Performance</option>
+                            <option value="Low">Low</option>
+                            <option value="Good">Good</option>
+                            <option value="Average">Average</option>
+                            <option value="High">High</option>
+                            <option value="Excellent">Excellent</option>
+                        </select>
+
+                        <select
+                            value={performance.fatiquelevel}
+                            onChange={(e) =>
+                                setperformance({
+                                    ...performance,
+                                    fatiquelevel: e.target.value,
+                                })
+                            }
+                            required
+                        >
+                            <option value="">Select Fatigue</option>
+                            <option value="Fresh">Fresh</option>
+                            <option value="Good">Good</option>
+                            <option value="Average">Average</option>
+                            <option value="High">High</option>
+                            <option value="Extreme">Extreme</option>
+                        </select>
+
+                        <button type="submit" className="submit-btn">
+                            Update
+                        </button>
+                    </form>
                 </div>
-            )
-        }
+            </div>
+        )}
     </>
     )
 }

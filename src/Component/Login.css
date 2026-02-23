@@ -1,0 +1,110 @@
+/* Remove default browser spacing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Remove body default margin (VERY IMPORTANT) */
+body {
+  margin: 0;
+}
+
+/* ============================= */
+/* FULL PAGE BACKGROUND */
+/* ============================= */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to right, #1e3c72, #2a5298);
+}
+
+/* ============================= */
+/* LOGIN CARD */
+/* ============================= */
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  background: #ffffff;
+  padding: 35px;
+  border-radius: 18px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+/* ============================= */
+/* TITLE */
+/* ============================= */
+.login-title {
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 600;
+  font-size: 28px;
+  color: #1e3c72;
+}
+
+/* ============================= */
+/* FORM GROUP */
+/* ============================= */
+.login-group {
+  margin-bottom: 18px;
+}
+
+.login-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.login-group input,
+.login-group select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.login-group input:focus,
+.login-group select:focus {
+  border-color: #2a5298;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.2);
+}
+
+/* ============================= */
+/* BUTTON */
+/* ============================= */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(to right, #1e3c72, #2a5298);
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(42, 82, 152, 0.4);
+}
+
+/* ============================= */
+/* ANIMATION */
+/* ============================= */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

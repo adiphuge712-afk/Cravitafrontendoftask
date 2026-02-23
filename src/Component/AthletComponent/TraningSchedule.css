@@ -1,0 +1,127 @@
+/* Page Container */
+.training-container {
+  padding: 30px;
+  min-height: 100vh;
+  background: linear-gradient(to right, #eef2f3, #dfe9f3);
+}
+
+/* Page Title */
+.page-title {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: #2c3e50;
+}
+
+/* Table Wrapper */
+.table-wrapper {
+  overflow-x: auto;
+}
+
+/* Table Styling */
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.custom-table thead {
+  background: #4e73df;
+  color: white;
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 12px 15px;
+  text-align: center;
+}
+
+.custom-table tbody tr {
+  transition: 0.3s;
+}
+
+.custom-table tbody tr:hover {
+  background-color: #f1f5ff;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+/* Modal Box */
+.modal-box {
+  background: white;
+  padding: 25px;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 10px;
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-box h3 {
+  margin-bottom: 15px;
+}
+
+.modal-box textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  resize: none;
+}
+
+.modal-box button {
+  width: 100%;
+  padding: 10px;
+  background: #4e73df;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.modal-box button:hover {
+  background: #2e59d9;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .custom-table th,
+  .custom-table td {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .page-title {
+    font-size: 20px;
+  }
+}

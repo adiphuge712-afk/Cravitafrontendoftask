@@ -1,0 +1,97 @@
+/* Page Background */
+.register-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to right, #667eea, #764ba2);
+  padding: 20px;
+}
+
+/* Card */
+.register-card {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  padding: 35px;
+  border-radius: 18px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+/* Title */
+.register-title {
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 600;
+  color: #5e35b1;
+}
+
+/* Form Group */
+.register-group {
+  margin-bottom: 18px;
+}
+
+.register-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.register-group input,
+.register-group select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  transition: 0.2s;
+  font-size: 14px;
+}
+
+.register-group input:focus,
+.register-group select:focus {
+  border-color: #764ba2;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(118, 75, 162, 0.2);
+}
+
+/* Button */
+.register-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(to right, #764ba2, #667eea);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.register-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(118, 75, 162, 0.4);
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .register-card {
+    padding: 25px;
+  }
+
+  .register-title {
+    font-size: 22px;
+  }
+}

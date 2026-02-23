@@ -3,6 +3,7 @@ import Navbaradmin from './Navbaradmin'
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
+import '../AdminComponents/Registercoach.css'
 
 const Registercoach = ({ user }) => {
    const [userdata,setuserdata]=useState(null);
@@ -44,48 +45,103 @@ const Registercoach = ({ user }) => {
     }
     if (!userdata) return <div>Loading...</div>;
     return (
-        <> <Navbaradmin />
-            <div className="container-fluid  ">
-                <div className="row">
+       <>
+  <Navbaradmin />
 
-                    <div className="col-sm-3"></div>
-                    <div className="col-sm-6 border bg-light shadow p-3 rounded ">
-                        <form onSubmit={formsubmit}>
-                            <h3 className='text-center'>Register Coach</h3>
+  <div className="register-page">
+    <div className="register-card">
+      <h2 className="register-title">Register Coach</h2>
 
-                            <label htmlFor="name">CoachName:</label>
-                            <input type="text" value={formdata.name} onChange={(e) => setData({ ...formdata, name: e.target.value })} name='name' id='name' className="form-control mt-2 p-2" placeholder='Enter the Name' required />
-                            <label htmlFor="email">Email:</label>
-                            <input type="email" value={formdata.email} onChange={(e) => setData({ ...formdata, email: e.target.value })} name="email" id='email' className="form-control mt-2 p-2" placeholder='Enter the Email' required />
-                            <label htmlFor="pass">Password:</label>
-                            <input type="password" value={formdata.password} onChange={(e) => setData({ ...formdata, password: e.target.value })} name='password' id='pass' className="form-control mt-2 p-2" placeholder='Enter the Password' required />
-                            <label htmlFor="Exp">Experience:</label>
-                            <input type="text" value={formdata.experience} onChange={(e) => setData({ ...formdata, experience: e.target.value })} name='experience' id='Exp' className="form-control mt-2 p-2" placeholder='Enter the Experience' required />
-                            {/* <label htmlFor="specialization">Specialization:</label>
-                        <input type="text"  value={formdata.specialization}  onChange={(e)=>setData({...formdata,specialization:e.target.value})} name='specialization' id='specialization' className="form-control mt-2 p-2" placeholder='Enter the Specializetion' required />
-                         */}
-                            <label htmlFor="specialization">Specialization:</label>
-                            <select name="specialization" id='specialization' className='form-control my-2' value={formdata.specialization} onChange={(e) => setData({ ...formdata, specialization: e.target.value })} required>
-                                <option value="">Select the sport type</option>
-                                <option value="Cricket">Cricket</option>
-                                <option value="Khokho">Kho-Kho</option>
-                                <option value="Caroom">Caroom</option>
-                                <option value="Chesh">Chesh</option>
-                                <option value="Mallakham">Mallakham</option>
-                                <option value="Hollyboll">Hollyboll</option>
-                                <option value="Footboll">Footboll</option>
-                            </select>
+      <form onSubmit={formsubmit}>
 
+        <div className="form-group">
+          <label>Coach Name</label>
+          <input
+            type="text"
+            value={formdata.name}
+            onChange={(e) => setData({ ...formdata, name: e.target.value })}
+            className="form-control"
+            placeholder="Enter Coach Name"
+            required
+          />
+        </div>
 
-                            <label htmlFor="age">Age:</label>
-                            <input type="text" value={formdata.age} onChange={(e) => setData({ ...formdata, age: e.target.value })} name='age' id='age' className="form-control mt-2 p-2" placeholder='Enter the Age' required />
-                            <button className='btn btn-success w-100 my-2'>Submit</button>
-                        </form>
-                    </div>
-                    <div className="col-sm-3"></div>
-                </div>
-            </div>
-        </>
+        <div className="form-group">
+          <label>Email</label>
+          <input
+            type="email"
+            value={formdata.email}
+            onChange={(e) => setData({ ...formdata, email: e.target.value })}
+            className="form-control"
+            placeholder="Enter Email"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Password</label>
+          <input
+            type="password"
+            value={formdata.password}
+            onChange={(e) => setData({ ...formdata, password: e.target.value })}
+            className="form-control"
+            placeholder="Enter Password"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Experience</label>
+          <input
+            type="text"
+            value={formdata.experience}
+            onChange={(e) => setData({ ...formdata, experience: e.target.value })}
+            className="form-control"
+            placeholder="Years of Experience"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Specialization</label>
+          <select
+            className="form-control"
+            value={formdata.specialization}
+            onChange={(e) => setData({ ...formdata, specialization: e.target.value })}
+            required
+          >
+            <option value="">Select Sport</option>
+            <option value="Cricket">Cricket</option>
+            <option value="Kho-Kho">Kho-Kho</option>
+            <option value="Carrom">Carrom</option>
+            <option value="Chess">Chess</option>
+            <option value="Mallakhamb">Mallakhamb</option>
+            <option value="Volleyball">Volleyball</option>
+            <option value="Football">Football</option>
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label>Age</label>
+          <input
+            type="number"
+            value={formdata.age}
+            onChange={(e) => setData({ ...formdata, age: e.target.value })}
+            className="form-control"
+            placeholder="Enter Age"
+            min="18"
+            required
+          />
+        </div>
+
+        <button type="submit" className="submit-btn">
+          Register Coach
+        </button>
+
+      </form>
+    </div>
+  </div>
+</>
     )
 }
 

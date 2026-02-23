@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Navbaradmin from './Navbaradmin'
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
+import '../AdminComponents/CoachDetails.css'
 
 const CoachDetails = ({ user }) => {
    const [userdata,setuserdata]=useState(null);
@@ -64,83 +65,159 @@ const CoachDetails = ({ user }) => {
     }
     if (!userdata) return <div>Loading...</div>;
     return (
-        <>
-            <Navbaradmin />
-            <table className='table table-bordered border-dark text-center '>
-                <thead className='table-danger'>
-                    <tr>
-                        <th>CoachId</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Age</th>
-                        <th>Spesilization</th>
-                        <th>Experience</th>
-                        <th>AdminId & Name</th>
-                        {/* <th>Athlate id</th> */}
-                        <th className='text-center'>Modifiy</th>
-                    </tr>
-                </thead>
-                <tbody className='table-info'>
-                    {coachdat.map((d, index) => (
-                        <tr className='border' key={d.coachid}>
-                            <td>{index + 1}</td>
-                            <td>{d.name}</td>
-                            <td>{d.email}</td>
-                            <td>{d.age}</td>
-                            <td>{d.specialization}</td>
-                            <td>{d.experience}</td>
-                            <td>{d.adid.adminid}&nbsp;&nbsp;{d.adid.name}</td>
+       <>
+  <Navbaradmin />
 
-                            <td>
-                                <button className='btn btn-danger mx-2 w-auto' onClick={() => deletestudent(d.coachid)}>Delete</button>
-                                <button className='btn btn-info mx-2 w-auto' onClick={() => profileedit(d)}>Profile edit</button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            {
-                edit && (
-                    <div className='align-content-center position-fixed top-0 start-0 w-100 h-100 bg-dark  bg-opacity-75' style={{ zIndex: 1040 }}>
+  <div className="admin-page">
+    <div className="table-card">
+      <h3 className="table-title">Coach Management</h3>
 
-                        <div className="row mb-4">
-                            <div className="col-sm-4"></div>
-                            <div className="col-sm-4 border shadow bg-light rounded p-3">
-                                <form onSubmit={formedit}>
+      <div className="table-responsive">
+        <table className="custom-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Age</th>
+              <th>Specialization</th>
+              <th>Experience</th>
+              <th>Admin</th>
+              <th>Action</th>
+            </tr>
+          </thead>
 
-                                    <h3 className='text-center'>Register Coach</h3>
-                                    <button className='btn btn-danger position-absolute top-0 end-0 m-2' onClick={() => {
-                                        sededit(null)
-                                    }} style={{ zIndex: 7750 }}>Close</button>
-                                    {/* <input type="hidden" value={edit.adid.adminid} onChange={(e) => sededit({ ...edit, adminid: e.target.value })} name='adminid'className="form-control mt-2 p-2"  required /> */}
-                                    <input type="hidden" value={edit.coachid} onChange={(e) => sededit({ ...edit, name: e.target.value })} name='coachid' className="form-control mt-2 p-2" required />
-                                    <input type="text" value={edit.name} onChange={(e) => sededit({ ...edit, name: e.target.value })} name='name' id='name' className="form-control mt-2 p-2" placeholder='Enter the Name' required />
-                                    <input type="email" value={edit.email} onChange={(e) => sededit({ ...edit, email: e.target.value })} name="email" id='email' className="form-control mt-2 p-2" placeholder='Enter the Email' required />
-                                    <input type="password" value={edit.password} onChange={(e) => sededit({ ...edit, password: e.target.value })} name='password' id='pass' className="form-control mt-2 p-2" placeholder='Enter the Password' required />
-                                    <input type="text" value={edit.experience} onChange={(e) => sededit({ ...edit, experience: e.target.value })} name='experience' id='Exp' className="form-control mt-2 p-2" placeholder='Enter the Experience' required />
-                                    <select name="specialization" className='form-control my-2' value={edit.specialization} onChange={(e) => sededit({ ...edit, specialization: e.target.value })} required>
-                                        <option value="">Select the sport type</option>
-                                        <option value="Cricket">Cricket</option>
-                                        <option value="Khokho">Kho-Kho</option>
-                                        <option value="Caroom">Caroom</option>
-                                        <option value="Chesh">Chesh</option>
-                                        <option value="Mallakham">Mallakham</option>
-                                        <option value="Hollyboll">Hollyboll</option>
-                                        <option value="Footboll">Footboll</option>
-                                    </select>
-                                    <input type="text" value={edit.age} onChange={(e) => setData({ ...edit, age: e.target.value })} name='age' id='age' className="form-control mt-2 p-2" placeholder='Enter the Age' required />
+          <tbody>
+            {coachdat.map((d, index) => (
+              <tr key={d.coachid}>
+                <td>{index + 1}</td>
+                <td>{d.name}</td>
+                <td>{d.email}</td>
+                <td>{d.age}</td>
+                <td>
+                  <span className="badge bg-primary">
+                    {d.specialization}
+                  </span>
+                </td>
+                <td>{d.experience}</td>
+                <td>
+                  {d.adid?.adminid} - {d.adid?.name}
+                </td>
+                <td>
+                  <button
+                    className="delete-btn"
+                    onClick={() => deletestudent(d.coachid)}
+                  >
+                    Delete
+                  </button>
 
-                                    <div className="d-flex justify-content-center my-2">
-                                        <button type="submit" className='btn btn-primary'>Update</button>
-                                    </div>
-                                </form>
-                            </div>
-                            <div className="col-sm-4"></div>
-                        </div>
-                    </div>
-                )
+                  <button
+                    className="edit-btn"
+                    onClick={() => profileedit(d)}
+                  >
+                    Edit
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  {/* ================= EDIT MODAL ================= */}
+
+  {edit && (
+    <div className="custom-modal">
+      <div className="modal-card">
+        <button
+          className="close-btn"
+          onClick={() => sededit(null)}
+        >
+          ✖
+        </button>
+
+        <h4 className="modal-title">Update Coach Profile</h4>
+
+        <form onSubmit={formedit}>
+
+          <input type="hidden" value={edit.coachid} />
+
+          <input
+            type="text"
+            value={edit.name}
+            onChange={(e) => sededit({ ...edit, name: e.target.value })}
+            className="form-control"
+            placeholder="Coach Name"
+            required
+          />
+
+          <input
+            type="email"
+            value={edit.email}
+            onChange={(e) => sededit({ ...edit, email: e.target.value })}
+            className="form-control"
+            placeholder="Email"
+            required
+          />
+
+          <input
+            type="password"
+            value={edit.password}
+            onChange={(e) => sededit({ ...edit, password: e.target.value })}
+            className="form-control"
+            placeholder="Password"
+            required
+          />
+
+          <input
+            type="text"
+            value={edit.experience}
+            onChange={(e) => sededit({ ...edit, experience: e.target.value })}
+            className="form-control"
+            placeholder="Experience"
+            required
+          />
+
+          <select
+            value={edit.specialization}
+            onChange={(e) =>
+              sededit({ ...edit, specialization: e.target.value })
             }
-        </>
+            className="form-control"
+            required
+          >
+            <option value="">Select Sport</option>
+            <option value="Cricket">Cricket</option>
+            <option value="Kho-Kho">Kho-Kho</option>
+            <option value="Carrom">Carrom</option>
+            <option value="Chess">Chess</option>
+            <option value="Mallakhamb">Mallakhamb</option>
+            <option value="Volleyball">Volleyball</option>
+            <option value="Football">Football</option>
+          </select>
+
+          <input
+            type="number"
+            value={edit.age}
+            onChange={(e) =>
+              sededit({ ...edit, age: e.target.value })
+            }
+            className="form-control"
+            placeholder="Age"
+            required
+          />
+
+          <button type="submit" className="update-btn">
+            Update Coach
+          </button>
+
+        </form>
+      </div>
+    </div>
+  )}
+</>
     )
 }
 

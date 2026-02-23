@@ -1,51 +1,82 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import '../CoachComponents/NavbarCoach.css';
 const NavbarCoach = () => {
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark ">
-        <Link className="navbar-brand text-white " to="#">Coach</Link>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon text-white"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav text-white">
-            <li className="nav-item active">
-              <Link className="nav-link text-white" to="/CoachDashboard">Home</Link>
-            </li>
-            <li className="nav-item ">
-              <Link className="nav-link text-white" to="/Traningplans">Traningplans</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link text-white" to="/atheletscoach">Athelets </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link text-white" to="/Schedulecoach">Schedule</Link>
-            </li>
-            <li className="nav-item active">
-              <Link className="nav-link text-white" to="/AtheletsAndWorkdirl">AtheletsAndWorkdirl</Link>
-            </li>
-            <li className="nav-item active">
-              <Link className="nav-link text-white" to="/Performancelog">PerformanceLog</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link text-white" to="/feedbackhistorycoach">Feedback_History</Link>
+  <nav className="coach-navbar navbar navbar-expand-lg">
 
-            </li>
-            {/* <li className="nav-item">
-                         <Link className="nav-link text-white" onClick={()=>{localStorage.removeItem("token");
-                           window.location.href="/login";
-                         }}>Logout</Link>
-                       </li> */}
+    <div className="container-fluid">
 
-            <li className="nav-item">
-              <Link className="nav-link text-white" to="/logout">Logout</Link>
+      <Link className="navbar-brand coach-brand" to="/CoachDashboard">
+        Coach Panel
+      </Link>
 
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </>
+      <button
+        className="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#coachNavbar"
+      >
+        <span className="navbar-toggler-icon"></span>
+      </button>
+
+      <div className="collapse navbar-collapse" id="coachNavbar">
+        <ul className="navbar-nav ms-auto">
+
+          <li className="nav-item">
+            <Link className="nav-link" to="/CoachDashboard">
+              Dashboard
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link className="nav-link" to="/Traningplans">
+              Training Plans
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link className="nav-link" to="/atheletscoach">
+              Athletes
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link className="nav-link" to="/Schedulecoach">
+              Schedule
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link className="nav-link" to="/AtheletsAndWorkdirl">
+              Work Drill
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link className="nav-link" to="/Performancelog">
+              Performance
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link className="nav-link" to="/feedbackhistorycoach">
+              Feedback
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link className="nav-link logout-btn" to="/logout">
+              Logout
+            </Link>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+</>
   )
 }
 

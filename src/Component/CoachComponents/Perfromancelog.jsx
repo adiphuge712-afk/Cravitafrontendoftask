@@ -3,6 +3,7 @@ import NavbarCoach from './NavbarCoach'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
+import '../CoachComponents/Performancelog.css';
 const Perfromancelog = ({ user }) => {
   const [userdata, setuserdata] = useState(null);
       useEffect(() => {
@@ -37,38 +38,65 @@ const Perfromancelog = ({ user }) => {
 if (!userdata) return <div>Loading...</div>;
     return (
         <>
-            <NavbarCoach />
-            <table className='table table-bordered border '>
-                <thead className='table-danger'>
-                    <tr className='border'>
-                        <th>Log Id</th>
-                        <th>Date</th>
-                        <th>Fatiquelevel</th>
-                        <th>Performancematrix</th>
-                        <th>Coach Name</th>
-                        <th>AtheletId</th>
-                        <th>Athelet Name</th>
-                        <th>Athelet Email</th>
-                        <th>Workname</th>
-                    </tr>
-                </thead>
-                <tbody className='table-info'>
-                    {coachdat.map((d, index) => (
-                        <tr key={d.logid}>
-                            <td>{index + 1}</td>
-                            <td>{d.date}</td>
-                            <td>{d.fatiquelevel}</td>
-                            <td>{d.performancematrix}</td>
-                            <td>{d.athid.coachid.name}</td>
-                            <td>{d.athid.athid}</td>
-                            <td>{d.athid.name}</td>
-                            <td>{d.athid.email}</td>
-                            <td>{d.workid.workname}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </>
+  <NavbarCoach />
+
+  <div className="log-page">
+    <h2 className="log-title">Athlete Performance Logs</h2>
+
+    <div className="log-table-wrapper">
+      <table className="log-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Fatigue</th>
+            <th>Performance</th>
+            <th>Coach</th>
+            <th>Athlete ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Workout</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {coachdat.length > 0 ? (
+            coachdat.map((d, index) => (
+              <tr key={d.logid}>
+                <td>{index + 1}</td>
+                <td>{d.date}</td>
+
+                <td>
+                  <span className={`fatigue-badge ${d.fatiquelevel.toLowerCase()}`}>
+                    {d.fatiquelevel}
+                  </span>
+                </td>
+
+                <td>
+                  <span className={`performance-badge ${d.performancematrix.toLowerCase()}`}>
+                    {d.performancematrix}
+                  </span>
+                </td>
+
+                <td>{d.athid.coachid.name}</td>
+                <td>{d.athid.athid}</td>
+                <td>{d.athid.name}</td>
+                <td>{d.athid.email}</td>
+                <td>{d.workid.workname}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="9" className="no-data">
+                No Performance Logs Available
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</>
     )
 }
 

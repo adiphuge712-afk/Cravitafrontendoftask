@@ -1,0 +1,141 @@
+/* Page */
+.plan-page {
+  padding: 30px;
+  background: linear-gradient(to right, #f5f7fa, #e3f2fd);
+  min-height: 100vh;
+}
+
+.plan-title {
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+/* Table */
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.plan-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+}
+
+.plan-table th, .plan-table td {
+  padding: 12px;
+  text-align: center;
+}
+
+.plan-table thead {
+  background: #1976d2;
+  color: white;
+}
+
+.plan-table tbody tr:hover {
+  background: #f4f8ff;
+}
+
+/* Badges */
+.type-badge {
+  background: #673ab7;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+/* Buttons */
+.action-buttons button {
+  margin: 3px;
+}
+
+.btn-delete {
+  background: #e53935;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+.btn-edit {
+  background: #29b6f6;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+.btn-work {
+  background: #43a047;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modal-card {
+  background: white;
+  padding: 25px;
+  width: 400px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.modal-card h3 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.modal-card input,
+.modal-card select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-primary {
+  background: #1976d2;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+}
+
+.btn-cancel {
+  background: #757575;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+}
+
+.no-data {
+  padding: 20px;
+  color: #777;
+}
