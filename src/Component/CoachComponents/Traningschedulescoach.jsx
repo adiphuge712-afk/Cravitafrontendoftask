@@ -212,8 +212,9 @@ if (!userdata) return <div>Loading...</div>;
     <div className="modal-card">
       <h3>Add Workdrill</h3>
 
-      <form onSubmit={workdrilladd}>
+      <form className='form-ele' onSubmit={workdrilladd}>
         <input
+        className='form-ele'
           type="text"
           value={workdata.workname}
           onChange={(e) => setWorkdata({ ...workdata, workname: e.target.value })}
@@ -222,6 +223,7 @@ if (!userdata) return <div>Loading...</div>;
         />
 
         <input
+        className='form-ele'
           type="text"
           value={workdata.duration}
           onChange={(e) => setWorkdata({ ...workdata, duration: e.target.value })}
@@ -230,6 +232,7 @@ if (!userdata) return <div>Loading...</div>;
         />
 
         <select
+        className='form-ele'
           value={workdata.intencity}
           onChange={(e) => setWorkdata({ ...workdata, intencity: e.target.value })}
           required
@@ -241,8 +244,8 @@ if (!userdata) return <div>Loading...</div>;
         </select>
 
         <div className="modal-buttons">
-          <button type="submit" className="btn-primary">Add</button>
-          <button type="button" className="btn-cancel" onClick={() => setWorkdata(null)}>
+          <button type="submit" className="btn-primary form-ele ">Add</button>
+          <button type="button" className="btn-cancel form-ele" onClick={() => setWorkdata(null)}>
             Cancel
           </button>
         </div>

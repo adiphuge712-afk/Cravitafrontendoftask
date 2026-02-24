@@ -108,15 +108,18 @@
 
 .modal-box {
   background: white;
-  padding: 25px;
+  padding: 25px !important;
   width: 90%;
   max-width: 400px;
   border-radius: 12px;
   position: relative;
   animation: fadeIn 0.3s ease;
 }
-
+.modal-box-ele{
+  margin: 5px !important;
+}
 .modal-box select {
+  
   width: 100%;
   padding: 10px;
   margin: 10px 0;
@@ -152,11 +155,17 @@
 }
 
 .btn-cancel {
-  background: #757575;
-  color: white;
-  padding: 8px 14px;
-  border: none;
-  border-radius: 6px;
+  position: absolute !important;
+  top: 0%;
+  right: 1% !important;
+  width: 40px !important;
+  padding: 2px !important;
+  background: #ffffff !important;
+  color: rgb(33, 31, 31) !important;
+  padding: 8px 14px !important;
+  border: none !important;
+  border-radius: 6px !important;
+  font-size: 1.3rem !important;
 }
 /* Animation */
 @keyframes fadeIn {

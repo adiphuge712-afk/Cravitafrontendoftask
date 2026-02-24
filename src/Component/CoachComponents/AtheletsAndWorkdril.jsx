@@ -175,16 +175,17 @@ const AtheletsAndWorkdril = ({ user }) => {
             <div className="modal-overlay">
                 <div className="modal-box">
                     <button
-                        className=".btn-cancel"
+                        className="btn-cancel modal-box-ele"
                         onClick={() => setperformance(null)}
                     >
                         ✕
                     </button>
 
-                    <h3>Add Performance</h3>
+                    <h3 className='modal-box-ele'>Add Performance</h3>
 
                     <form onSubmit={formsubmitperformanse}>
                         <select
+                        className='modal-box-ele'
                             value={performance.performancematrix}
                             onChange={(e) =>
                                 setperformance({
@@ -203,6 +204,7 @@ const AtheletsAndWorkdril = ({ user }) => {
                         </select>
 
                         <select
+                        className='modal-box-ele'
                             value={performance.fatiquelevel}
                             onChange={(e) =>
                                 setperformance({
@@ -220,7 +222,7 @@ const AtheletsAndWorkdril = ({ user }) => {
                             <option value="Extreme">Extreme</option>
                         </select>
 
-                        <button type="submit" className="submit-btn">
+                        <button type="submit" className="submit-btn modal-box-ele">
                             Update
                         </button>
                     </form>

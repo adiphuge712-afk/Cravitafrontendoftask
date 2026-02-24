@@ -64,10 +64,11 @@
 
 /* Difficulty Badges */
 .difficulty-badge {
+  background-color: #b47f51;
   padding: 4px 10px;
   border-radius: 20px;
-  font-size: 12px;
-  color: white;
+  font-size: 13px;
+  color: rgb(36, 18, 18);
 }
 
 /* Difficulty Colors */

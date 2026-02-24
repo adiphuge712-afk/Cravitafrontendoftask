@@ -51,7 +51,7 @@
   padding: 4px 10px;
   border-radius: 20px;
   font-size: 12px;
-  color: white;
+  color: rgb(29, 18, 18);
 }
 
 .fatigue-badge.fresh { background: #4caf50; }
@@ -59,6 +59,8 @@
 .fatigue-badge.average { background: #ff9800; }
 .fatigue-badge.high { background: #f44336; }
 .fatigue-badge.extreme { background: #9c27b0; }
+.fatigue-badge.tired { background: #dcc877; }
+
 
 /* Performance Badges */
 .performance-badge {
