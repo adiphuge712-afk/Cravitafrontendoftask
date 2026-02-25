@@ -11,6 +11,7 @@ const Register = () => {
         age: "",
         sporttype: ""
     });
+const [isLoding, setLoding] = useState(false);
     const navigate = useNavigate();
     const formsubmit = async (e) => {
         e.preventDefault();
@@ -31,6 +32,9 @@ const Register = () => {
             console.log(error);
             alert('fail');
         }
+        finally {
+      setLoding(false);
+    }
     }
 
 
@@ -114,8 +118,8 @@ const Register = () => {
           </select>
         </div>
 
-        <button type="submit" className="register-btn">
-          Register
+        <button type="submit" className="register-btn"  disabled={isLoding}>
+         {isLoding ? "Processing..." : "Register"}
         </button>
 
       </form>

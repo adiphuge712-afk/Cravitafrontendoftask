@@ -19,6 +19,7 @@ const AtheletDashboard = ({ user }) => {
       window.location.href = "/login";
     }
   }, []);
+  const [isFetching, setIsFetching] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
   const [workdata, setworkdta] = useState([]);
   // const fatchwork = async () => {
@@ -43,7 +44,7 @@ const AtheletDashboard = ({ user }) => {
         alert("Coach not assigned yet");
         return;
       }
-
+      setworkdta([]);
       let url;
 
       if (date) {

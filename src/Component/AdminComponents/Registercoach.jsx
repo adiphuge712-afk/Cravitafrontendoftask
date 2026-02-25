@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import '../AdminComponents/Registercoach.css'
 
 const Registercoach = ({ user }) => {
+  const [isLoding, setLoding] = useState(false);
    const [userdata,setuserdata]=useState(null);
     useEffect(()=>{
       const token = localStorage.getItem("token");
@@ -42,6 +43,9 @@ const Registercoach = ({ user }) => {
             alert('fail');
 
         }
+        finally {
+      setLoding(false);
+    }
     }
     if (!userdata) return <div>Loading...</div>;
     return (
@@ -134,8 +138,8 @@ const Registercoach = ({ user }) => {
           />
         </div>
 
-        <button type="submit" className="submit-btn">
-          Register Coach
+        <button type="submit" className="submit-btn"  disabled={isLoding}>
+           {isLoding ? "Processing..." : "Register"}
         </button>
 
       </form>
