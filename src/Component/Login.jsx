@@ -10,9 +10,11 @@ import FeedbackHistory from './AdminComponents/FeedbackHistory';
 import './Login.css';
 
 const Login = ({ user }) => {
-
+  const [isLoding, setLoding] = useState(false);
+  const [errormsg, seterrormsg] = useState("");
+  const [succees, setsuccess] = useState("");
   // console.log(user);
-  const { setcontext } = useContext(UserContext);
+  // const { setcontext } = useContext(UserContext);
   const navigate = useNavigate();
   const [logdata, setDate] = useState({
     email: "",
@@ -21,16 +23,17 @@ const Login = ({ user }) => {
   });
   const formsubmit = async (e) => {
     e.preventDefault();
-
+    seterrormsg("");
+    setLoding(true);
     try {
 
       const res = await axios.post(`${import.meta.env.VITE_API_URL}/login`, logdata);
-      setcontext(res.data);//sharethe data globle
+      // setcontext(res.data);//sharethe data globle
       console.log("full responsed is :", res.data);
       const token = res.data.token;
       localStorage.setItem("token", token);
       // alert('token is :',localStorage.getItem("token"));
-      alert("Login success");
+setsuccess("Login succees!!!!");
       setDate({
         name: "",
         email: "",
@@ -50,8 +53,11 @@ const Login = ({ user }) => {
 
     } catch (error) {
       console.log(error);
-      alert('fail');
+      // alert('fail');
+      seterrormsg("Invalid email or password or role ????");
       navigate('/login');
+    } finally {
+      setLoding(false);
     }
   }
 
@@ -104,13 +110,25 @@ const Login = ({ user }) => {
                 <option value="Athelet">Athlete</option>
               </select>
             </div>
-
-            <button type="submit" className="login-btn">
-              Sign In
+             {succees && (
+              <p className="msg-succees">{succees}</p>
+            )}
+            {errormsg && (
+              <p className="error-message">{errormsg}</p>
+            )}
+            <button type="submit" className="login-btn" disabled={isLoding}>
+              {isLoding ? "Processing..." : "Sign In"}
             </button>
           </form>
         </div>
       </div>
+      {/* {isLoding && (
+        <div className="loader-overlay">
+          <div className="spinner-border text-light" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      )} */}
     </>
   )
 }
