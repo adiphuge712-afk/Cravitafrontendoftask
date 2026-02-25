@@ -44,9 +44,11 @@ const AtheletDashboard = ({ user }) => {
         alert("Coach not assigned yet");
         return;
       }
+
+      setIsFetching(true);
       setworkdta([]);
       let url;
-
+      // await new Promise(resolve => setTimeout(resolve, 2000));// for checking the loding 
       if (date) {
         url = `${import.meta.env.VITE_API_URL}/viewDataWorkdrilByDate/${userdata.coachid.coachid}?date=${date}`;
       } else {
@@ -58,6 +60,8 @@ const AtheletDashboard = ({ user }) => {
 
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsFetching(false);  // stop loading
     }
   };
   const statusupdate = async (id) => {
@@ -150,27 +154,38 @@ const AtheletDashboard = ({ user }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {workdata.length === 0 && (
+                  {isFetching ? (
+                    <tr>
+                      <td colSpan="7" style={{ textAlign: "center", color: "green" }}>
+                        Fetching data...
+                      </td>
+                    </tr>
+                  ) : workdata.length === 0 ? (
                     <tr>
                       <td colSpan="7" style={{ textAlign: "center", color: "red" }}>
                         No training scheduled for this day 🚫
                       </td>
                     </tr>
+                  ) : (
+                    workdata.map((d, index) => (
+                      <tr key={d.workid}>
+                        <td>{index + 1}</td>
+                        <td>{d.workname}</td>
+                        <td>{d.plan.planname}</td>
+                        <td>{d.duration} min</td>
+                        <td>{d.plan.startdate}</td>
+                        <td>{d.plan.enddate}</td>
+                        <td>
+                          <button
+                            onClick={() => statusupdate(d.workid)}
+                            className="complete-btn"
+                          >
+                            Mark Complete
+                          </button>
+                        </td>
+                      </tr>
+                    ))
                   )}
-
-                  {workdata.map((d, index) => (
-                    <tr key={d.workid}>
-                      <td>{index + 1}</td>
-                      <td>{d.workname}</td>
-                      <td>{d.plan.planname}</td>
-                      <td>{d.duration} min</td>
-                      <td>{d.plan.startdate}</td>
-                      <td>{d.plan.enddate}</td>
-                      <td>
-                        <button onClick={() => statusupdate(d.workid)} className="complete-btn">Mark Complete</button>
-                      </td>
-                    </tr>
-                  ))}
                 </tbody>
               </table>
             </div>
