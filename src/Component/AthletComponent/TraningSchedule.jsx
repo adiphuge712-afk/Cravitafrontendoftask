@@ -10,7 +10,7 @@ const TraningSchedule = ({ user }) => {
     const token = localStorage.getItem("token");
     if (token) {
       const decoded = jwtDecode(token);
-      console.log("Decoded data is : ",decoded.user);
+      // console.log("Decoded data is : ",decoded.user);
        setuserdata(decoded.user|| decoded);
     }else{
        window.location.href = "/login";
@@ -27,7 +27,7 @@ const TraningSchedule = ({ user }) => {
       if (userdata.coachid != null) {
         const res = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataWorkdrilByCoachid/${userdata.coachid.coachid}`);
         setworkdta(res.data);
-        console.log(res.data);
+        // console.log(res.data);
       }
       else {
 
@@ -40,8 +40,9 @@ const TraningSchedule = ({ user }) => {
   }
 
   useEffect(() => {
-    
+   if(userdata){
     fatchwork();
+   }
   }, [userdata]);
 
 

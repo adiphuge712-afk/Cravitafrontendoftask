@@ -37,7 +37,7 @@ const AdminDashboard = () => {
     const token = localStorage.getItem("token");
     if (token) {
       const decoded = jwtDecode(token);
-      console.log("Decoded data is : ",decoded.user);
+      // console.log("Decoded data is : ",decoded.user);
        setuserdata(decoded.user|| decoded);
     }else{
        window.location.href = "/login";
@@ -68,9 +68,11 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     // caoch();
-    fetachcoach();
+   if(userdata){
+     fetachcoach();
     fatchdata();
-  }, []);
+   }
+  }, [userdata]);
   if (!userdata) return <div>Loading...</div>;
   return (
     <>
