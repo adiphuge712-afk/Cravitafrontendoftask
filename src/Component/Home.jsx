@@ -2,6 +2,7 @@ import React from 'react'
 import academyimg1 from "../assets/img1.jpg";
 import academyimg2 from "../assets/img2.jpg";
 import academyimg3 from "../assets/img3.jpg";
+import { Link } from 'react-router-dom';
 import './Home.css';
 const Home = () => {
   
@@ -25,7 +26,7 @@ const Home = () => {
         </p>
 
         <div className="hero-buttons">
-          <button className="btn btn-primary btn-lg px-4">Get Started</button>
+          <Link to='/register' className="btn btn-primary btn-lg px-4">Get Started</Link>
           <button className="btn btn-outline-light btn-lg px-4 ms-3">
             Learn More
           </button>
@@ -35,7 +36,7 @@ const Home = () => {
 
 
     {/* FEATURES SECTION */}
-    <section className="features-modern container py-5">
+    <section className="features-modern container-fliud py-5">
 
       <div className="text-center mb-5">
         <h2 className="section-title">Why Choose Us</h2>
@@ -74,9 +75,9 @@ const Home = () => {
     {/* CTA SECTION */}
     <section className="cta-section text-center">
       <h2>Ready to Transform Your Game?</h2>
-      <button className="btn btn-light btn-lg mt-3 px-5">
+      <Link to="/login" className="btn btn-light btn-lg mt-3 px-5">
         Join Now
-      </button>
+      </Link>
     </section>
 
 
