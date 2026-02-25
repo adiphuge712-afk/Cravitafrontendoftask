@@ -67,9 +67,11 @@ const Athdetails = ({ user }) => {
     }
   }
   useEffect(() => {
-    caoch();
+    if(userdata){
+      caoch();
     fatchdata();
-  }, []);
+    }
+  }, [userdata]);
   if (!userdata) return <div>Loading...</div>;
   return (
     <>
