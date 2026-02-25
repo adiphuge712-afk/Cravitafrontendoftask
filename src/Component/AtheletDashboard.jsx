@@ -19,34 +19,58 @@ const AtheletDashboard = ({ user }) => {
       window.location.href = "/login";
     }
   }, []);
-
+  const [selectedDate, setSelectedDate] = useState("");
   const [workdata, setworkdta] = useState([]);
-  const fatchwork = async () => {
-    try {
-      if (userdata.coachid != null) {
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataWorkdrilByTodaysdateandCoachid/${userdata.coachid.coachid}`);
-        setworkdta(res.data);
-        console.log(res.data);
-      }
-      else {
+  // const fatchwork = async () => {
+  //   try {
+  //     if (userdata.coachid != null) {
+  //       const res = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataWorkdrilByTodaysdateandCoachid/${userdata.coachid.coachid}`);
+  //       setworkdta(res.data);
+  //       console.log(res.data);
+  //     }
+  //     else {
 
-        alert('Coach not assign yet ');
+  //       alert('Coach not assign yet ');
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     if (!userdata) return <div>Loading...</div>;
+  //   }
+  // }
+  const fatchwork = async (date = null) => {
+    try {
+      if (!userdata?.coachid) {
+        alert("Coach not assigned yet");
+        return;
       }
+
+      let url;
+
+      if (date) {
+        url = `${import.meta.env.VITE_API_URL}/viewDataWorkdrilByDate/${userdata.coachid.coachid}?date=${date}`;
+      } else {
+        url = `${import.meta.env.VITE_API_URL}/viewDataWorkdrilByTodaysdateandCoachid/${userdata.coachid.coachid}`;
+      }
+
+      const res = await axios.get(url);
+      setworkdta(res.data);
+
     } catch (error) {
       console.log(error);
-      if (!userdata) return <div>Loading...</div>;
     }
-  }
-
+  };
   const statusupdate = async (id) => {
     alert('work id is ' + id);
   }
   useEffect(() => {
     if (userdata) {
-
-      fatchwork();
+      if (selectedDate) {
+        fatchwork(selectedDate);
+      } else {
+        fatchwork(); // today's data
+      }
     }
-  }, [userdata]);
+  }, [selectedDate, userdata]);
 
 
   if (!userdata) return <div>Loading...</div>;
@@ -99,7 +123,18 @@ const AtheletDashboard = ({ user }) => {
 
           {/* Training Section */}
           <div className="training-section">
-            <h2>Today's Training</h2>
+            <div className="head-ele">
+              <h2>Today's Training</h2>
+              <div className="date-filter">
+                <label htmlFor="date">Select Date</label>
+                <input
+                  type="date"
+                  id="date"
+                  value={selectedDate}
+                  onChange={(e) => setSelectedDate(e.target.value)}
+                />
+              </div>
+            </div>
             <div className="table-wraper">
               <table>
                 <thead>
@@ -114,6 +149,14 @@ const AtheletDashboard = ({ user }) => {
                   </tr>
                 </thead>
                 <tbody>
+                  {workdata.length === 0 && (
+                    <tr>
+                      <td colSpan="7" style={{ textAlign: "center", color: "red" }}>
+                        No training scheduled for this day 🚫
+                      </td>
+                    </tr>
+                  )}
+
                   {workdata.map((d, index) => (
                     <tr key={d.workid}>
                       <td>{index + 1}</td>
