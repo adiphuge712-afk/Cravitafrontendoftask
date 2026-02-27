@@ -17,6 +17,8 @@ const AtheletsAndWorkdril = ({ user }) => {
             window.location.href = "/login";
         }
     }, []);
+    const [loading, setLoading] = useState(false);      // page loading
+    const [submitting, setSubmitting] = useState(false); // form loading
     const [performance, setperformance] = useState(null);
     const [coachdat, setCoachData] = useState([]);
     const [workdril, setViewWorkdril] = useState([]);
@@ -42,47 +44,102 @@ const AtheletsAndWorkdril = ({ user }) => {
             alert("Fail to fatech the workdril");
         }
     }
+    const [performancelogs, setPerformanceLogs] = useState([]);
+    const fetchPerformanceLogs = async () => {
+        try {
+            const res = await axios.get(
+                `${import.meta.env.VITE_API_URL}/viewDataPerformancelog/${userdata.coachid}`
+            );
+            // console.log("performacedata is: ",res.data);
+            setPerformanceLogs(res.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    const checkPerformanceExists = (athid, workid) => {
+        // console.log("athis id and wokid is ",athid,workid);
+        return performancelogs.some(
+            (p) => p.athid?.athid === athid && p.workid?.workid === workid
+        );
+    };
+
     const perpormance = (id, wid) => {
         // alert('ath id is  :'+id+'and wordk id is: '+wid);
         setperformance({
             "athid": id,
             "workid": wid,
             "performancematrix": "",
-            "fatiquelevel": ""
+            "fatiquelevel": "",
+            "completestatus": ""
 
         })
     }
     const formsubmitperformanse = async (e) => {
         e.preventDefault();
-        try {
-            // const data=await axios.post(`${import.meta.env.VITE_API_URL}/addDataPerformancelog/${performance.athid}/${performance.workid}`,performance);
-            axios.post(
-                `${import.meta.env.VITE_API_URL}/addDataPerformancelog/${performance.athid}/${performance.workid}`,
-                {
-                    performancematrix: performance.performancematrix,
-                    fatiquelevel: performance.fatiquelevel
-                },
-                {
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                }
-            );
 
-            alert("Performance add");
+        const exists = checkPerformanceExists(
+            performance.athid,
+            performance.workid
+        );
+        // await new Promise(resolve => setTimeout(resolve, 2000));
+        try {
+            setSubmitting(true);
+            if (exists) {
+                await axios.put(
+                    `${import.meta.env.VITE_API_URL}/updatePerformancelog/${performance.athid}/${performance.workid}`,
+                    {
+                        completestatus: performance.completestatus,
+                        performancematrix: performance.performancematrix,
+                        fatiquelevel: performance.fatiquelevel
+                    }
+                );
+                alert("Performance Updated");
+            } else {
+                await axios.post(
+                    `${import.meta.env.VITE_API_URL}/addDataPerformancelog/${performance.athid}/${performance.workid}`,
+                    {
+                        completestatus: performance.completestatus,
+                        performancematrix: performance.performancematrix,
+                        fatiquelevel: performance.fatiquelevel
+                    }
+                );
+                alert("Performance Added");
+            }
+
             setperformance(null);
+            await fetchPerformanceLogs(); // refresh UI
         } catch (error) {
             console.log(error);
-            alert("Fail to add the performance");
+            alert("Operation Failed");
         }
-    }
+        finally {
+            setSubmitting(false);
+        }
+    };
     useEffect(() => {
-        if (userdata) {
-            fectdata();
-            fatchworkdirl();
-        }
+        const loadData = async () => {
+            if (userdata) {
+                setLoading(true);
+                await fectdata();
+                await fatchworkdirl();
+                await fetchPerformanceLogs();
+                setLoading(false);
+            }
+        };
+
+        loadData();
     }, [userdata]);
     if (!userdata) return <div>Loading...</div>;
+   if (loading) {
+    return (
+        <>
+            <NavbarCoach />
+            <div className="loading-screen">
+                <h2>Loading Data...</h2>
+            </div>
+        </>
+    );
+}
     return (<>
         <NavbarCoach />
 
@@ -153,7 +210,9 @@ const AtheletsAndWorkdril = ({ user }) => {
                                                                         perpormance(d.athid, w.workid)
                                                                     }
                                                                 >
-                                                                    Add Performance
+                                                                    {checkPerformanceExists(d.athid, w.workid)
+                                                                        ? "Update Performance"
+                                                                        : "Add Performance"}
                                                                 </button>
                                                             </td>
                                                         </tr>
@@ -185,7 +244,7 @@ const AtheletsAndWorkdril = ({ user }) => {
 
                     <form onSubmit={formsubmitperformanse}>
                         <select
-                        className='modal-box-ele'
+                            className='modal-box-ele'
                             value={performance.performancematrix}
                             onChange={(e) =>
                                 setperformance({
@@ -204,7 +263,7 @@ const AtheletsAndWorkdril = ({ user }) => {
                         </select>
 
                         <select
-                        className='modal-box-ele'
+                            className='modal-box-ele'
                             value={performance.fatiquelevel}
                             onChange={(e) =>
                                 setperformance({
@@ -221,9 +280,24 @@ const AtheletsAndWorkdril = ({ user }) => {
                             <option value="High">High</option>
                             <option value="Extreme">Extreme</option>
                         </select>
+                        <select
+                            className='modal-box-ele'
+                            value={performance.completestatus || ""}
+                            onChange={(e) =>
+                                setperformance({
+                                    ...performance,
+                                    completestatus: e.target.value,
+                                })
+                            }
+                            required
+                        >
+                            <option value="">Select Status</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Not Completed">Not Completed</option>
+                        </select>
 
-                        <button type="submit" className="submit-btn modal-box-ele">
-                            Update
+                        <button type="submit" className="submit-btn modal-box-ele" disabled={submitting}>
+                            {submitting ? "Processing..." : "Update"}
                         </button>
                     </form>
                 </div>

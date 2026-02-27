@@ -22,26 +22,10 @@ const AtheletDashboard = ({ user }) => {
   const [isFetching, setIsFetching] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
   const [workdata, setworkdta] = useState([]);
-  // const fatchwork = async () => {
-  //   try {
-  //     if (userdata.coachid != null) {
-  //       const res = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataWorkdrilByTodaysdateandCoachid/${userdata.coachid.coachid}`);
-  //       setworkdta(res.data);
-  //       console.log(res.data);
-  //     }
-  //     else {
-
-  //       alert('Coach not assign yet ');
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //     if (!userdata) return <div>Loading...</div>;
-  //   }
-  // }
   const fatchwork = async (date = null) => {
     try {
       if (!userdata?.coachid) {
-        alert("Coach not assigned yet");
+        // alert("Coach not assigned yet");
         return;
       }
 
@@ -64,8 +48,46 @@ const AtheletDashboard = ({ user }) => {
       setIsFetching(false);  // stop loading
     }
   };
+  const [performanceData, setPerformanceData] = useState([]);
+  const fetchPerformance = async () => {
+    try {
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/viewDataPerformancelogAthid/${userdata.athid}`
+      );
+      setPerformanceData(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    if (userdata) {
+      fetchPerformance();
+    }
+  }, [userdata]);
+  const getStatus = (workid) => {
+    const record = performanceData.find(
+      (p) => p.workid.workid === workid
+    );
+
+    return record?.completestatus === "Completed";
+  };
   const statusupdate = async (id) => {
-    alert('work id is ' + id);
+    // alert("workid is :"+id);
+    setIsFetching(true);
+    try {
+      await axios.put(`${import.meta.env.VITE_API_URL}/updatePerformancelogs/${userdata.athid}/${id}?data=${"Completed"}`)
+      // alert('work completed ');
+      // await new Promise(resolve => setTimeout(resolve, 2000));// for checking the loding 
+      fetchPerformance();
+      // setComplete(true);
+    } catch (error) {
+      console.log("FULL ERROR:", error);
+      console.log("STATUS:", error?.response?.status);
+      console.log("DATA:", error?.response?.data);
+      alert("Update failed");
+    } finally {
+      setIsFetching(false);  // stop loading
+    }
   }
   useEffect(() => {
     if (userdata) {
@@ -83,20 +105,6 @@ const AtheletDashboard = ({ user }) => {
     <>
       <NavbarOfAth />
       <div className="dashboard">
-
-        {/* Sidebar */}
-        {/* <div className="sidebar">
-        <h2>🏋️ Athlete</h2>
-        <ul>
-          <li className="active">Dashboard</li>
-          <li>My Plan</li>
-          <li>Progress</li>
-          <li>Messages</li>
-          <li>Profile</li>
-          <li className="logout">Logout</li>
-        </ul>
-      </div> */}
-
         {/* Main Content */}
         <div className="main-content">
 
@@ -142,7 +150,7 @@ const AtheletDashboard = ({ user }) => {
             </div>
             <div className="table-wraper">
               <table>
-                <thead>
+                <thead className='text-center'>
                   <tr>
                     <th>sr.no</th>
                     <th>Exercise</th>
@@ -176,11 +184,18 @@ const AtheletDashboard = ({ user }) => {
                         <td>{d.plan.startdate}</td>
                         <td>{d.plan.enddate}</td>
                         <td>
-                          <button
+                          {/* <button
                             onClick={() => statusupdate(d.workid)}
                             className="complete-btn"
                           >
-                            Mark Complete
+                           {Complete ? "Completd" : "Mark Complete"}
+                          </button> */}
+                          <button
+                            onClick={() => statusupdate(d.workid)}
+                            className="complete-btn"
+                            disabled={getStatus(d.workid)}
+                          >
+                            {getStatus(d.workid) ? "Completed" : "Mark Complete"}
                           </button>
                         </td>
                       </tr>
