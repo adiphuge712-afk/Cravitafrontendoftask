@@ -163,11 +163,12 @@ const AtheletDashboard = ({ user }) => {
                 </thead>
                 <tbody>
                   {isFetching ? (
-                    <tr>
-                      <td colSpan="7" style={{ textAlign: "center", color: "green" }}>
-                        Fetching data...
-                      </td>
-                    </tr>
+                    <div className="loader-overlay">
+                      <div className="loader-box">
+                        <div className="spinner-border" role="status"></div>
+                        <p className="loading-text">Loading...</p>
+                      </div>
+                    </div>
                   ) : workdata.length === 0 ? (
                     <tr>
                       <td colSpan="7" style={{ textAlign: "center", color: "red" }}>

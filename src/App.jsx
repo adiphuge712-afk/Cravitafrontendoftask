@@ -23,6 +23,7 @@ import FeedBackHistoryCoach from './Component/CoachComponents/FeedBackHistoryCoa
 import Perfromancelog from './Component/CoachComponents/Perfromancelog'
 import AtheletsAndWorkdril from './Component/CoachComponents/AtheletsAndWorkdril'
 import ProtectedRoute from './Component/ProtectedRoute'
+import RequestCoach from './Component/AdminComponents/RequestCoach'
 function App() {
   const [user, setcontext] = useState(null);
   const location = useLocation();
@@ -56,6 +57,8 @@ function App() {
           <Route path='/feedbackhistorycoach' element={<ProtectedRoute><FeedBackHistoryCoach user={user} /></ProtectedRoute>} />
           <Route path='/Performancelog' element={<ProtectedRoute><Perfromancelog user={user} /></ProtectedRoute>} />
           <Route path='/AtheletsAndWorkdirl' element={<ProtectedRoute><AtheletsAndWorkdril user={user} /></ProtectedRoute>} />
+          <Route path='/requestcoach' element={<ProtectedRoute><RequestCoach /></ProtectedRoute>} />
+          
           <Route path='/*' element={<Login />} />
         </Routes>
 

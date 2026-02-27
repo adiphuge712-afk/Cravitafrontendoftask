@@ -30,7 +30,11 @@ const Navbaradmin = () => {
               Dashboard
             </Link>
           </li>
-
+ <li className="nav-item">
+            <Link className="nav-link" to="/requestcoach">
+            Request of athelets
+            </Link>
+          </li>
           <li className="nav-item">
             <Link className="nav-link" to="/addcoach">
               Register Coach
