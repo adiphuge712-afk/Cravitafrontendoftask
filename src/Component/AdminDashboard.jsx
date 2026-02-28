@@ -32,17 +32,17 @@ const data = [
   { month: "Jun", performance: 70 },
 ];
 const AdminDashboard = () => {
- const [userdata,setuserdata]=useState(null);
-  useEffect(()=>{
+  const [userdata, setuserdata] = useState(null);
+  useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       const decoded = jwtDecode(token);
       // console.log("Decoded data is : ",decoded.user);
-       setuserdata(decoded.user|| decoded);
-    }else{
-       window.location.href = "/login";
+      setuserdata(decoded.user || decoded);
+    } else {
+      window.location.href = "/login";
     }
-   },[]);
+  }, []);
   const [athletes, setAthdata] = useState([]);
   const fatchdata = async () => {
     try {
@@ -65,17 +65,44 @@ const AdminDashboard = () => {
 
     }
   }
-
+  const [Loding, setLoding] = useState(false);
   useEffect(() => {
     // caoch();
-   if(userdata){
-     fetachcoach();
-    fatchdata();
-   }
+    const lodedata = async () => {
+      try {
+        if (userdata) {
+          setLoding(true);
+          // await new Promise(resolve => setTimeout(resolve, 2000));// for checking the loding
+          await fetachcoach();
+          await fatchdata();
+        }
+      } catch (error) {
+        console.log("error is :", error);
+        alert("fail to load the apiss");
+      } finally {
+        setLoding(false);
+      }
+    }
+    lodedata();
   }, [userdata]);
-  if (!userdata) return <div>Loading...</div>;
+  if (!userdata) return <div className="loader-overlay">
+    <div className="loader-box">
+      <div className="spinner-border" role="status"></div>
+      <p className="loading-text">Loading...</p>
+    </div>
+  </div>;
   return (
     <>
+      {
+        Loding && (
+          <div className="loader-overlay">
+            <div className="loader-box">
+              <div className="spinner-border" role="status"></div>
+              <p className="loading-text">Loading...</p>
+            </div>
+          </div>
+        )
+      }
       <Navbaradmin />
       <div className="dashboard">
         {/* Sidebar
@@ -151,8 +178,8 @@ const AdminDashboard = () => {
             <h3>Athletes List</h3>
             <table>
               <thead>
-                <tr>
-                  <th>Athelet Name</th>
+                <tr className='text-center'>
+                  <th className='text-start'>Athelet Name</th>
                   <th>Sport Type</th>
                   <th>Coach Name</th>
                 </tr>

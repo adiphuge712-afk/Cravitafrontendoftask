@@ -20,7 +20,7 @@ const RequestCoach = () => {
     const [requestdata, setFectdat] = useState([]);
     const fechdata = async () => {
         try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL}/viewrequestbyAdminid/${userdata.adminid}`);
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/viewrequest`);
             // console.log("request dat is :", res.data);
             setFectdat(res.data);
             // alert("fatch data");
@@ -29,13 +29,13 @@ const RequestCoach = () => {
             alert("Data not found!!!!!!!");
         }
     }
-    const [coachdata, setCoach] = useState(null);
+    const [coachdata, setCoach] = useState([]);
     const caoch = async () => {
         try {
             const datas = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataCoach`);
             // alert('datafatch');
             setCoach(datas.data);
-            console.log(datas.data);
+            // console.log(datas.data);
 
         } catch (err) {
             console.log(err);
@@ -55,6 +55,7 @@ const RequestCoach = () => {
 
         });
     }
+     const unassigned = requestdata?.filter(d => !d.athid?.coachid);// shen there is no data
     const [Loding, setLoding] = useState(false);
     const formsubit = async (e) => {
         e.preventDefault();
@@ -95,12 +96,14 @@ const RequestCoach = () => {
         loadData();
     }, [userdata]);
     if (!userdata) {
-        <div className="loader-overlay">
-            <div className="loader-box">
-                <div className="spinner-border" role="status"></div>
-                <p className="loading-text">Loading...</p>
+        return (
+            <div className="loader-overlay">
+                <div className="loader-box">
+                    <div className="spinner-border" role="status"></div>
+                    <p className="loading-text">Loading...</p>
+                </div>
             </div>
-        </div>
+        );
     }
     return (
         <>
@@ -124,27 +127,36 @@ const RequestCoach = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {fatching && (
-                                    <div className="loader-overlay">
-                                        <div className="loader-box">
-                                            <div className="spinner-border" role="status"></div>
-                                            <p className="loading-text">Loading...</p>
-                                        </div>
-                                    </div>
-                                )}
-                                {requestdata?.map((d, index) => (
-                                    <tr key={d.rqid}>
-                                        <td>{index + 1}</td>
-                                        <td>{d.request}</td>
-                                        <td>{d.athid?.name}</td>
-                                        <td>{d.athid?.sporttype}</td>
-                                        <td>{d.athid?.email}</td>
-                                        <td>{d.athid?.age}</td>
-                                        <td><button className='btn btn-success' type='submit' onClick={() => Atheletdata(d)}>{coachdata ? "alerady asign" : "Assign coach"} </button></td>
-                                    </tr>
-                                ))}
+                                {
+                                    !unassigned || unassigned.length === 0? (
+                                        <tr>
+                                            <td colSpan="7" className='text-success' style={{ textAlign: "center", padding: "20px" }}>
+                                              <b>No Request Yet!!!!!</b>
+                                            </td>
+                                        </tr>
+                                    ) : (
+                                        requestdata?.filter(d => !d.athid.coachid).map((d, index) => (
+                                            <tr key={d.rqid}>
+                                                <td>{index + 1}</td>
+                                                <td>{d.request}</td>
+                                                <td>{d.athid?.name}</td>
+                                                <td>{d.athid?.sporttype}</td>
+                                                <td>{d.athid?.email}</td>
+                                                <td>{d.athid?.age}</td>
+                                                <td><button className='btn btn-success' type='submit' onClick={() => Atheletdata(d)}>{d.athid?.coachid ? "Alerady asign" : "Assign coach"} </button></td>
+                                            </tr>
+                                        ))
+                                    )}
                             </tbody>
                         </table>
+                        {fatching && (
+                            <div className="loader-overlay">
+                                <div className="loader-box">
+                                    <div className="spinner-border" role="status"></div>
+                                    <p className="loading-text">Loading...</p>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

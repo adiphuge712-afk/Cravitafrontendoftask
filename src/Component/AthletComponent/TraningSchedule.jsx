@@ -40,17 +40,6 @@ const TraningSchedule = ({ user }) => {
   }
   const [Loding, setLoding] = useState(false);
   const [hasRequested, setHasRequested] = useState(false);
-  // const checkRequestStatus = async () => {
-  //   try {
-  //     const res = await axios.get(
-  //       `${import.meta.env.VITE_API_URL}/viewrequestbyathelet/${userdata.athid}`
-  //     );
-
-  //     setHasRequested(res.data); // expecting true or false
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
   const [showRequestMessage, setShowRequestMessage] = useState(true);
   const checkRequestStatus = async () => {
     try {
@@ -106,7 +95,7 @@ const TraningSchedule = ({ user }) => {
         }
       );
 
-      alert("Request sent successfully");
+      // alert("Request sent successfully");
       setHasRequested(true);
 
       setAthdata({

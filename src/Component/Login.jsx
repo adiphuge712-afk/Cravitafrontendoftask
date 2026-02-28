@@ -25,6 +25,7 @@ const Login = ({ user }) => {
     e.preventDefault();
     seterrormsg("");
     setLoding(true);
+    // await new Promise(resolve => setTimeout(resolve, 2000));// for checking the loding 
     try {
 
       const res = await axios.post(`${import.meta.env.VITE_API_URL}/login`, logdata);
@@ -64,6 +65,16 @@ const Login = ({ user }) => {
 
   return (
     <>
+     {
+        isLoding && (
+          <div className="loader-overlay">
+            <div className="loader-box">
+              <div className="spinner-border" role="status"></div>
+              <p className="loading-text">Loading...</p>
+            </div>
+          </div>
+        )
+      }
       <div className="login-page">
         <div className="login-card">
           <h2 className="login-title">Login</h2>
