@@ -25,9 +25,12 @@ const AtheletDashboard = ({ user }) => {
        }
   }, []);
   const [isFetching, setIsFetching] = useState(false);
-  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedDate, setSelectedDate] = useState({
+    date:"",
+    date2:""
+  });
   const [workdata, setworkdta] = useState([]);
-  const fatchwork = async (date = null) => {
+  const fatchwork = async (date,date2) => {
     try {
       if (!userdata?.coachid) {
         // alert("Coach not assigned yet");
@@ -38,8 +41,8 @@ const AtheletDashboard = ({ user }) => {
       setworkdta([]);
       let url;
       // await new Promise(resolve => setTimeout(resolve, 2000));// for checking the loding 
-      if (date) {
-        url = `/athelet/viewDataWorkdrilByDate/${userdata.coachid.coachid}?date=${date}`;
+      if (date,date2) {
+        url = `/athelet/viewDataWorkdrilBydatetodate/${userdata.coachid.coachid}?date=${date}&date2=${date2}`;
       } else {
         url = `/athelet/viewDataWorkdrilByTodaysdateandCoachid/${userdata.coachid.coachid}`;
       }
@@ -97,7 +100,7 @@ const AtheletDashboard = ({ user }) => {
   useEffect(() => {
     if (userdata) {
       if (selectedDate) {
-        fatchwork(selectedDate);
+        fatchwork(selectedDate.date,selectedDate.date2);
       } else {
         fatchwork(); // today's data
       }
@@ -144,13 +147,24 @@ const AtheletDashboard = ({ user }) => {
             <div className="head-ele">
               <h2>Today's Training</h2>
               <div className="date-filter">
-                <label htmlFor="date">Select Date</label>
+               <div className="date-center">
+                 <label htmlFor="date">Select Date from </label>
                 <input
                   type="date"
                   id="date"
-                  value={selectedDate}
-                  onChange={(e) => setSelectedDate(e.target.value)}
+                  value={selectedDate.date}
+                  onChange={(e) => setSelectedDate({...selectedDate,date:e.target.value})}
                 />
+               </div>
+                <div className="date-center">
+                  <label htmlFor="date2"> To  </label>
+                <input
+                  type="date"
+                  id="date2"
+                  value={selectedDate.date2}
+                  onChange={(e) => setSelectedDate({...selectedDate,date2:e.target.value})}
+                />
+                </div>
               </div>
             </div>
             <div className="table-wraper">
