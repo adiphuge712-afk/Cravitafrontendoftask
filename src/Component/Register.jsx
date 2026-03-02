@@ -18,7 +18,7 @@ const Register = () => {
     setLoding(true);
     // await new Promise(resolve => setTimeout(resolve, 2000));// for checking the loding
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/registerathlet`, reg);
+      await axios.post(`${import.meta.env.VITE_API_URL}/athelet/registerathlet`, reg);
       // alert("Register Complete");
       setRegister({
         name: "",

@@ -28,7 +28,7 @@ const Login = ({ user }) => {
     // await new Promise(resolve => setTimeout(resolve, 2000));// for checking the loding 
     try {
 
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/login`, logdata);
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/athelet/login`, logdata);
       // setcontext(res.data);//sharethe data globle
       // console.log("full responsed is :", res.data);
       const token = res.data.token;
