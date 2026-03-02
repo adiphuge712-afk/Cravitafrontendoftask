@@ -7,17 +7,22 @@ import Logout from '../utils/Logout';
 import NavbarOfAth from './NavbarOfAth';
 import './AtheletDashboard.css';
 import { jwtDecode } from 'jwt-decode';
+import api from "./css/axiosConfig";
 const AtheletDashboard = ({ user }) => {
+  const navigate=useNavigate();
   const [userdata, setuserdata] = useState(null);
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
-      const decoded = jwtDecode(token);
-      //  console.log("Decoded data is : ",decoded.user);
-      setuserdata(decoded.user || decoded);
-    } else {
-      window.location.href = "/login";
-    }
+       if (!token) {
+       navigate('/login');
+       }
+       try {
+         const decoded = jwtDecode(token);
+         // console.log("Decoded data is : ",decoded.user);
+         setuserdata(decoded.user || decoded);
+       } catch (error) {
+          navigate('/login');
+       }
   }, []);
   const [isFetching, setIsFetching] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
@@ -34,12 +39,12 @@ const AtheletDashboard = ({ user }) => {
       let url;
       // await new Promise(resolve => setTimeout(resolve, 2000));// for checking the loding 
       if (date) {
-        url = `${import.meta.env.VITE_API_URL}/viewDataWorkdrilByDate/${userdata.coachid.coachid}?date=${date}`;
+        url = `/athelet/viewDataWorkdrilByDate/${userdata.coachid.coachid}?date=${date}`;
       } else {
-        url = `${import.meta.env.VITE_API_URL}/viewDataWorkdrilByTodaysdateandCoachid/${userdata.coachid.coachid}`;
+        url = `/athelet/viewDataWorkdrilByTodaysdateandCoachid/${userdata.coachid.coachid}`;
       }
 
-      const res = await axios.get(url);
+      const res = await api.get(url);
       setworkdta(res.data);
 
     } catch (error) {
@@ -51,8 +56,8 @@ const AtheletDashboard = ({ user }) => {
   const [performanceData, setPerformanceData] = useState([]);
   const fetchPerformance = async () => {
     try {
-      const res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/viewDataPerformancelogAthid/${userdata.athid}`
+      const res = await api.get(
+        `/athelet/viewDataPerformancelogAthid/${userdata.athid}`
       );
       setPerformanceData(res.data);
     } catch (err) {
@@ -75,7 +80,7 @@ const AtheletDashboard = ({ user }) => {
     // alert("workid is :"+id);
     setIsFetching(true);
     try {
-      await axios.put(`${import.meta.env.VITE_API_URL}/updatePerformancelogs/${userdata.athid}/${id}?data=${"Completed"}`)
+      await api.put(`/athelet/updatePerformancelogs/${userdata.athid}/${id}?data=${"Completed"}`)
       // alert('work completed ');
       // await new Promise(resolve => setTimeout(resolve, 2000));// for checking the loding 
       fetchPerformance();
@@ -169,7 +174,8 @@ const AtheletDashboard = ({ user }) => {
                         <p className="loading-text">Loading...</p>
                       </div>
                     </div>
-                  ) : workdata.length === 0 ? (
+                  )
+                  :  workdata.length === 0 ? (
                     <tr>
                       <td colSpan="7" style={{ textAlign: "center", color: "red" }}>
                         No training scheduled for this day 🚫

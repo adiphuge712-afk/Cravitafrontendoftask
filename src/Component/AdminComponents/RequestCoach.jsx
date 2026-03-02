@@ -4,23 +4,29 @@ import '../AdminComponents/RequestCoach.css';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import api from '../css/axiosConfig';
+import { useNavigate } from 'react-router-dom';
 const RequestCoach = () => {
+    const navigate=useNavigate();
     const [userdata, setuserdata] = useState(null);
     useEffect(() => {
         const token = localStorage.getItem("token");
-        if (token) {
-            const decoded = jwtDecode(token);
-            // console.log("Decoded data is : ",decoded.user);
-            setuserdata(decoded.user || decoded);
-        } else {
-            window.location.href = "/login";
-        }
+                   if (!token) {
+                    navigate('/login');
+                   }
+                   try {
+                     const decoded = jwtDecode(token);
+                     // console.log("Decoded data is : ",decoded.user);
+                     setuserdata(decoded.user || decoded);
+                   } catch (error) {
+                     navigate('/login');
+                   }
     }, []);
 
     const [requestdata, setFectdat] = useState([]);
     const fechdata = async () => {
         try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL}/viewrequest`);
+            const res = await api.get(`/admin/viewrequest`);
             // console.log("request dat is :", res.data);
             setFectdat(res.data);
             // alert("fatch data");
@@ -32,7 +38,7 @@ const RequestCoach = () => {
     const [coachdata, setCoach] = useState([]);
     const caoch = async () => {
         try {
-            const datas = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataCoach`);
+            const datas = await api.get(`/admin/viewDataCoach`);
             // alert('datafatch');
             setCoach(datas.data);
             // console.log(datas.data);
@@ -62,7 +68,7 @@ const RequestCoach = () => {
         setLoding(true);
         // await new Promise(resolve => setTimeout(resolve, 2000));
         try {
-            const sub = await axios.post(`${import.meta.env.VITE_API_URL}/AssigendCoach`, assigend);
+            const sub = await api.post(`/admin/AssigendCoach`, assigend);
             fechdata();
             //   alert(sub.data);
             setAssigend(null);

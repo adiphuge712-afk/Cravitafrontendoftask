@@ -3,9 +3,13 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
+// import {userNavigete} from "react-router-dom";
 //  import NavbarOfAth from './NavbarOfAth';
 import Navbaradmin from "./AdminComponents/Navbaradmin";
 import React from "react";
+import "./AdminDashboard.css";
+import api from './css/axiosConfig';
+import { useNavigate } from 'react-router-dom';
 import {
   FaUsers,
   FaUserTie,
@@ -21,7 +25,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import "./AdminDashboard.css";
+
 
 const data = [
   { month: "Jan", performance: 30 },
@@ -32,21 +36,25 @@ const data = [
   { month: "Jun", performance: 70 },
 ];
 const AdminDashboard = () => {
+  const navigate=useNavigate();
   const [userdata, setuserdata] = useState(null);
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
+    if (!token) {
+     navigate('/login');
+    }
+    try {
       const decoded = jwtDecode(token);
       // console.log("Decoded data is : ",decoded.user);
       setuserdata(decoded.user || decoded);
-    } else {
-      window.location.href = "/login";
+    } catch (error) {
+      navigate('/login');
     }
   }, []);
   const [athletes, setAthdata] = useState([]);
   const fatchdata = async () => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataAthlet`);
+      const res = await api.get(`/admin/viewDataAthlet`);
       setAthdata(res.data);
     } catch (error) {
       console.log(error);
@@ -56,7 +64,7 @@ const AdminDashboard = () => {
   const [coachdata, setCoachData] = useState([]);
   const fetachcoach = async () => {
     try {
-      const coach = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataCoach`);
+      const coach = await api.get(`/admin/viewDataCoach`);
       // alert('datafatch');
       setCoachData(coach.data);
     } catch (err) {

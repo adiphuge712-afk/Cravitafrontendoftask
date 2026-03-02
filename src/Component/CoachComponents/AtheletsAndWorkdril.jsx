@@ -5,17 +5,23 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import '../CoachComponents/AtheletsAndWorkdirl.css';
+import api from '../css/axiosConfig';
+import { useNavigate } from 'react-router-dom';
 const AtheletsAndWorkdril = ({ user }) => {
+    const navigate=useNavigate();
     const [userdata, setuserdata] = useState(null);
     useEffect(() => {
         const token = localStorage.getItem("token");
-        if (token) {
-            const decoded = jwtDecode(token);
-            // console.log("Decoded data is : ",decoded.user);
-            setuserdata(decoded.user || decoded);
-        } else {
-            window.location.href = "/login";
-        }
+                   if (!token) {
+                    navigate('/login');
+                   }
+                   try {
+                     const decoded = jwtDecode(token);
+                     // console.log("Decoded data is : ",decoded.user);
+                     setuserdata(decoded.user || decoded);
+                   } catch (error) {
+                     navigate('/login');
+                   }
     }, []);
     const [loading, setLoading] = useState(false);      // page loading
     const [submitting, setSubmitting] = useState(false); // form loading
@@ -24,7 +30,7 @@ const AtheletsAndWorkdril = ({ user }) => {
     const [workdril, setViewWorkdril] = useState([]);
     const fectdata = async () => {
         try {
-            const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataAthletCoach/${userdata.coachid}`);
+            const data = await api.get(`/coach/viewDataAthletCoach/${userdata.coachid}`);
             // alert('datafatch');
             setCoachData(data.data);
         } catch (err) {
@@ -35,7 +41,7 @@ const AtheletsAndWorkdril = ({ user }) => {
     }
     const fatchworkdirl = async () => {
         try {
-            const work = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataWorkdrilByCoachid/${userdata.coachid}`);
+            const work = await api.get(`/coach/viewDataWorkdrilByCoachid/${userdata.coachid}`);
             setViewWorkdril(work.data);
 
 
@@ -47,8 +53,8 @@ const AtheletsAndWorkdril = ({ user }) => {
     const [performancelogs, setPerformanceLogs] = useState([]);
     const fetchPerformanceLogs = async () => {
         try {
-            const res = await axios.get(
-                `${import.meta.env.VITE_API_URL}/viewDataPerformancelog/${userdata.coachid}`
+            const res = await api.get(
+                `/coach/viewDataPerformancelog/${userdata.coachid}`
             );
             // console.log("performacedata is: ",res.data);
             setPerformanceLogs(res.data);
@@ -85,8 +91,8 @@ const AtheletsAndWorkdril = ({ user }) => {
         try {
             setSubmitting(true);
             if (exists) {
-                await axios.put(
-                    `${import.meta.env.VITE_API_URL}/updatePerformancelog/${performance.athid}/${performance.workid}`,
+                await api.put(
+                    `/coach/updatePerformancelog/${performance.athid}/${performance.workid}`,
                     {
                         completestatus: performance.completestatus,
                         performancematrix: performance.performancematrix,
@@ -95,8 +101,8 @@ const AtheletsAndWorkdril = ({ user }) => {
                 );
                 alert("Performance Updated");
             } else {
-                await axios.post(
-                    `${import.meta.env.VITE_API_URL}/addDataPerformancelog/${performance.athid}/${performance.workid}`,
+                await api.post(
+                    `/coach/addDataPerformancelog/${performance.athid}/${performance.workid}`,
                     {
                         completestatus: performance.completestatus,
                         performancematrix: performance.performancematrix,

@@ -3,26 +3,32 @@ import Navbaradmin from './Navbaradmin'
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import '../AdminComponents/Athdetails.css';
+import api from '../css/axiosConfig';
+import { useNavigate } from 'react-router-dom';
 
 const Athdetails = ({ user }) => {
+  const navigate=useNavigate();
   const [userdata, setuserdata] = useState(null);
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
-      const decoded = jwtDecode(token);
-      // console.log("Decoded data is : ",decoded.user);
-      setuserdata(decoded.user || decoded);
-    } else {
-      window.location.href = "/login";
-    }
+               if (!token) {
+                navigate('/login');
+               }
+               try {
+                 const decoded = jwtDecode(token);
+                 // console.log("Decoded data is : ",decoded.user);
+                 setuserdata(decoded.user || decoded);
+               } catch (error) {
+                 navigate('/login');
+               }
   }, []);
   const [coachdata, setCoach] = useState(null);
   const caoch = async () => {
     try {
-      const datas = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataCoach`);
+      const datas = await api.get(`/admin/viewDataCoach`);
       // alert('datafatch');
       setCoach(datas.data);
-      console.log(datas.data);
+      // console.log(datas.data);
 
     } catch (err) {
       console.log(err);
@@ -45,7 +51,7 @@ const Athdetails = ({ user }) => {
   const [athdata, setAthdata] = useState([]);
   const fatchdata = async () => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataAthlet`);
+      const res = await api.get(`/admin/viewDataAthlet`);
       setAthdata(res.data);
     } catch (error) {
       console.log(error);
@@ -55,7 +61,7 @@ const Athdetails = ({ user }) => {
   const formsubit = async (e) => {
     e.preventDefault();
     try {
-      const sub = await axios.post(`${import.meta.env.VITE_API_URL}/AssigendCoach`, assigend);
+      const sub = await api.post(`/admin/AssigendCoach`, assigend);
       fatchdata();
       alert(sub.data);
       setAssigend(null);

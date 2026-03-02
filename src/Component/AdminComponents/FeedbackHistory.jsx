@@ -4,17 +4,23 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import '../AdminComponents/FeedbackHistory.css';
+import api from '../css/axiosConfig';
+import { useNavigate } from 'react-router-dom';
 const FeedbackHistory = ({ user }) => {
+  const navigate=useNavigate();
    const [userdata, setuserdata] = useState(null);
     useEffect(() => {
       const token = localStorage.getItem("token");
-      if (token) {
-        const decoded = jwtDecode(token);
-        // console.log("Decoded data is : ",decoded.user);
-        setuserdata(decoded.user || decoded);
-      } else {
-        window.location.href = "/login";
-      }
+                 if (!token) {
+                  navigate('/login');
+                 }
+                 try {
+                   const decoded = jwtDecode(token);
+                   // console.log("Decoded data is : ",decoded.user);
+                   setuserdata(decoded.user || decoded);
+                 } catch (error) {
+                   navigate('/login');
+                 }
     }, []);
   const token = localStorage.getItem("token");
   if (!token) {
@@ -24,7 +30,7 @@ const FeedbackHistory = ({ user }) => {
   // const [edit, sededit] = useState(null);
   const fectdata = async () => {
     try {
-      const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataFeedback`);
+      const data = await api.get(`/admin/viewDataFeedback`);
       // alert('datafatch');
       setCoachData(data.data);
     } catch (err) {

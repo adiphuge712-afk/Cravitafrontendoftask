@@ -3,24 +3,30 @@ import Navbaradmin from './Navbaradmin'
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import '../AdminComponents/CoachDetails.css'
+import api from '../css/axiosConfig';
+import { useNavigate } from 'react-router-dom';
 
 const CoachDetails = ({ user }) => {
+  const navigate=useNavigate();
    const [userdata,setuserdata]=useState(null);
      useEffect(()=>{
-       const token = localStorage.getItem("token");
-       if (token) {
-         const decoded = jwtDecode(token);
-        //  console.log("Decoded data is : ",decoded.user);
-          setuserdata(decoded.user|| decoded);
-       }else{
-          window.location.href = "/login";
-       }
+      const token = localStorage.getItem("token");
+                 if (!token) {
+                  navigate('/login');
+                 }
+                 try {
+                   const decoded = jwtDecode(token);
+                   // console.log("Decoded data is : ",decoded.user);
+                   setuserdata(decoded.user || decoded);
+                 } catch (error) {
+                   navigate('/login');
+                 }
       },[]);
     const [coachdat, setCoachData] = useState([]);
     const [edit, sededit] = useState(null);
     const fectdata = async () => {
         try {
-            const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataCoach`);
+            const data = await api.get(`/admin/viewDataCoach`);
             // alert('datafatch');
             setCoachData(data.data);
         } catch (err) {
@@ -36,7 +42,7 @@ const CoachDetails = ({ user }) => {
         // alert("id is "+id);
         if (window.confirm('Are your Sure???')) {
             try {
-                const del = await axios.delete(`${import.meta.env.VITE_API_URL}/viewDataCoach/${id}`);
+                const del = await api.delete(`/admin/viewDataCoach/${id}`);
                 if (del.data) {
                     alert('deleted data');
                     fectdata();
@@ -54,7 +60,7 @@ const CoachDetails = ({ user }) => {
     const formedit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`${import.meta.env.VITE_API_URL}/viewDataCoach/${edit.coachid}`, edit);
+            await api.put(`/admin/viewDataCoach/${edit.coachid}`, edit);
             alert('Data is Updated');
             sededit(null);
             fectdata();

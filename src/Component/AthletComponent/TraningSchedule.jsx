@@ -4,17 +4,23 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import '../AthletComponent/TraningSchedule.css';
+import api from "../css/axiosConfig";
+import { useNavigate } from 'react-router-dom';
 const TraningSchedule = ({ user }) => {
+  const navigate=useNavigate();
   const [userdata, setuserdata] = useState(null);
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
-      const decoded = jwtDecode(token);
-      // console.log("Decoded data is : ",decoded.user);
-      setuserdata(decoded.user || decoded);
-    } else {
-      window.location.href = "/login";
-    }
+               if (!token) {
+                navigate('/login');
+               }
+               try {
+                 const decoded = jwtDecode(token);
+                 // console.log("Decoded data is : ",decoded.user);
+                 setuserdata(decoded.user || decoded);
+               } catch (error) {
+                 navigate('/login');
+               }
   }, []);
 
   const [athdata, setAthdata] = useState({
@@ -23,9 +29,14 @@ const TraningSchedule = ({ user }) => {
   });
   const [workdata, setworkdta] = useState([]);
   const fatchwork = async () => {
+    const token = localStorage.getItem("token");
     try {
       if (userdata.coachid != null) {
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataWorkdrilByCoachid/${userdata.coachid.coachid}`);
+        const res = await api.get(`/athelet/viewDataWorkdrilByCoachid/${userdata.coachid.coachid}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         setworkdta(res.data);
         // console.log(res.data);
       }
@@ -42,9 +53,14 @@ const TraningSchedule = ({ user }) => {
   const [hasRequested, setHasRequested] = useState(false);
   const [showRequestMessage, setShowRequestMessage] = useState(true);
   const checkRequestStatus = async () => {
+    const token = localStorage.getItem("token");
     try {
-      const res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/viewrequestbyathelet/${userdata.athid}`
+      const res = await api.get(
+        `/athelet/viewrequestbyathelet/${userdata.athid}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
       );
 
       setHasRequested(res.data);
@@ -79,18 +95,20 @@ const TraningSchedule = ({ user }) => {
 
 
   const formsubmit = async (e) => {
+    const token = localStorage.getItem("token");
     e?.preventDefault();
     if (!userdata) return;
     console.log("Sending athdata:", athdata);
     setLoding(true);
     // await new Promise(resolve => setTimeout(resolve, 2000));// for checking the loding 
     try {
-      await axios.post(
-        `${import.meta.env.VITE_API_URL}/addrequest/${userdata.athid}`,
+      await api.post(
+        `/athelet/addrequest/${userdata.athid}`,
         athdata,
         {
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
           }
         }
       );
@@ -106,7 +124,7 @@ const TraningSchedule = ({ user }) => {
     } catch (error) {
       console.log(error.response?.data);
       alert("Failed to add request");
-    }finally{
+    } finally {
       setLoding(false);
     }
   }
@@ -181,11 +199,11 @@ const TraningSchedule = ({ user }) => {
 
             <div className='buttun-close'>
               <button
-              className="close-btn"
-              onClick={() => setShowRequestMessage(false)}
-            >
-              ✕
-            </button>
+                className="close-btn"
+                onClick={() => setShowRequestMessage(false)}
+              >
+                ✕
+              </button>
             </div>
 
             <h3>Request Already Sent</h3>
@@ -208,7 +226,7 @@ const TraningSchedule = ({ user }) => {
                 }
                 placeholder="Write your request to admin..."
               />
-              <button type="submit"disabled={Loding} className='w-100' >{Loding?"Processing...":"Send Request"}</button>
+              <button type="submit" disabled={Loding} className='w-100' >{Loding ? "Processing..." : "Send Request"}</button>
             </form>
           </div>
         </div>

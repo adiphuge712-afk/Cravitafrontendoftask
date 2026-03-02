@@ -3,17 +3,24 @@ import NavbarOfAth from '../NavbarOfAth'
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import '../AthletComponent/ComplainCoach.css';
+import api from "../css/axiosConfig";
+import { useNavigate } from 'react-router-dom';
 const ComplainCoach = ({ user }) => {
+  const navigate=useNavigate();
   const [userdata, setuserdata] = useState(null);
+   const token = localStorage.getItem("token");
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
-      const decoded = jwtDecode(token);
-      // console.log("Decoded data is : ",decoded.user);
-      setuserdata(decoded.user || decoded);
-    } else {
-      window.location.href = "/login";
-    }
+               if (!token) {
+                navigate('/login');
+               }
+               try {
+                 const decoded = jwtDecode(token);
+                 // console.log("Decoded data is : ",decoded.user);
+                 setuserdata(decoded.user || decoded);
+               } catch (error) {
+                 navigate('/login');
+               }
   }, []);
 
   const [complain, setComplain] = useState({
@@ -24,7 +31,11 @@ const ComplainCoach = ({ user }) => {
   const fectdata = async (e) => {
     e?.preventDefault();
     try {
-      const data = await axios.post(`${import.meta.env.VITE_API_URL}/viewDataFeedback/${userdata.athid}`, complain);
+      const data = await api.post(`/athelet/viewDataFeedback/${userdata.athid}`, complain,{
+         headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       alert('Feedback send');
 
     } catch (err) {

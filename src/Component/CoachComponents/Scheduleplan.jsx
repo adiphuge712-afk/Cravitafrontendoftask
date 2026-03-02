@@ -5,17 +5,22 @@ import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import '../CoachComponents/Scheduleplan.css';
+import api from '../css/axiosConfig';
 const Scheduleplan = ({ user }) => {
+  const navigate=useNavigate();
    const [userdata, setuserdata] = useState(null);
          useEffect(() => {
-           const token = localStorage.getItem("token");
-           if (token) {
-             const decoded = jwtDecode(token);
-             // console.log("Decoded data is : ",decoded.user);
-             setuserdata(decoded.user || decoded);
-           } else {
-             window.location.href = "/login";
-           }
+            const token = localStorage.getItem("token");
+                       if (!token) {
+                        navigate('/login');
+                       }
+                       try {
+                         const decoded = jwtDecode(token);
+                         // console.log("Decoded data is : ",decoded.user);
+                         setuserdata(decoded.user || decoded);
+                       } catch (error) {
+                         navigate('/login');
+                       }
          }, []);
     const [reg, setRegister] = useState({
         planname: "",
@@ -23,12 +28,11 @@ const Scheduleplan = ({ user }) => {
         startdate: "",
         enddate: ""
     });
-    const navigate = useNavigate();
     const formsubmit = async (e) => {
         e.preventDefault();
 
         try {
-            await axios.post(`${import.meta.env.VITE_API_URL}/addPlan/${userdata.coachid}`, reg);
+            await api.post(`/coach/addPlan/${userdata.coachid}`, reg);
             alert("Plan Add");
             setRegister({
                 planname: "",

@@ -4,25 +4,31 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import './FeedbackHistoryCoach.css';
+import api from '../css/axiosConfig';
+import { useNavigate } from 'react-router-dom';
 
 const FeedBackHistoryCoach = ({ user }) => {
+  const navigate=useNavigate();
     const [userdata, setuserdata] = useState(null);
     useEffect(() => {
         const token = localStorage.getItem("token");
-        if (token) {
-            const decoded = jwtDecode(token);
-            // console.log("Decoded data is : ",decoded.user);
-            setuserdata(decoded.user || decoded);
-        } else {
-            window.location.href = "/login";
-        }
+                   if (!token) {
+                    navigate('/login');
+                   }
+                   try {
+                     const decoded = jwtDecode(token);
+                     // console.log("Decoded data is : ",decoded.user);
+                     setuserdata(decoded.user || decoded);
+                   } catch (error) {
+                     navigate('/login');
+                   }
     }, []);
     const [coachdat, setCoachData] = useState([]);
     const [performanceid, setPerformance] = useState([]);
     // const [edit, sededit] = useState(null);
     const fectdata = async () => {
         try {
-            const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataFeedback/${userdata.coachid}`);
+            const data = await api.get(`/coach/viewDataFeedback/${userdata.coachid}`);
             // alert('datafatch');
             setCoachData(data.data);
         } catch (err) {
@@ -33,7 +39,7 @@ const FeedBackHistoryCoach = ({ user }) => {
     }
     const fetchperformance = async () => {
         try {
-            const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataPerformancelog/${userdata.coachid}`);
+            const data = await api.get(`/coach/viewDataPerformancelog/${userdata.coachid}`);
             // alert('datafatch');
             setPerformance(data.data);
         } catch (err) {

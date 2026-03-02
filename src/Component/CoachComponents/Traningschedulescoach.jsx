@@ -4,24 +4,30 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import '../CoachComponents/Traningschedulescoach.css';
+import api from '../css/axiosConfig';
+import { useNavigate } from 'react-router-dom';
 const Traningschedulescoach = ({ user }) => {
+  const navigate=useNavigate();
 const [userdata, setuserdata] = useState(null);
       useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token) {
-          const decoded = jwtDecode(token);
-          // console.log("Decoded data is : ",decoded.user);
-          setuserdata(decoded.user || decoded);
-        } else {
-          window.location.href = "/login";
-        }
+         const token = localStorage.getItem("token");
+            if (!token) {
+             navigate('/login');
+            }
+            try {
+              const decoded = jwtDecode(token);
+              // console.log("Decoded data is : ",decoded.user);
+              setuserdata(decoded.user || decoded);
+            } catch (error) {
+              navigate('/login');
+            }
       }, []);
     const [coachdat, setCoachData] = useState([]);
     const [edit, sededit] = useState(null);
     const [workdata, setWorkdata] = useState(null);
     const fectdata = async () => {
         try {
-            const data = await axios.get(`${import.meta.env.VITE_API_URL}/viewDataTraningplan/${userdata.coachid}`);
+            const data = await api.get(`/coach/viewDataTraningplan/${userdata.coachid}`);
             // alert('datafatch');
             setCoachData(data.data);
         } catch (err) {
@@ -34,7 +40,7 @@ const [userdata, setuserdata] = useState(null);
         // alert("id is "+id);
         if (window.confirm('Are your Sure???')) {
             try {
-                const del = await axios.delete(`${import.meta.env.VITE_API_URL}/viewDataTraningplan/${id}`,{ withCredentials: true });
+                const del = await api.delete(`/coach/viewDataTraningplan/${id}`,{ withCredentials: true });
                 if (del.data) {
                     // alert('deleted data');
                     fectdata();
@@ -52,7 +58,7 @@ const [userdata, setuserdata] = useState(null);
     const formedit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`${import.meta.env.VITE_API_URL}/viewDataTraningplan/${edit.planid}`, edit);
+            await api.put(`/coach/viewDataTraningplan/${edit.planid}`, edit);
             alert('Data is Updated');
             sededit(null);
             fectdata();
@@ -75,7 +81,7 @@ const [userdata, setuserdata] = useState(null);
     const workdrilladd = async (e) => {
         e.preventDefault();
         try {
-            const del = await axios.post(`${import.meta.env.VITE_API_URL}/addwork/${workdata.planid}`, workdata);
+            const del = await api.post(`/coach/addwork/${workdata.planid}`, workdata);
             if (del.data) {
                 alert('DRIL IS ADD');
                 setWorkdata(null);
