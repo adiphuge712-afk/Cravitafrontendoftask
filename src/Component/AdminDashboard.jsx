@@ -36,12 +36,12 @@ const data = [
   { month: "Jun", performance: 70 },
 ];
 const AdminDashboard = () => {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const [userdata, setuserdata] = useState(null);
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-     navigate('/login');
+      navigate('/login');
     }
     try {
       const decoded = jwtDecode(token);
@@ -188,8 +188,8 @@ const AdminDashboard = () => {
               <thead>
                 <tr className='text-center'>
                   <th className='text-start'>Athelet Name</th>
-                  <th>Sport Type</th>
-                  <th>Coach Name</th>
+                  <th className='text-start'>Sport Type</th>
+                  <th className='text-start'>Coach Name</th>
                 </tr>
               </thead>
               <tbody>

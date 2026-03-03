@@ -26,19 +26,19 @@
 /* ===== TITLE ===== */
 .register-title {
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 25px !important;
   font-weight: 600;
   color: #333;
 }
 
 /* ===== FORM GROUP ===== */
 .form-group {
-  margin-bottom: 18px;
+  margin-bottom: 18px !important;
 }
 
 .form-group label {
   font-weight: 500;
-  margin-bottom: 6px;
+  margin-bottom: 6px !important;
   display: block;
   color: #444;
 }

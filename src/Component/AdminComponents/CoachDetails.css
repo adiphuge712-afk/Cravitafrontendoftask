@@ -14,7 +14,7 @@
 }
 
 .table-title {
-  margin-bottom: 20px;
+  margin-bottom: 20px !important;
   font-weight: 600;
 }
 
@@ -45,7 +45,7 @@
   background: #dc3545;
   border: none;
   padding: 6px 12px;
-  margin-right: 6px;
+  margin-right: 6px !important;
   border-radius: 6px;
   color: white;
   transition: 0.3s;
