@@ -5,6 +5,10 @@ dashboards (Admin, Coach, Athlete), JWT auth against the Spring Boot backend, a
 forgot-password wizard backed by an email OTP, and dashboards that update live
 over Server-Sent Events instead of needing a manual refresh.
 
+#Temp 
+I am using the Render Free vertion for deployment thats why the Mail smtp not working on it but locally its working now i am 
+start working on gmail api it will be work on free version of render
+
 ## Stack
 
 - React 19, Vite 7
