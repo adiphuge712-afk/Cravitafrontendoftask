@@ -1,0 +1,11 @@
+/* Athlete roster - page-specific trim only.
+   Layout, table, badge and card styling all come from the shared ui-* classes
+   in styles/theme.css, so there is nothing to duplicate here. */
+
+.athlete-roster__toolbar {
+  padding-bottom: 0;
+}
+
+.athlete-roster__toolbar .ui-toolbar {
+  margin-bottom: var(--space-4);
+}

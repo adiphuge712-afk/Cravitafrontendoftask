@@ -1,0 +1,11 @@
+/* Admin navbar deltas.
+   All structure/layout lives in Navbar.css (imported by NavbarAdmin.jsx
+   alongside this file); here we only re-point the theme hooks. */
+
+.nav-bar--admin {
+  --nav-accent: var(--c-primary);
+  --nav-accent-soft: var(--c-primary-soft);
+}
+
+/* Admin carries the most links, so let them breathe a little less. */
+.nav-bar--admin .nav-link { padding-left: 10px; padding-right: 10px; }

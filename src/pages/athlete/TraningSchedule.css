@@ -1,0 +1,30 @@
+/* Training schedule page.
+   The table, modal and form all use the shared ui-* primitives from
+   styles/theme.css; only the handful of page-specific rules live here. */
+
+/* The dashboard stylesheet still defines bare `th`/`td` rules, so make sure
+   this table keeps the design-system alignment wherever it is rendered. */
+.schedule-table th,
+.schedule-table td {
+  text-align: left;
+}
+
+.schedule-close {
+  line-height: 1;
+  padding: var(--space-1) var(--space-2);
+  color: var(--c-text-muted);
+}
+
+.schedule-close:hover {
+  color: var(--c-danger);
+  border-color: var(--c-danger);
+}
+
+.schedule-modal-text {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.schedule-modal-alert {
+  margin-bottom: var(--space-4);
+}

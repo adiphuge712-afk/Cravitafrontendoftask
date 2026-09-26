@@ -1,0 +1,76 @@
+/* Athlete sign-up page.
+   Inputs, selects, buttons and the error banner all come from the ui-*
+   primitives in styles/theme.css; this file only frames the card. */
+
+.register-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-6) var(--space-4);
+  background:
+    radial-gradient(1000px 520px at 88% -10%, var(--c-primary-soft), transparent 60%),
+    var(--c-bg);
+  color: var(--c-text);
+}
+
+.register-card {
+  width: 100%;
+  max-width: 520px;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-6);
+}
+
+.register-head {
+  text-align: center;
+  margin-bottom: var(--space-5);
+}
+
+.register-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.register-subtitle {
+  margin: var(--space-1) 0 0;
+  color: var(--c-text-muted);
+  font-size: 0.88rem;
+}
+
+.register-alert {
+  margin-bottom: var(--space-4);
+}
+
+.register-btn {
+  width: 100%;
+  padding: 11px var(--space-4);
+  font-size: 0.92rem;
+}
+
+.register-foot {
+  margin: var(--space-5) 0 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--c-text-muted);
+}
+
+.register-foot a {
+  color: var(--c-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.register-foot a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .register-card {
+    padding: var(--space-5);
+  }
+}

@@ -1,0 +1,7 @@
+/* Schedule a plan - page-specific trim only.
+   The form itself is entirely ui-form / ui-field / ui-btn; the only local rule
+   stops a four-field form from stretching across an ultrawide screen. */
+
+.schedule-plan__card {
+  max-width: 760px;
+}

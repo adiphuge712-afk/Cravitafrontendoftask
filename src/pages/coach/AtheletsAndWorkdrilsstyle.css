@@ -1,0 +1,5 @@
+/* Intentionally empty.
+   This page's styling now comes from the shared ui-* classes in
+   styles/theme.css, with the few page-specific rules kept in
+   AtheletsAndWorkdirl.css. The file is left in place (and imported) so the
+   existing module path keeps resolving. */

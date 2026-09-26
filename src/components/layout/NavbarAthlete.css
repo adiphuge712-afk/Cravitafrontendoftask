@@ -1,0 +1,14 @@
+/* Athlete navbar deltas.
+   All structure/layout lives in Navbar.css (imported by NavbarAthlete.jsx
+   alongside this file); here we only re-point the theme hooks. */
+
+.nav-bar--athlete {
+  --nav-accent: var(--c-info);
+  --nav-accent-soft: #e6f4fd;
+}
+
+.nav-bar--athlete .nav-action--primary:hover,
+.nav-bar--athlete .nav-action--primary:focus-visible {
+  background: #0369a1;
+  border-color: #0369a1;
+}

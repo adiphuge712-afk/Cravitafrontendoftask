@@ -1,0 +1,13 @@
+/* Athlete work management - page-specific trim only.
+   Each athlete is a shared ui-card holding a ui-table of drills, so the layout,
+   badges, buttons and modal all come from styles/theme.css. */
+
+.workdril__notice {
+  margin-bottom: var(--space-5);
+}
+
+/* The athlete header carries a sport badge on the right; keep it from being
+   squashed against the name on narrow screens. */
+.workdril__athlete-head > .ui-badge {
+  align-self: center;
+}

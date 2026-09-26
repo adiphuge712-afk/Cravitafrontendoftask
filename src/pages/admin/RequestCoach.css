@@ -1,0 +1,24 @@
+/* Coach requests - the table, modal and loader are all shared ui-* pieces,
+   so only the request-text clamp and two spacing rules live here. */
+
+.request-banner {
+  margin-bottom: var(--space-5);
+}
+
+/* The request is free text an athlete typed; clamp it so a long message does
+   not push the action button out of view. Full text stays in the title. */
+.request-text {
+  max-width: 320px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.request-modal-subject {
+  margin: 0 0 var(--space-4);
+  font-size: 0.85rem;
+}
+
+.request-modal-subject strong {
+  color: var(--c-text);
+}

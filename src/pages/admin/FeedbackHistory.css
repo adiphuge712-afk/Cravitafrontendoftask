@@ -1,0 +1,16 @@
+/* Feedback history - nine columns, so the table keeps a minimum width and
+   scrolls inside .ui-table-wrap rather than squeezing the comment away. */
+
+.feedback-table {
+  min-width: 900px;
+}
+
+/* The comment is the only free-text column; clamp it so one long complaint
+   cannot push the rest of the row off screen. The full text stays available
+   through the cell's title attribute. */
+.feedback-comment {
+  max-width: 260px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

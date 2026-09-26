@@ -1,0 +1,21 @@
+/* Page-specific tweaks for the athlete feedback form.
+   Layout, inputs and buttons all come from the ui-* primitives in
+   styles/theme.css - only the things that are unique to this page live here. */
+
+.feedback-card {
+  max-width: 640px;
+}
+
+.feedback-alert {
+  margin-bottom: var(--space-4);
+}
+
+.feedback-hint {
+  font-size: 0.8rem;
+}
+
+@media (max-width: 640px) {
+  .feedback-hint {
+    display: none;
+  }
+}

@@ -1,0 +1,21 @@
+/* Coach management - the shared ui-* primitives cover the table, modal and
+   form, so only these page-level tweaks remain. All values come from the
+   theme tokens. */
+
+.coach-banner {
+  margin-bottom: var(--space-5);
+}
+
+.coach-modal--narrow {
+  width: min(420px, 100%);
+}
+
+.coach-confirm-text {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--c-text-muted);
+}
+
+.coach-confirm-text strong {
+  color: var(--c-text);
+}

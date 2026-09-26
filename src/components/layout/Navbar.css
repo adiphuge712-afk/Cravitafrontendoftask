@@ -1,0 +1,307 @@
+/* ============================================================
+   SHARED NAVBAR SYSTEM
+   ------------------------------------------------------------
+   These rules are the single source of truth for every navbar
+   in the app (public / admin / coach / athlete). The three role
+   stylesheets (NavbarAdmin.css, NavbarCoach.css, NavbarAthlete.css)
+   only declare their own deltas and rely on this file being
+   loaded alongside them.
+
+   Structure every navbar renders:
+
+     nav.nav-bar[.nav-bar--<role>]
+       div.nav-bar__inner
+         a.nav-brand            -> brand mark + wordmark (+ role chip)
+         button.nav-toggle      -> hamburger, mobile only
+         div.nav-collapse[.is-open]
+           ul.nav-links > li > a.nav-link[.nav-link--active]
+           div.nav-actions      -> sign out / login affordance
+
+   Role themes only re-point the local custom properties below.
+   ============================================================ */
+
+.nav-bar {
+  /* Themable hooks - role stylesheets override just these. */
+  --nav-accent: var(--c-primary);
+  --nav-accent-soft: var(--c-primary-soft);
+  --nav-surface: var(--c-surface);
+  --nav-border: var(--c-border);
+  --nav-text: var(--c-text);
+  --nav-text-muted: var(--c-text-muted);
+  --nav-height: 62px;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--nav-surface);
+  border-bottom: 1px solid var(--nav-border);
+  box-shadow: var(--shadow-sm);
+  color: var(--nav-text);
+  font-size: 0.9rem;
+}
+
+.nav-bar__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: 1320px;
+  min-height: var(--nav-height);
+  margin: 0 auto;
+  padding: var(--space-2) var(--space-5);
+}
+
+/* ---------- brand ---------- */
+
+.nav-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-right: auto;
+  color: var(--nav-text);
+  font-weight: 680;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-brand:hover,
+.nav-brand:focus-visible {
+  color: var(--nav-text);
+  text-decoration: none;
+}
+
+.nav-brand__mark {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  border-radius: 10px;
+  background: var(--nav-accent);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.nav-brand__text {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.nav-brand__accent { color: var(--nav-accent); }
+
+.nav-brand__chip {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--nav-accent-soft);
+  color: var(--nav-accent);
+  font-size: 0.68rem;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ---------- hamburger ---------- */
+
+.nav-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex-direction: column;
+  width: 40px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--nav-border);
+  border-radius: var(--radius-sm);
+  background: var(--nav-surface);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.nav-toggle:hover { background: var(--nav-accent-soft); border-color: var(--nav-accent); }
+
+.nav-toggle__bar {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--nav-text);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-toggle[aria-expanded='true'] .nav-toggle__bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav-toggle[aria-expanded='true'] .nav-toggle__bar:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded='true'] .nav-toggle__bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* ---------- links ---------- */
+
+.nav-collapse {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* `.nav-link` is also a Bootstrap class and Bootstrap's stylesheet is loaded
+   after ours, so every rule for it is scoped under `.nav-bar` to out-rank it. */
+.nav-bar .nav-link {
+  display: inline-block;
+  padding: 7px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--nav-text-muted);
+  font-weight: 560;
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.nav-bar .nav-link:hover,
+.nav-bar .nav-link:focus-visible {
+  background: var(--nav-accent-soft);
+  color: var(--nav-accent);
+  text-decoration: none;
+}
+
+.nav-bar .nav-link--active {
+  background: var(--nav-accent-soft);
+  color: var(--nav-accent);
+  font-weight: 640;
+}
+
+/* ---------- right-hand actions ---------- */
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-left: var(--space-3);
+  border-left: 1px solid var(--nav-border);
+}
+
+.nav-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border: 1px solid var(--nav-border);
+  border-radius: var(--radius-sm);
+  background: var(--nav-surface);
+  color: var(--nav-text);
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.nav-action:hover,
+.nav-action:focus-visible {
+  background: #f3f5fa;
+  border-color: #d4dae6;
+  color: var(--nav-text);
+  text-decoration: none;
+}
+
+.nav-action--primary {
+  background: var(--nav-accent);
+  border-color: var(--nav-accent);
+  color: #fff;
+}
+
+.nav-action--primary:hover,
+.nav-action--primary:focus-visible {
+  background: #4338ca;
+  border-color: #4338ca;
+  color: #fff;
+}
+
+.nav-action--signout {
+  color: var(--c-danger);
+  border-color: var(--c-danger-soft);
+  background: var(--c-danger-soft);
+}
+
+.nav-action--signout:hover,
+.nav-action--signout:focus-visible {
+  background: var(--c-danger);
+  border-color: var(--c-danger);
+  color: #fff;
+}
+
+/* ---------- focus visibility ---------- */
+
+.nav-bar a:focus-visible,
+.nav-bar button:focus-visible {
+  outline: 2px solid var(--nav-accent);
+  outline-offset: 2px;
+}
+
+/* ---------- mobile ---------- */
+
+@media (max-width: 768px) {
+  .nav-bar__inner {
+    flex-wrap: wrap;
+    padding: var(--space-2) var(--space-4);
+  }
+
+  .nav-toggle { display: flex; }
+
+  .nav-collapse {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+    width: 100%;
+    padding: var(--space-3) 0 var(--space-4);
+    border-top: 1px solid var(--nav-border);
+  }
+
+  .nav-collapse.is-open { display: flex; }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+  }
+
+  .nav-bar .nav-link {
+    display: block;
+    padding: 10px 12px;
+  }
+
+  .nav-actions {
+    padding-left: 0;
+    border-left: none;
+    border-top: 1px solid var(--nav-border);
+    padding-top: var(--space-3);
+  }
+
+  .nav-action {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-link,
+  .nav-action,
+  .nav-toggle,
+  .nav-toggle__bar { transition: none; }
+}

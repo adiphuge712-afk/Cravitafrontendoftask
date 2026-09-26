@@ -1,0 +1,12 @@
+/* Performance logs - page-specific trim only.
+   The table, badges, stat tiles and chart card are all shared ui-* classes
+   from styles/theme.css; the log table is the widest in the app, so the only
+   local rule keeps its id and rating columns from wrapping. */
+
+.perf-log-table .ui-badge {
+  white-space: nowrap;
+}
+
+.perf-log-table .ui-table td {
+  font-variant-numeric: tabular-nums;
+}

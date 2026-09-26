@@ -1,0 +1,16 @@
+/* Training plans - page-specific trim only.
+   Table, modals, badges and buttons are all shared ui-* classes from
+   styles/theme.css. */
+
+.plan-page__notice {
+  margin-bottom: var(--space-5);
+}
+
+/* The "New plan" header link is an <a>, so it needs the icon alignment a
+   <button> gets for free. */
+.plan-page__new {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  text-decoration: none;
+}

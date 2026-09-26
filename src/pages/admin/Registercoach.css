@@ -1,0 +1,12 @@
+/* Register coach - a single form, so it reads better centred and capped
+   rather than stretched across a wide screen. The card, fields and buttons
+   all come from the shared ui-* primitives. */
+
+.register-shell {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.register-banner {
+  margin-bottom: var(--space-5);
+}

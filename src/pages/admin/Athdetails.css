@@ -1,0 +1,16 @@
+/* Athlete roster - only the few rules the shared ui-* primitives do not cover.
+   Everything here is expressed in theme tokens so a retune of theme.css
+   carries through instead of leaving this page behind. */
+
+.ath-banner {
+  margin-bottom: var(--space-5);
+}
+
+.ath-modal-subject {
+  margin: 0 0 var(--space-4);
+  font-size: 0.85rem;
+}
+
+.ath-modal-subject strong {
+  color: var(--c-text);
+}

@@ -1,0 +1,11 @@
+/* Feedback history - page-specific trim only.
+   Everything structural comes from the shared ui-* classes; free-text comments
+   are the one thing the generic table cannot size sensibly on its own. */
+
+.feedback-comment {
+  min-width: 220px;
+  max-width: 420px;
+  white-space: pre-wrap;
+  color: var(--c-text);
+  line-height: 1.45;
+}

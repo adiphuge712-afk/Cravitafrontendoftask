@@ -1,0 +1,17 @@
+/* Coach navbar deltas.
+   All structure/layout lives in Navbar.css (imported by NavbarCoach.jsx
+   alongside this file); here we only re-point the theme hooks. */
+
+.nav-bar--coach {
+  --nav-accent: var(--c-success);
+  --nav-accent-soft: var(--c-success-soft);
+}
+
+.nav-bar--coach .nav-action--primary:hover,
+.nav-bar--coach .nav-action--primary:focus-visible {
+  background: #0b7f5f;
+  border-color: #0b7f5f;
+}
+
+/* Coach carries seven links, so tighten the horizontal padding a touch. */
+.nav-bar--coach .nav-link { padding-left: 10px; padding-right: 10px; }
